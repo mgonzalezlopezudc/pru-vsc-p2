@@ -13,7 +13,7 @@ from .services.i18n import (
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.config.setdefault("SECRET_KEY", "dev")
+    app.config["SECRET_KEY"] = app.config.get("SECRET_KEY") or "dev"
 
     root_path = Path(__file__).resolve().parent.parent
     app.config["SEED_PATH"] = str(root_path / "data" / "seed.json")
