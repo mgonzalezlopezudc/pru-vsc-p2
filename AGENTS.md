@@ -45,7 +45,7 @@ Mantener y evolucionar una app Flask + Jinja2 que visualiza tiendas, baldas, pro
 ## 6. Documentation Policy
 Si se cambia comportamiento funcional o estructura:
 - actualizar `README.md`
-- actualizar `specs.md` si cambian requisitos
+- actualizar `PRD.md` si cambian requisitos
 - actualizar `architecture.md` si cambia el diseño
 
 ## 7. Safe Evolution Path

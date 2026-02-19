@@ -47,5 +47,5 @@ Las inconsistencias se muestran como avisos en la interfaz.
 
 ## Documentación
 - [architecture.md](architecture.md)
-- [specs.md](specs.md)
+- [PRD.md](PRD.md)
 - [AGENTS.md](AGENTS.md)
