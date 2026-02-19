@@ -4,3 +4,5 @@
 /package.json
 /playwright-home.png
 /test-results
+__pycache__/
+*.py[cod]
