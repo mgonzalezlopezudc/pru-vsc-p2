@@ -2,7 +2,7 @@
 
 ## 1. Resumen
 
-Construir y mantener una aplicación web Flask + Jinja2 para visualizar tiendas, baldas, productos e inventario a partir de `data/seed.json`, con foco en navegación simple, consistencia de datos y soporte básico multi-idioma.
+Construir y mantener una aplicación web Flask + Jinja2 para gestionar y visualizar tiendas, baldas, productos e inventario a partir de `data/seed.json`, con foco en navegación simple, consistencia de datos y soporte básico multi-idioma.
 
 ## 2. Problema
 
@@ -11,15 +11,16 @@ El equipo necesita una forma clara y trazable de inspeccionar el modelo de datos
 ## 3. Objetivos de Producto
 
 - Permitir exploración rápida de entidades y relaciones del dominio.
+- Permitir CRUD completo de entidades dentro de la UI existente.
 - Facilitar diagnóstico de integridad de datos mediante warnings visibles.
 - Ofrecer una experiencia visual clara con imágenes de tiendas y productos.
 - Soportar internacionalización básica en UI (`es` por defecto, `en` opcional).
 
 ## 4. No Objetivos (MVP)
 
-- Edición/CRUD desde interfaz.
 - Persistencia distinta al seed JSON.
 - Integraciones externas o backend adicional en esta fase.
+- Crear vistas adicionales a las existentes de tiendas y productos.
 
 ## 5. Usuarios y Casos de Uso
 
@@ -45,18 +46,34 @@ El equipo necesita una forma clara y trazable de inspeccionar el modelo de datos
 ### 6.2 Pantallas y rutas
 - `GET /`
   - Lista de tiendas y productos con enlaces a detalle.
+  - Formularios de alta de tiendas y productos.
 - `GET /stores/<id>`
   - Datos de tienda, tabla de baldas, tabla de inventario y mapa.
+  - Formularios de edición/borrado de tienda.
+  - Formularios CRUD de baldas y de ítems de inventario.
 - `GET /products/<id>`
   - Datos de producto y disponibilidad por tienda/balda.
+  - Formularios de edición/borrado de producto.
+  - Formularios CRUD de ítems de inventario.
 - `GET /inventory`
   - Tabla global de inventario cruzado.
 
-### 6.3 Idioma
+### 6.3 Operaciones CRUD (POST)
+- Tiendas: create, update, delete.
+- Productos: create, update, delete.
+- Baldas: create, update, delete.
+- InventoryItem: create, update, delete.
+
+Restricción UX:
+- No se crean vistas nuevas de CRUD.
+- La edición de baldas e ítems de inventario se hace dentro de `GET /stores/<id>` y `GET /products/<id>`.
+- El nombre de balda en tablas de inventario actúa como acceso al formulario de edición de balda.
+
+### 6.4 Idioma
 - Parámetro opcional en todas las rutas: `?lang=es|en`
 - Comportamiento esperado: actualización de idioma de UI y persistencia en sesión.
 
-### 6.4 Mapa
+### 6.5 Mapa
 - Render de geolocalización de tienda con GeoJSON Point usando Leaflet + OpenStreetMap.
 
 ## 7. Requisitos de Datos e Integridad
@@ -74,10 +91,16 @@ El equipo necesita una forma clara y trazable de inspeccionar el modelo de datos
 - `shelfCount <= stockCount`
 - Suma de `shelfCount` por balda `<= maxCapacity`
 - `refStore`, `refShelf`, `refProduct` resolubles
+- `refShelf` coherente con `refStore` en `InventoryItem`
 
 ### 7.3 Requisitos de imágenes
 - `Store.image` y `Product.image` deben existir y ser URL válida.
 - Si falla la carga remota, la UI debe mostrar fallback local.
+
+### 7.4 Validación de formularios
+- Frontend: reglas HTML + JavaScript para validaciones básicas.
+- Backend: validación obligatoria con Flask-WTF + WTForms en todas las operaciones POST.
+- Seguridad: protección CSRF activa en formularios.
 
 ## 8. Requisitos de UX/UI
 
@@ -92,6 +115,7 @@ El equipo necesita una forma clara y trazable de inspeccionar el modelo de datos
 
 - Python 3.10+
 - Flask 3.1.0
+- Flask-WTF
 - Jinja2
 - Leaflet + OpenStreetMap tiles
 - Fuente de datos: `data/seed.json`
@@ -100,11 +124,13 @@ El equipo necesita una forma clara y trazable de inspeccionar el modelo de datos
 
 - `flask --app app run` inicia sin errores.
 - Las rutas `/`, `/stores/<id>`, `/products/<id>`, `/inventory` responden correctamente.
+- Las rutas POST de CRUD para las cuatro entidades responden correctamente.
 - Se cumple cardinalidad mínima del seed.
 - La navegación entre vistas funciona mediante enlaces.
 - El mapa se renderiza con GeoJSON válido.
 - Las validaciones de integridad se ejecutan y reportan inconsistencias.
 - El fallback de imágenes se activa cuando falla una imagen remota.
+- La validación backend bloquea datos inválidos aunque se omita JS en cliente.
 
 ## 11. Métricas de Éxito (MVP)
 

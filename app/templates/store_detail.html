@@ -14,6 +14,23 @@
   </div>
 </section>
 
+<section class="card form-block">
+  <h3>{{ t('form.store_edit') }}</h3>
+  <form method="post" action="{{ url_for('main.update_store', store_id=store.id, lang=current_lang) }}" class="inline-form">
+    {{ store_edit_form.hidden_tag() }}
+    <label>{{ t('field.name') }}<input type="text" name="{{ store_edit_form.name.name }}" value="{{ store_edit_form.name.data }}" required maxlength="120"></label>
+    <label>{{ t('field.address') }}<input type="text" name="{{ store_edit_form.address.name }}" value="{{ store_edit_form.address.data }}" required maxlength="240"></label>
+    <label>{{ t('field.image') }}<input type="url" name="{{ store_edit_form.image.name }}" value="{{ store_edit_form.image.data }}" required maxlength="400"></label>
+    <label>{{ t('field.latitude') }}<input type="number" step="any" name="{{ store_edit_form.latitude.name }}" value="{{ store_edit_form.latitude.data }}" required></label>
+    <label>{{ t('field.longitude') }}<input type="number" step="any" name="{{ store_edit_form.longitude.name }}" value="{{ store_edit_form.longitude.data }}" required></label>
+    <button type="submit" class="btn">{{ t('action.save') }}</button>
+  </form>
+  <form method="post" class="compact-form" action="{{ url_for('main.delete_store', store_id=store.id, lang=current_lang) }}">
+    {{ delete_form.hidden_tag() }}
+    <button type="submit" class="btn btn-danger">{{ t('action.delete_store') }}</button>
+  </form>
+</section>
+
 <section class="card">
   <h3>{{ t('store.location') }}</h3>
   <div id="store-map" class="map" data-geojson='{{ store.location|tojson }}'></div>
@@ -27,18 +44,64 @@
         <th>{{ t('table.name') }}</th>
         <th>{{ t('table.current_load') }}</th>
         <th>{{ t('table.max_capacity') }}</th>
+        <th>{{ t('table.actions') }}</th>
       </tr>
     </thead>
     <tbody>
       {% for shelf in shelves %}
       <tr>
-        <td>{{ shelf.name }}</td>
+        <td>
+          <a href="{{ url_for('main.store_detail', store_id=store.id, lang=current_lang, edit_shelf_id=shelf.id) }}">{{ shelf.name }}</a>
+        </td>
         <td>{{ shelf.currentLoad }}</td>
         <td>{{ shelf.maxCapacity }}</td>
+        <td class="actions-cell">
+          <div class="action-group">
+            <form method="post" class="compact-form" action="{{ url_for('main.delete_shelf', store_id=store.id, shelf_id=shelf.id, lang=current_lang) }}">
+              {{ delete_form.hidden_tag() }}
+              <button type="submit" class="btn btn-danger">{{ t('action.delete') }}</button>
+            </form>
+          </div>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+
+  <div class="form-block">
+    <h4>{{ t('form.shelf_create') }}</h4>
+    <form method="post" action="{{ url_for('main.create_shelf', store_id=store.id, lang=current_lang) }}" class="inline-form">
+      {{ shelf_create_form.hidden_tag() }}
+      <label>
+        {{ t('table.name') }}
+        <input type="text" name="{{ shelf_create_form.name.name }}" maxlength="120" required>
+      </label>
+      <label>
+        {{ t('table.max_capacity') }}
+        <input type="number" name="{{ shelf_create_form.max_capacity.name }}" min="0" required>
+      </label>
+      <button type="submit" class="btn">{{ t('action.create') }}</button>
+    </form>
+  </div>
+
+  {% if selected_shelf and shelf_edit_form %}
+  <div class="form-block">
+    <h4>{{ t('form.shelf_edit', name=selected_shelf.name) }}</h4>
+    <form method="post" action="{{ url_for('main.update_shelf', store_id=store.id, shelf_id=selected_shelf.id, lang=current_lang) }}" class="inline-form">
+      {{ shelf_edit_form.hidden_tag() }}
+      <label>
+        {{ t('table.name') }}
+        <input type="text" name="{{ shelf_edit_form.name.name }}" value="{{ shelf_edit_form.name.data }}" maxlength="120" required>
+      </label>
+      <label>
+        {{ t('table.max_capacity') }}
+        <input type="number" name="{{ shelf_edit_form.max_capacity.name }}" value="{{ shelf_edit_form.max_capacity.data }}" min="0" required>
+      </label>
+      <button type="submit" class="btn">{{ t('action.save') }}</button>
+      <a class="btn btn-secondary" href="{{ url_for('main.store_detail', store_id=store.id, lang=current_lang) }}">{{ t('action.cancel') }}</a>
+    </form>
+  </div>
+  {% endif %}
 </section>
 
 <section class="card">
@@ -50,6 +113,7 @@
         <th>{{ t('table.shelf') }}</th>
         <th>{{ t('table.stock_total') }}</th>
         <th>{{ t('table.on_shelf') }}</th>
+        <th>{{ t('table.actions') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -59,12 +123,75 @@
           <a href="{{ url_for('main.product_detail', product_id=row.productId) }}">{{ row.productName }}</a>
           <div class="meta">{{ row.productSize }} · {{ row.productPrice|currency }}</div>
         </td>
-        <td>{{ row.shelfName }}</td>
+        <td>
+          <a href="{{ url_for('main.store_detail', store_id=store.id, lang=current_lang, edit_shelf_id=row.shelfId) }}">{{ row.shelfName }}</a>
+        </td>
         <td>{{ row.stockCount }}</td>
         <td>{{ row.shelfCount }}</td>
+        <td class="actions-cell">
+          <div class="action-group">
+            <a class="btn btn-secondary" href="{{ url_for('main.store_detail', store_id=store.id, lang=current_lang, edit_item_id=row.id) }}">{{ t('action.edit') }}</a>
+            <form method="post" class="compact-form" action="{{ url_for('main.delete_store_inventory_item', store_id=store.id, item_id=row.id, lang=current_lang) }}">
+              {{ delete_form.hidden_tag() }}
+              <button type="submit" class="btn btn-danger">{{ t('action.delete') }}</button>
+            </form>
+          </div>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+
+  <div class="form-block">
+    <h4>{{ t('form.inventory_create') }}</h4>
+    <form method="post" action="{{ url_for('main.create_store_inventory_item', store_id=store.id, lang=current_lang) }}" class="inline-form" data-validate="inventory">
+      {{ inventory_create_form.hidden_tag() }}
+      <input type="hidden" name="{{ inventory_create_form.store_id.name }}" value="{{ store.id }}">
+      <label>
+        {{ t('table.shelf') }}
+        <select name="{{ inventory_create_form.shelf_id.name }}" required>
+          {% for shelf in shelves %}
+          <option value="{{ shelf.id }}">{{ shelf.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>
+        {{ t('table.product') }}
+        <select name="{{ inventory_create_form.product_id.name }}" required>
+          {% for product in products %}
+          <option value="{{ product.id }}">{{ product.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>
+        {{ t('table.stock_total') }}
+        <input type="number" name="{{ inventory_create_form.stock_count.name }}" min="0" required>
+      </label>
+      <label>
+        {{ t('table.on_shelf') }}
+        <input type="number" name="{{ inventory_create_form.shelf_count.name }}" min="0" required>
+      </label>
+      <button type="submit" class="btn">{{ t('action.create') }}</button>
+    </form>
+  </div>
+
+  {% if selected_item and inventory_edit_form %}
+  <div class="form-block">
+    <h4>{{ t('form.inventory_edit') }}</h4>
+    <form method="post" action="{{ url_for('main.update_store_inventory_item', store_id=store.id, item_id=selected_item.id, lang=current_lang) }}" class="inline-form" data-validate="inventory">
+      {{ inventory_edit_form.hidden_tag() }}
+      <label>
+        {{ t('table.stock_total') }}
+        <input type="number" name="{{ inventory_edit_form.stock_count.name }}" value="{{ inventory_edit_form.stock_count.data }}" min="0" required>
+      </label>
+      <label>
+        {{ t('table.on_shelf') }}
+        <input type="number" name="{{ inventory_edit_form.shelf_count.name }}" value="{{ inventory_edit_form.shelf_count.data }}" min="0" required>
+      </label>
+      <button type="submit" class="btn">{{ t('action.save') }}</button>
+      <a class="btn btn-secondary" href="{{ url_for('main.store_detail', store_id=store.id, lang=current_lang) }}">{{ t('action.cancel') }}</a>
+    </form>
+  </div>
+  {% endif %}
 </section>
 {% endblock %}

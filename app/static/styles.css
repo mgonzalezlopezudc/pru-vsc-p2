@@ -73,6 +73,26 @@ body {
   margin-bottom: 1rem;
 }
 
+.flash-list {
+  margin-bottom: 1rem;
+}
+
+.flash {
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.flash-success {
+  background: rgba(21, 128, 61, 0.35);
+  border: 1px solid rgba(74, 222, 128, 0.7);
+}
+
+.flash-error {
+  background: rgba(127, 29, 29, 0.35);
+  border: 1px solid rgba(252, 165, 165, 0.7);
+}
+
 .section-head h3 {
   margin: 1.3rem 0 0.85rem;
   font-size: 1.2rem;
@@ -207,6 +227,76 @@ a {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.form-block {
+  margin-top: 1rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: flex-end;
+}
+
+.inline-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  min-width: 180px;
+}
+
+.inline-form input,
+.inline-form select {
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 8px;
+  padding: 0.5rem 0.6rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(147, 197, 253, 0.5);
+  border-radius: 8px;
+  color: #e5e7eb;
+  background: rgba(30, 58, 138, 0.35);
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: rgba(71, 85, 105, 0.35);
+  border-color: rgba(148, 163, 184, 0.45);
+}
+
+.btn-danger {
+  background: rgba(153, 27, 27, 0.35);
+  border-color: rgba(252, 165, 165, 0.6);
+}
+
+.actions-cell {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.action-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.compact-form {
+  display: inline-flex;
+  margin: 0;
 }
 
 @media (max-width: 900px) {

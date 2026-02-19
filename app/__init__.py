@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from flask import Flask, g, request, session, url_for
+from flask_wtf.csrf import CSRFProtect
 
 from .services.i18n import (
     DEFAULT_LANGUAGE,
@@ -14,6 +15,7 @@ from .services.i18n import (
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config["SECRET_KEY"] = app.config.get("SECRET_KEY") or "dev"
+    CSRFProtect(app)
 
     root_path = Path(__file__).resolve().parent.parent
     app.config["SEED_PATH"] = str(root_path / "data" / "seed.json")
