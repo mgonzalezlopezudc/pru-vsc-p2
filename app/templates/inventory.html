@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Inventario global | Retail Viewer{% endblock %}
+
+{% block content %}
+<section class="card">
+  <h2>Inventario global</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tienda</th>
+        <th>Balda</th>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Stock total</th>
+        <th>En balda</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in inventory %}
+      <tr>
+        <td>
+          <div class="inline-media">
+            <img src="{{ row.storeImage }}" alt="{{ row.storeName }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/store-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+            <a href="{{ url_for('main.store_detail', store_id=row.storeId) }}">{{ row.storeName }}</a>
+          </div>
+        </td>
+        <td>{{ row.shelfName }}</td>
+        <td>
+          <div class="inline-media">
+            <img src="{{ row.productImage }}" alt="{{ row.productName }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/product-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+            <a href="{{ url_for('main.product_detail', product_id=row.productId) }}">{{ row.productName }}</a>
+          </div>
+        </td>
+        <td>{{ row.productPrice|currency }}</td>
+        <td>{{ row.stockCount }}</td>
+        <td>{{ row.shelfCount }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
+

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ store.name }} | Tienda{% endblock %}
+
+{% block content %}
+<section class="card hero-media">
+  <div class="hero-image-wrap">
+    <img class="hero-image" src="{{ store.image }}" alt="{{ store.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/store-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+  </div>
+  <div>
+    <p class="eyebrow">Tienda</p>
+    <h2>{{ store.name }}</h2>
+    <p>{{ store.address }}</p>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Ubicación</h3>
+  <div id="store-map" class="map" data-geojson='{{ store.location|tojson }}'></div>
+</section>
+
+<section class="card">
+  <h3>Baldas</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Carga actual</th>
+        <th>Capacidad máxima</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for shelf in shelves %}
+      <tr>
+        <td>{{ shelf.name }}</td>
+        <td>{{ shelf.currentLoad }}</td>
+        <td>{{ shelf.maxCapacity }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h3>Inventario de la tienda</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Balda</th>
+        <th>Stock total</th>
+        <th>En balda</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in inventory %}
+      <tr>
+        <td>
+          <a href="{{ url_for('main.product_detail', product_id=row.productId) }}">{{ row.productName }}</a>
+          <div class="meta">{{ row.productSize }} · {{ row.productPrice|currency }}</div>
+        </td>
+        <td>{{ row.shelfName }}</td>
+        <td>{{ row.stockCount }}</td>
+        <td>{{ row.shelfCount }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

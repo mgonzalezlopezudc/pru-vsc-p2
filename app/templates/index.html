@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio | Retail Viewer{% endblock %}
+
+{% block content %}
+<section class="hero card">
+  <p class="eyebrow">Retail intelligence</p>
+  <h2>Explora tiendas y productos con una vista clara del inventario</h2>
+  <p class="meta">Dataset de prueba con 4 tiendas, 16 baldas y 10 productos enlazados.</p>
+</section>
+
+<section class="section-head">
+  <h3>Tiendas</h3>
+</section>
+<section class="cards-grid cards-grid-stores">
+  {% for store in stores %}
+  <article class="media-card">
+    <a class="media-thumb" href="{{ url_for('main.store_detail', store_id=store.id) }}">
+      <img src="{{ store.image }}" alt="{{ store.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/store-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+    </a>
+    <div class="media-body">
+      <a class="media-title" href="{{ url_for('main.store_detail', store_id=store.id) }}">{{ store.name }}</a>
+      <p class="meta">{{ store.address }}</p>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+
+<section class="section-head">
+  <h3>Productos</h3>
+</section>
+<section class="cards-grid cards-grid-products">
+  {% for product in products %}
+  <article class="media-card product-card">
+    <a class="media-thumb square" href="{{ url_for('main.product_detail', product_id=product.id) }}">
+      <img src="{{ product.image }}" alt="{{ product.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/product-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+    </a>
+    <div class="media-body">
+      <a class="media-title" href="{{ url_for('main.product_detail', product_id=product.id) }}">{{ product.name }}</a>
+      <p class="meta">{{ product.size }} · {{ product.price|currency }}</p>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

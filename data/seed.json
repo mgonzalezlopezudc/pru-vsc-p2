@@ -1,0 +1,658 @@
+{
+  "stores": [
+    {
+      "id": "urn:ngsi-ld:Store:001",
+      "type": "Store",
+      "name": "Checkpoint Markt",
+      "address": "Friedrichstraße 44, 10969 Kreuzberg, Berlin",
+      "image": "https://loremflickr.com/1280/720/supermarket,grocery,store?lock=11",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.3903,
+          52.5075
+        ]
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:Store:002",
+      "type": "Store",
+      "name": "Spree Corner",
+      "address": "Mühlenstraße 8, 10243 Berlin",
+      "image": "https://loremflickr.com/1280/720/urban,supermarket,aisle?lock=12",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.4441,
+          52.5059
+        ]
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:Store:003",
+      "type": "Store",
+      "name": "Tiergarten Fresh",
+      "address": "Alt-Moabit 98, 10559 Berlin",
+      "image": "https://loremflickr.com/1280/720/fresh,market,produce?lock=13",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.3382,
+          52.5238
+        ]
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:Store:004",
+      "type": "Store",
+      "name": "Prenzl Pantry",
+      "address": "Schönhauser Allee 75, 10437 Berlin",
+      "image": "https://loremflickr.com/1280/720/shopping,cart,store?lock=14",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.4128,
+          52.5441
+        ]
+      }
+    }
+  ],
+  "shelves": [
+    {
+      "id": "urn:ngsi-ld:Shelf:001",
+      "type": "Shelf",
+      "name": "S1-A",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.39031,
+          52.50751
+        ]
+      },
+      "maxCapacity": 30,
+      "refStore": "urn:ngsi-ld:Store:001"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:002",
+      "type": "Shelf",
+      "name": "S1-B",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.39029,
+          52.50749
+        ]
+      },
+      "maxCapacity": 28,
+      "refStore": "urn:ngsi-ld:Store:001"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:003",
+      "type": "Shelf",
+      "name": "S1-C",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.39028,
+          52.50748
+        ]
+      },
+      "maxCapacity": 26,
+      "refStore": "urn:ngsi-ld:Store:001"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:004",
+      "type": "Shelf",
+      "name": "S1-D",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.39027,
+          52.50747
+        ]
+      },
+      "maxCapacity": 24,
+      "refStore": "urn:ngsi-ld:Store:001"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:005",
+      "type": "Shelf",
+      "name": "S2-A",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.44411,
+          52.50591
+        ]
+      },
+      "maxCapacity": 30,
+      "refStore": "urn:ngsi-ld:Store:002"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:006",
+      "type": "Shelf",
+      "name": "S2-B",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.44412,
+          52.50592
+        ]
+      },
+      "maxCapacity": 28,
+      "refStore": "urn:ngsi-ld:Store:002"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:007",
+      "type": "Shelf",
+      "name": "S2-C",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.44413,
+          52.50593
+        ]
+      },
+      "maxCapacity": 26,
+      "refStore": "urn:ngsi-ld:Store:002"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:008",
+      "type": "Shelf",
+      "name": "S2-D",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.44414,
+          52.50594
+        ]
+      },
+      "maxCapacity": 24,
+      "refStore": "urn:ngsi-ld:Store:002"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:009",
+      "type": "Shelf",
+      "name": "S3-A",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.33821,
+          52.52381
+        ]
+      },
+      "maxCapacity": 30,
+      "refStore": "urn:ngsi-ld:Store:003"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:010",
+      "type": "Shelf",
+      "name": "S3-B",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.33822,
+          52.52382
+        ]
+      },
+      "maxCapacity": 28,
+      "refStore": "urn:ngsi-ld:Store:003"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:011",
+      "type": "Shelf",
+      "name": "S3-C",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.33823,
+          52.52383
+        ]
+      },
+      "maxCapacity": 26,
+      "refStore": "urn:ngsi-ld:Store:003"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:012",
+      "type": "Shelf",
+      "name": "S3-D",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.33824,
+          52.52384
+        ]
+      },
+      "maxCapacity": 24,
+      "refStore": "urn:ngsi-ld:Store:003"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:013",
+      "type": "Shelf",
+      "name": "S4-A",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.41281,
+          52.54411
+        ]
+      },
+      "maxCapacity": 30,
+      "refStore": "urn:ngsi-ld:Store:004"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:014",
+      "type": "Shelf",
+      "name": "S4-B",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.41282,
+          52.54412
+        ]
+      },
+      "maxCapacity": 28,
+      "refStore": "urn:ngsi-ld:Store:004"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:015",
+      "type": "Shelf",
+      "name": "S4-C",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.41283,
+          52.54413
+        ]
+      },
+      "maxCapacity": 26,
+      "refStore": "urn:ngsi-ld:Store:004"
+    },
+    {
+      "id": "urn:ngsi-ld:Shelf:016",
+      "type": "Shelf",
+      "name": "S4-D",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          13.41284,
+          52.54414
+        ]
+      },
+      "maxCapacity": 24,
+      "refStore": "urn:ngsi-ld:Store:004"
+    }
+  ],
+  "products": [
+    {
+      "id": "urn:ngsi-ld:Product:001",
+      "type": "Product",
+      "name": "Lemonade",
+      "price": 99,
+      "size": "M",
+      "image": "https://loremflickr.com/900/900/lemonade,drink?lock=101"
+    },
+    {
+      "id": "urn:ngsi-ld:Product:002",
+      "type": "Product",
+      "name": "Orange Juice",
+      "price": 129,
+      "size": "M",
+      "image": "https://loremflickr.com/900/900/orange,juice,drink?lock=102"
+    },
+    {
+      "id": "urn:ngsi-ld:Product:003",
+      "type": "Product",
+      "name": "Sparkling Water",
+      "price": 89,
+      "size": "L",
+      "image": "https://loremflickr.com/900/900/sparkling,water,bottle?lock=103"
+    },
+    {
+      "id": "urn:ngsi-ld:Product:004",
+      "type": "Product",
+      "name": "Still Water",
+      "price": 79,
+      "size": "L",
+      "image": "https://loremflickr.com/900/900/mineral,water,bottle?lock=104"
+    },
+    {
+      "id": "urn:ngsi-ld:Product:005",
+      "type": "Product",
+      "name": "Cola",
+      "price": 139,
+      "size": "M",
+      "image": "https://loremflickr.com/900/900/cola,soda,can?lock=105"
+    },
+    {
+      "id": "urn:ngsi-ld:Product:006",
+      "type": "Product",
+      "name": "Iced Tea",
+      "price": 149,
+      "size": "M",
+      "image": "https://loremflickr.com/900/900/iced,tea,drink?lock=106"
+    },
+    {
+      "id": "urn:ngsi-ld:Product:007",
+      "type": "Product",
+      "name": "Potato Chips",
+      "price": 199,
+      "size": "S",
+      "image": "https://loremflickr.com/900/900/potato,chips,snack?lock=107"
+    },
+    {
+      "id": "urn:ngsi-ld:Product:008",
+      "type": "Product",
+      "name": "Salted Nuts",
+      "price": 249,
+      "size": "S",
+      "image": "https://loremflickr.com/900/900/nuts,snack,bowl?lock=108"
+    },
+    {
+      "id": "urn:ngsi-ld:Product:009",
+      "type": "Product",
+      "name": "Chocolate Bar",
+      "price": 159,
+      "size": "S",
+      "image": "https://loremflickr.com/900/900/chocolate,bar,sweet?lock=109"
+    },
+    {
+      "id": "urn:ngsi-ld:Product:010",
+      "type": "Product",
+      "name": "Protein Bar",
+      "price": 219,
+      "size": "S",
+      "image": "https://loremflickr.com/900/900/protein,bar,fitness,snack?lock=110"
+    }
+  ],
+  "inventoryItems": [
+    {
+      "id": "urn:ngsi-ld:InventoryItem:001",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:001",
+      "refStore": "urn:ngsi-ld:Store:001",
+      "refShelf": "urn:ngsi-ld:Shelf:001",
+      "stockCount": 30,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:002",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:002",
+      "refStore": "urn:ngsi-ld:Store:001",
+      "refShelf": "urn:ngsi-ld:Shelf:001",
+      "stockCount": 25,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:003",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:003",
+      "refStore": "urn:ngsi-ld:Store:001",
+      "refShelf": "urn:ngsi-ld:Shelf:002",
+      "stockCount": 28,
+      "shelfCount": 6
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:004",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:004",
+      "refStore": "urn:ngsi-ld:Store:001",
+      "refShelf": "urn:ngsi-ld:Shelf:002",
+      "stockCount": 24,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:005",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:005",
+      "refStore": "urn:ngsi-ld:Store:001",
+      "refShelf": "urn:ngsi-ld:Shelf:003",
+      "stockCount": 22,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:006",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:006",
+      "refStore": "urn:ngsi-ld:Store:001",
+      "refShelf": "urn:ngsi-ld:Shelf:003",
+      "stockCount": 26,
+      "shelfCount": 6
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:007",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:007",
+      "refStore": "urn:ngsi-ld:Store:001",
+      "refShelf": "urn:ngsi-ld:Shelf:004",
+      "stockCount": 20,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:008",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:008",
+      "refStore": "urn:ngsi-ld:Store:001",
+      "refShelf": "urn:ngsi-ld:Shelf:004",
+      "stockCount": 19,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:009",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:009",
+      "refStore": "urn:ngsi-ld:Store:002",
+      "refShelf": "urn:ngsi-ld:Shelf:005",
+      "stockCount": 21,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:010",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:010",
+      "refStore": "urn:ngsi-ld:Store:002",
+      "refShelf": "urn:ngsi-ld:Shelf:005",
+      "stockCount": 18,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:011",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:001",
+      "refStore": "urn:ngsi-ld:Store:002",
+      "refShelf": "urn:ngsi-ld:Shelf:006",
+      "stockCount": 23,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:012",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:003",
+      "refStore": "urn:ngsi-ld:Store:002",
+      "refShelf": "urn:ngsi-ld:Shelf:006",
+      "stockCount": 26,
+      "shelfCount": 6
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:013",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:002",
+      "refStore": "urn:ngsi-ld:Store:002",
+      "refShelf": "urn:ngsi-ld:Shelf:007",
+      "stockCount": 24,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:014",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:004",
+      "refStore": "urn:ngsi-ld:Store:002",
+      "refShelf": "urn:ngsi-ld:Shelf:007",
+      "stockCount": 22,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:015",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:005",
+      "refStore": "urn:ngsi-ld:Store:002",
+      "refShelf": "urn:ngsi-ld:Shelf:008",
+      "stockCount": 21,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:016",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:007",
+      "refStore": "urn:ngsi-ld:Store:002",
+      "refShelf": "urn:ngsi-ld:Shelf:008",
+      "stockCount": 20,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:017",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:006",
+      "refStore": "urn:ngsi-ld:Store:003",
+      "refShelf": "urn:ngsi-ld:Shelf:009",
+      "stockCount": 19,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:018",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:008",
+      "refStore": "urn:ngsi-ld:Store:003",
+      "refShelf": "urn:ngsi-ld:Shelf:009",
+      "stockCount": 21,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:019",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:009",
+      "refStore": "urn:ngsi-ld:Store:003",
+      "refShelf": "urn:ngsi-ld:Shelf:010",
+      "stockCount": 20,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:020",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:001",
+      "refStore": "urn:ngsi-ld:Store:003",
+      "refShelf": "urn:ngsi-ld:Shelf:010",
+      "stockCount": 22,
+      "shelfCount": 6
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:021",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:010",
+      "refStore": "urn:ngsi-ld:Store:003",
+      "refShelf": "urn:ngsi-ld:Shelf:011",
+      "stockCount": 18,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:022",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:002",
+      "refStore": "urn:ngsi-ld:Store:003",
+      "refShelf": "urn:ngsi-ld:Shelf:011",
+      "stockCount": 20,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:023",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:003",
+      "refStore": "urn:ngsi-ld:Store:003",
+      "refShelf": "urn:ngsi-ld:Shelf:012",
+      "stockCount": 23,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:024",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:005",
+      "refStore": "urn:ngsi-ld:Store:003",
+      "refShelf": "urn:ngsi-ld:Shelf:012",
+      "stockCount": 24,
+      "shelfCount": 6
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:025",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:004",
+      "refStore": "urn:ngsi-ld:Store:004",
+      "refShelf": "urn:ngsi-ld:Shelf:013",
+      "stockCount": 21,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:026",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:006",
+      "refStore": "urn:ngsi-ld:Store:004",
+      "refShelf": "urn:ngsi-ld:Shelf:013",
+      "stockCount": 22,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:027",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:007",
+      "refStore": "urn:ngsi-ld:Store:004",
+      "refShelf": "urn:ngsi-ld:Shelf:014",
+      "stockCount": 20,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:028",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:009",
+      "refStore": "urn:ngsi-ld:Store:004",
+      "refShelf": "urn:ngsi-ld:Shelf:014",
+      "stockCount": 19,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:029",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:008",
+      "refStore": "urn:ngsi-ld:Store:004",
+      "refShelf": "urn:ngsi-ld:Shelf:015",
+      "stockCount": 22,
+      "shelfCount": 6
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:030",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:010",
+      "refStore": "urn:ngsi-ld:Store:004",
+      "refShelf": "urn:ngsi-ld:Shelf:015",
+      "stockCount": 17,
+      "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:031",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:001",
+      "refStore": "urn:ngsi-ld:Store:004",
+      "refShelf": "urn:ngsi-ld:Shelf:016",
+      "stockCount": 18,
+      "shelfCount": 8
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:032",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:002",
+      "refStore": "urn:ngsi-ld:Store:004",
+      "refShelf": "urn:ngsi-ld:Shelf:016",
+      "stockCount": 20,
+      "shelfCount": 7
+    }
+  ]
+}

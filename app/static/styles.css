@@ -1,0 +1,225 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background: radial-gradient(circle at top left, #1f2a56 0%, #0f172a 40%, #050816 100%);
+  color: #e5e7eb;
+  min-height: 100vh;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(8, 12, 30, 0.75);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.site-header a {
+  color: #f8fafc;
+  text-decoration: none;
+  margin-right: 0.9rem;
+  font-weight: 600;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 1.5rem auto 2.5rem;
+  padding: 0 1.2rem;
+}
+
+.hero {
+  background: linear-gradient(130deg, rgba(30, 58, 138, 0.45), rgba(109, 40, 217, 0.35));
+  border: 1px solid rgba(147, 197, 253, 0.35);
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  border-radius: 18px;
+  padding: 1.2rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
+}
+
+.meta {
+  color: #cbd5e1;
+  font-size: 0.875rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #93c5fd;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 0.45rem;
+}
+
+.warnings {
+  background: rgba(120, 53, 15, 0.35);
+  border: 1px solid rgba(251, 146, 60, 0.8);
+  border-radius: 14px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-head h3 {
+  margin: 1.3rem 0 0.85rem;
+  font-size: 1.2rem;
+}
+
+.cards-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cards-grid-stores {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.cards-grid-products {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.media-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.media-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px rgba(30, 64, 175, 0.35);
+}
+
+.media-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: radial-gradient(circle at center, rgba(30, 58, 138, 0.35), rgba(15, 23, 42, 0.95));
+}
+
+.media-thumb.square {
+  aspect-ratio: 1/1;
+}
+
+.media-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  padding: 0;
+}
+
+.media-body {
+  padding: 0.9rem;
+}
+
+.media-title {
+  color: #f8fafc;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.hero-media {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.hero-image-wrap {
+  border-radius: 14px;
+  overflow: hidden;
+  height: 180px;
+}
+
+.hero-image-wrap.square {
+  width: 180px;
+  height: 180px;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: radial-gradient(circle at center, rgba(30, 58, 138, 0.25), rgba(15, 23, 42, 0.9));
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th,
+td {
+  text-align: left;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 0.6rem;
+  vertical-align: top;
+}
+
+thead th {
+  background: rgba(30, 41, 59, 0.8);
+  color: #e2e8f0;
+}
+
+tbody tr:hover {
+  background: rgba(30, 58, 138, 0.2);
+}
+
+a {
+  color: #93c5fd;
+}
+
+.inline-media {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.inline-media img {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.map {
+  width: 100%;
+  height: 340px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+@media (max-width: 900px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-media {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image-wrap.square {
+    width: 100%;
+  }
+}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} | Producto{% endblock %}
+
+{% block content %}
+<section class="card hero-media">
+  <div class="hero-image-wrap square">
+    <img class="hero-image" src="{{ product.image }}" alt="{{ product.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/product-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+  </div>
+  <div>
+    <p class="eyebrow">Producto</p>
+    <h2>{{ product.name }}</h2>
+    <p>Tamaño: <strong>{{ product.size }}</strong></p>
+    <p>Precio: <strong>{{ product.price|currency }}</strong></p>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Disponibilidad por tienda</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Tienda</th>
+        <th>Balda</th>
+        <th>Stock total</th>
+        <th>En balda</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in inventory %}
+      <tr>
+        <td>
+          <a href="{{ url_for('main.store_detail', store_id=row.storeId) }}">{{ row.storeName }}</a>
+        </td>
+        <td>{{ row.shelfName }}</td>
+        <td>{{ row.stockCount }}</td>
+        <td>{{ row.shelfCount }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

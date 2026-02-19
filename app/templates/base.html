@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Retail Viewer{% endblock %}</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <h1><a href="{{ url_for('main.index') }}">Retail Data Viewer</a></h1>
+    <nav>
+      <a href="{{ url_for('main.index') }}">Inicio</a>
+      <a href="{{ url_for('main.inventory_global') }}">Inventario global</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    {% if warnings %}
+      <section class="warnings">
+        <h2>Validaciones</h2>
+        <ul>
+          {% for warning in warnings %}
+            <li>{{ warning }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+</body>
+</html>
