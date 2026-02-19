@@ -1,7 +1,7 @@
 # Architecture
 
 ## 1. Overview
-Retail Viewer es una aplicación SSR construida con Flask + Jinja2 para visualizar el modelo de datos de tiendas, baldas, productos e inventario definido en `DATA_MODEL.md`.
+Retail Viewer es una aplicación SSR construida con Flask + Jinja2 para gestionar y visualizar el modelo de datos de tiendas, baldas, productos e inventario definido en `DATA_MODEL.md`.
 
 Objetivo de arquitectura en MVP:
 - simplicidad de despliegue
@@ -12,6 +12,7 @@ Objetivo de arquitectura en MVP:
 Capas principales:
 1. **Presentation Layer**
    - Rutas Flask (`app/routes.py`)
+   - Formularios Flask-WTF/WTForms (`app/forms.py`)
    - Plantillas Jinja2 (`app/templates/*.html`)
    - Assets estáticos (`app/static/*`)
 2. **Application/Data Layer**
@@ -25,6 +26,7 @@ Capas principales:
 - `app.py`: punto de entrada para ejecutar la aplicación.
 - `app/__init__.py`: app factory, configuración (`SEED_PATH`) y filtros de plantilla.
 - `app/services/i18n.py`: catálogo de traducciones y utilidades de idioma (`es`/`en`).
+- `app/forms.py`: formularios y validación backend (Flask-WTF + WTForms).
 - `app/routes.py`: endpoints web y coordinación entre repositorio/plantillas.
 - `app/services/repository.py`: carga de datos, validaciones y joins lógicos.
 - `app/models/dto.py`: modelos tipados para `Store`, `Shelf`, `Product`, `InventoryItem`.
@@ -50,6 +52,17 @@ Atributos visuales relevantes:
 4. El repositorio devuelve datos enriquecidos para la vista (joins por IDs de relación).
 5. Jinja2 renderiza HTML SSR incluyendo textos traducidos e imágenes de `Store` y `Product`.
 6. En vistas con `location`, el frontend inicializa Leaflet con GeoJSON.
+
+Flujo de escritura (POST CRUD embebido en vistas existentes):
+1. El usuario envía formulario desde `/`, `/stores/<id>` o `/products/<id>`.
+2. WTForms valida campos/rangos y CSRF.
+3. `routes.py` invoca operación en `DataRepository`.
+4. El repositorio valida integridad de dominio y persiste en `data/seed.json`.
+5. Se redirige a la misma vista con mensajes flash.
+
+Operaciones cubiertas:
+- CRUD de `Store` y `Product`.
+- CRUD de `Shelf` e `InventoryItem` dentro de vistas de tienda/producto.
 
 ## 6. Validation Strategy
 Validaciones aplicadas en carga de seed:

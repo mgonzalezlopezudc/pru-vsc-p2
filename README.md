@@ -17,11 +17,44 @@ pip install -r requirements.txt
 flask --app app run
 ```
 
+Con hot-reload (recomendado en desarrollo):
+```bash
+flask --app app run --debug --reload
+```
+
+## Prueba E2E rápida (requests)
+Con la app levantada, ejecuta:
+```bash
+python tests/e2e_crud_requests.py
+```
+
+Opcionalmente puedes usar otra URL base:
+```bash
+BASE_URL=http://127.0.0.1:5000 python tests/e2e_crud_requests.py
+```
+
 ## Rutas
 - `/`: índice con tiendas y productos
 - `/stores/<id>`: detalle de tienda (baldas + inventario)
 - `/products/<id>`: detalle de producto por tienda
 - `/inventory`: inventario global
+
+Rutas POST (sin crear vistas adicionales) para CRUD integrado:
+- `/stores/create`
+- `/stores/<id>/update`
+- `/stores/<id>/delete`
+- `/stores/<id>/shelves/create`
+- `/stores/<id>/shelves/<shelf_id>/update`
+- `/stores/<id>/shelves/<shelf_id>/delete`
+- `/stores/<id>/inventory/create`
+- `/stores/<id>/inventory/<item_id>/update`
+- `/stores/<id>/inventory/<item_id>/delete`
+- `/products/create`
+- `/products/<id>/update`
+- `/products/<id>/delete`
+- `/products/<id>/inventory/create`
+- `/products/<id>/inventory/<item_id>/update`
+- `/products/<id>/inventory/<item_id>/delete`
 
 ## Idioma (i18n)
 - Idioma por defecto: `es`.
@@ -38,10 +71,23 @@ flask --app app run
 - atributo `image` en cada tienda y producto usando URLs online gratuitas
 
 ## Validaciones aplicadas
+Frontend:
+- Reglas HTML (`required`, `min`) en formularios
+- Regla JS para `shelfCount <= stockCount`
+
+Backend (Flask-WTF + WTForms):
+- Validación de campos y rangos en formularios
+- CSRF en operaciones POST
+- Persistencia en `data/seed.json` solo si pasan validaciones
+
+Integridad de dominio en repositorio:
 - `stockCount >= 0`
 - `shelfCount >= 0`
 - `shelfCount <= stockCount`
 - Carga total por balda `<= maxCapacity`
+- referencias `refStore`, `refShelf`, `refProduct` resolubles
+- coherencia `refShelf` ↔ `refStore`
+- `image` válida en `Store` y `Product`
 
 Las inconsistencias se muestran como avisos en la interfaz.
 

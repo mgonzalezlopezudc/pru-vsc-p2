@@ -3,13 +3,15 @@
 Guía para agentes automáticos que trabajen en este repositorio.
 
 ## 1. Mission
-Mantener y evolucionar una app Flask + Jinja2 que visualiza tiendas, baldas, productos e inventario del modelo en `DATA_MODEL.md`.
+Mantener y evolucionar una app Flask + Jinja2 que gestiona y visualiza tiendas, baldas, productos e inventario del modelo en `DATA_MODEL.md`.
 
 ## 2. Operating Rules
 - Priorizar cambios pequeños, trazables y reversibles.
 - Mantener separación por capas (`routes`, `services`, `models`, `templates`, `static`).
 - No introducir funcionalidades fuera del alcance MVP sin petición explícita.
 - Preservar compatibilidad con seed JSON y rutas existentes.
+- No crear vistas adicionales para CRUD: reutilizar `index`, `store_detail` y `product_detail`.
+- Mantener edición de baldas e inventario dentro de vistas de tienda/producto.
 
 ## 3. Data and Integrity Requirements
 - Respetar cardinalidad mínima del seed:
@@ -29,6 +31,8 @@ Mantener y evolucionar una app Flask + Jinja2 que visualiza tiendas, baldas, pro
 - Evitar lógica de negocio en plantillas Jinja2.
 - Reutilizar estructuras DTO en `app/models/dto.py`.
 - Mantener nombres de rutas y parámetros estables (`store_id`, `product_id`).
+- Validación backend de formularios con Flask-WTF + WTForms y CSRF activo.
+- Validación frontend complementaria con reglas HTML y JS (nunca sustituye backend).
 
 ## 5. Verification Checklist (before handoff)
 1. Ejecutar verificación de rutas:
@@ -41,6 +45,8 @@ Mantener y evolucionar una app Flask + Jinja2 que visualiza tiendas, baldas, pro
    - `/inventory`
 4. Confirmar que las imágenes remotas cargan y que el fallback local funciona si fallan.
 5. Confirmar que no aparecen warnings inesperados con datos válidos.
+6. Ejecutar prueba E2E de CRUD (si aplica):
+  - `python tests/e2e_crud_requests.py`
 
 ## 6. Documentation Policy
 Si se cambia comportamiento funcional o estructura:
