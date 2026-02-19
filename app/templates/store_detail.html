@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ store.name }} | Tienda{% endblock %}
+{% block title %}{{ t('store.title', name=store.name) }}{% endblock %}
 
 {% block content %}
 <section class="card hero-media">
@@ -8,25 +8,25 @@
     <img class="hero-image" src="{{ store.image }}" alt="{{ store.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/store-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
   </div>
   <div>
-    <p class="eyebrow">Tienda</p>
+    <p class="eyebrow">{{ t('store.eyebrow') }}</p>
     <h2>{{ store.name }}</h2>
     <p>{{ store.address }}</p>
   </div>
 </section>
 
 <section class="card">
-  <h3>Ubicación</h3>
+  <h3>{{ t('store.location') }}</h3>
   <div id="store-map" class="map" data-geojson='{{ store.location|tojson }}'></div>
 </section>
 
 <section class="card">
-  <h3>Baldas</h3>
+  <h3>{{ t('store.shelves') }}</h3>
   <table>
     <thead>
       <tr>
-        <th>Nombre</th>
-        <th>Carga actual</th>
-        <th>Capacidad máxima</th>
+        <th>{{ t('table.name') }}</th>
+        <th>{{ t('table.current_load') }}</th>
+        <th>{{ t('table.max_capacity') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -42,14 +42,14 @@
 </section>
 
 <section class="card">
-  <h3>Inventario de la tienda</h3>
+  <h3>{{ t('store.inventory') }}</h3>
   <table>
     <thead>
       <tr>
-        <th>Producto</th>
-        <th>Balda</th>
-        <th>Stock total</th>
-        <th>En balda</th>
+        <th>{{ t('table.product') }}</th>
+        <th>{{ t('table.shelf') }}</th>
+        <th>{{ t('table.stock_total') }}</th>
+        <th>{{ t('table.on_shelf') }}</th>
       </tr>
     </thead>
     <tbody>

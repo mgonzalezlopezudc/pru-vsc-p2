@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Inventario global | Retail Viewer{% endblock %}
+{% block title %}{{ t('inventory.title') }}{% endblock %}
 
 {% block content %}
 <section class="card">
-  <h2>Inventario global</h2>
+  <h2>{{ t('inventory.heading') }}</h2>
   <table>
     <thead>
       <tr>
-        <th>Tienda</th>
-        <th>Balda</th>
-        <th>Producto</th>
-        <th>Precio</th>
-        <th>Stock total</th>
-        <th>En balda</th>
+        <th>{{ t('table.store') }}</th>
+        <th>{{ t('table.shelf') }}</th>
+        <th>{{ t('table.product') }}</th>
+        <th>{{ t('table.price') }}</th>
+        <th>{{ t('table.stock_total') }}</th>
+        <th>{{ t('table.on_shelf') }}</th>
       </tr>
     </thead>
     <tbody>

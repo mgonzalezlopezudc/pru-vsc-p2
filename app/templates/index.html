@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio | Retail Viewer{% endblock %}
+{% block title %}{{ t('index.title') }}{% endblock %}
 
 {% block content %}
 <section class="hero card">
-  <p class="eyebrow">Retail intelligence</p>
-  <h2>Explora tiendas y productos con una vista clara del inventario</h2>
-  <p class="meta">Dataset de prueba con 4 tiendas, 16 baldas y 10 productos enlazados.</p>
+  <p class="eyebrow">{{ t('index.eyebrow') }}</p>
+  <h2>{{ t('index.heading') }}</h2>
+  <p class="meta">{{ t('index.meta') }}</p>
 </section>
 
 <section class="section-head">
-  <h3>Tiendas</h3>
+  <h3>{{ t('index.stores') }}</h3>
 </section>
 <section class="cards-grid cards-grid-stores">
   {% for store in stores %}
@@ -27,7 +27,7 @@
 </section>
 
 <section class="section-head">
-  <h3>Productos</h3>
+  <h3>{{ t('index.products') }}</h3>
 </section>
 <section class="cards-grid cards-grid-products">
   {% for product in products %}

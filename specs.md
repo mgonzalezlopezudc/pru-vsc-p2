@@ -8,6 +8,7 @@ Visualizar productos y tiendas del modelo de datos en una aplicación web Flask 
 ### 1.2 In Scope (MVP)
 - Visualización de entidades: `Store`, `Shelf`, `Product`, `InventoryItem`.
 - Uso de atributo `image` en `Store` y `Product` para render visual en listados y detalles.
+- Soporte multi-idioma básico en UI (`es` por defecto, `en` opcional).
 - Pantallas:
   - Inicio (`/`) con listado de tiendas y productos.
   - Detalle de tienda (`/stores/<id>`) con baldas e inventario relacionado.
@@ -54,6 +55,10 @@ Referencia de cumplimiento actual:
   - Resultado: datos de producto y tabla de stock por tienda/balda.
 - `GET /inventory`
   - Resultado: tabla global de inventario cruzando tienda/balda/producto.
+
+Parámetro de idioma (opcional, en todas las rutas):
+- `?lang=es|en`
+  - Resultado: idioma de UI actualizado y persistido en sesión.
 
 ## 4. UI Specification
 - Renderizado SSR con Jinja2.

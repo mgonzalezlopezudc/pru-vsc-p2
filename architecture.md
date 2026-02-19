@@ -16,6 +16,7 @@ Capas principales:
    - Assets estáticos (`app/static/*`)
 2. **Application/Data Layer**
    - Repositorio (`app/services/repository.py`) con consultas para vistas
+   - Servicio i18n (`app/services/i18n.py`) para resolución de idioma y traducciones
    - DTOs (`app/models/dto.py`) para modelar entidades
 3. **Data Source Layer**
    - Seed local JSON (`data/seed.json`)
@@ -23,6 +24,7 @@ Capas principales:
 ## 3. Components
 - `app.py`: punto de entrada para ejecutar la aplicación.
 - `app/__init__.py`: app factory, configuración (`SEED_PATH`) y filtros de plantilla.
+- `app/services/i18n.py`: catálogo de traducciones y utilidades de idioma (`es`/`en`).
 - `app/routes.py`: endpoints web y coordinación entre repositorio/plantillas.
 - `app/services/repository.py`: carga de datos, validaciones y joins lógicos.
 - `app/models/dto.py`: modelos tipados para `Store`, `Shelf`, `Product`, `InventoryItem`.
@@ -43,10 +45,11 @@ Atributos visuales relevantes:
 
 ## 5. Request Flow
 1. El cliente solicita una ruta (por ejemplo `/stores/<id>`).
-2. `routes.py` obtiene (o inicializa) `DataRepository`.
-3. El repositorio devuelve datos enriquecidos para la vista (joins por IDs de relación).
-4. Jinja2 renderiza HTML SSR incluyendo imágenes de `Store` y `Product`.
-5. En vistas con `location`, el frontend inicializa Leaflet con GeoJSON.
+2. `app/__init__.py` resuelve idioma activo (query `lang` o sesión) y lo inyecta en contexto de plantillas.
+3. `routes.py` obtiene (o inicializa) `DataRepository`.
+4. El repositorio devuelve datos enriquecidos para la vista (joins por IDs de relación).
+5. Jinja2 renderiza HTML SSR incluyendo textos traducidos e imágenes de `Store` y `Product`.
+6. En vistas con `location`, el frontend inicializa Leaflet con GeoJSON.
 
 ## 6. Validation Strategy
 Validaciones aplicadas en carga de seed:

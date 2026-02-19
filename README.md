@@ -23,6 +23,12 @@ flask --app app run
 - `/products/<id>`: detalle de producto por tienda
 - `/inventory`: inventario global
 
+## Idioma (i18n)
+- Idioma por defecto: `es`.
+- Idiomas soportados: `es`, `en`.
+- Se puede cambiar con query param `?lang=es` o `?lang=en` en cualquier ruta.
+- La preferencia se persiste en sesión para siguientes navegaciones.
+
 ## Dataset de prueba
 `data/seed.json` incluye:
 - 4 tiendas

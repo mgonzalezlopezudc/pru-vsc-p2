@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ product.name }} | Producto{% endblock %}
+{% block title %}{{ t('product.title', name=product.name) }}{% endblock %}
 
 {% block content %}
 <section class="card hero-media">
@@ -8,22 +8,22 @@
     <img class="hero-image" src="{{ product.image }}" alt="{{ product.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/product-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
   </div>
   <div>
-    <p class="eyebrow">Producto</p>
+    <p class="eyebrow">{{ t('product.eyebrow') }}</p>
     <h2>{{ product.name }}</h2>
-    <p>Tamaño: <strong>{{ product.size }}</strong></p>
-    <p>Precio: <strong>{{ product.price|currency }}</strong></p>
+    <p>{{ t('product.size') }}: <strong>{{ product.size }}</strong></p>
+    <p>{{ t('product.price') }}: <strong>{{ product.price|currency }}</strong></p>
   </div>
 </section>
 
 <section class="card">
-  <h3>Disponibilidad por tienda</h3>
+  <h3>{{ t('product.availability') }}</h3>
   <table>
     <thead>
       <tr>
-        <th>Tienda</th>
-        <th>Balda</th>
-        <th>Stock total</th>
-        <th>En balda</th>
+        <th>{{ t('table.store') }}</th>
+        <th>{{ t('table.shelf') }}</th>
+        <th>{{ t('table.stock_total') }}</th>
+        <th>{{ t('table.on_shelf') }}</th>
       </tr>
     </thead>
     <tbody>
