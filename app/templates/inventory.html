@@ -3,9 +3,10 @@
 {% block title %}{{ t('inventory.title') }}{% endblock %}
 
 {% block content %}
-<section class="card">
-  <h2>{{ t('inventory.heading') }}</h2>
-  <table>
+<section class="app-card">
+  <h2 class="mb-3 text-xl font-bold text-slate-900">{{ t('inventory.heading') }}</h2>
+  <div class="app-table-wrap">
+  <table class="app-table">
     <thead>
       <tr>
         <th>{{ t('table.store') }}</th>
@@ -20,16 +21,16 @@
       {% for row in inventory %}
       <tr>
         <td>
-          <div class="inline-media">
-            <img src="{{ row.storeImage }}" alt="{{ row.storeName }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/store-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
-            <a href="{{ url_for('main.store_detail', store_id=row.storeId) }}">{{ row.storeName }}</a>
+          <div class="flex items-center gap-2">
+            <img class="h-9 w-9 rounded-lg border border-slate-200 bg-slate-100 object-cover" src="{{ row.storeImage }}" alt="{{ row.storeName }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/store-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+            <a class="font-medium text-brand-700 hover:text-brand-800" href="{{ url_for('main.store_detail', store_id=row.storeId) }}">{{ row.storeName }}</a>
           </div>
         </td>
         <td>{{ row.shelfName }}</td>
         <td>
-          <div class="inline-media">
-            <img src="{{ row.productImage }}" alt="{{ row.productName }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/product-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
-            <a href="{{ url_for('main.product_detail', product_id=row.productId) }}">{{ row.productName }}</a>
+          <div class="flex items-center gap-2">
+            <img class="h-9 w-9 rounded-lg border border-slate-200 bg-slate-100 object-cover" src="{{ row.productImage }}" alt="{{ row.productName }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/product-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+            <a class="font-medium text-brand-700 hover:text-brand-800" href="{{ url_for('main.product_detail', product_id=row.productId) }}">{{ row.productName }}</a>
           </div>
         </td>
         <td>{{ row.productPrice|currency }}</td>
@@ -39,6 +40,7 @@
       {% endfor %}
     </tbody>
   </table>
+  </div>
 </section>
 {% endblock %}
 

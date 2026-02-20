@@ -110,14 +110,22 @@ Restricción UX:
 - Tablas legibles para datos de inventario.
 - Warnings visibles cuando existan inconsistencias válidas por reglas.
 - Diseño responsive básico (desktop-first).
+- Estética de dashboard moderna y consistente entre `/`, `/stores/<id>`, `/products/<id>`, `/inventory`.
+- Mantener alcance visual: no añadir nuevas vistas ni cambiar flujos CRUD existentes.
 
 ## 9. Requisitos Técnicos
 
 - Python 3.10+
+- Node.js 18+
 - Flask 3.1.0
 - Flask-WTF
 - Jinja2
 - Leaflet + OpenStreetMap tiles
+- Tailwind CSS (build local de assets)
+- Flowbite (componentes UI)
+- Alpine.js (interacciones ligeras)
+- Chart.js (soporte de visualizaciones)
+- Playwright (check visual de imágenes en test rápido)
 - Fuente de datos: `data/seed.json`
 
 ## 10. Criterios de Aceptación
@@ -131,6 +139,8 @@ Restricción UX:
 - Las validaciones de integridad se ejecutan y reportan inconsistencias.
 - El fallback de imágenes se activa cuando falla una imagen remota.
 - La validación backend bloquea datos inválidos aunque se omita JS en cliente.
+- `npm run build:css` genera estilos de producción en `app/static/dist/styles.css`.
+- `npm run test:images` pasa correctamente con imágenes visibles y cargadas.
 
 ## 11. Métricas de Éxito (MVP)
 

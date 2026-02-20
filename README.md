@@ -4,13 +4,37 @@ Aplicación web SSR para visualizar tiendas, baldas, productos e inventario usan
 
 ## Requisitos
 - Python 3.10+
+- Node.js 18+ (para compilar estilos Tailwind)
 
 ## Instalación
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+npm install
 ```
+
+## Frontend (Tailwind + Flowbite + Alpine + Chart.js)
+Compilar estilos:
+```bash
+npm run build:css
+```
+
+Modo watch en desarrollo:
+```bash
+npm run watch:css
+```
+
+Salida CSS compilada: `app/static/dist/styles.css`.
+
+Test visual rápido de carga de imágenes:
+```bash
+npm run test:images
+```
+
+Notas:
+- `test:images` ejecuta `tests/image-check.spec.js` con Playwright.
+- Requiere app disponible en `http://127.0.0.1:5000`.
 
 ## Ejecución
 ```bash

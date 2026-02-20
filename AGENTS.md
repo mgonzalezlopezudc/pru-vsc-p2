@@ -37,15 +37,19 @@ Mantener y evolucionar una app Flask + Jinja2 que gestiona y visualiza tiendas, 
 ## 5. Verification Checklist (before handoff)
 1. Ejecutar verificación de rutas:
    - `python -m flask --app app routes`
-2. Comprobar carga de seed y cardinalidades vía snippet o test.
-3. Revisar visualmente:
+2. Compilar estilos frontend:
+  - `npm run build:css`
+3. Comprobar carga de seed y cardinalidades vía snippet o test.
+4. Revisar visualmente:
    - `/`
    - `/stores/<id>`
    - `/products/<id>`
    - `/inventory`
-4. Confirmar que las imágenes remotas cargan y que el fallback local funciona si fallan.
-5. Confirmar que no aparecen warnings inesperados con datos válidos.
-6. Ejecutar prueba E2E de CRUD (si aplica):
+5. Confirmar que las imágenes remotas cargan y que el fallback local funciona si fallan.
+6. Ejecutar chequeo visual automatizado de imágenes (si aplica):
+  - `npm run test:images`
+7. Confirmar que no aparecen warnings inesperados con datos válidos.
+8. Ejecutar prueba E2E de CRUD (si aplica):
   - `python tests/e2e_crud_requests.py`
 
 ## 6. Documentation Policy

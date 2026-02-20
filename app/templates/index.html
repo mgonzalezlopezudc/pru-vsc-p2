@@ -3,71 +3,75 @@
 {% block title %}{{ t('index.title') }}{% endblock %}
 
 {% block content %}
-<section class="hero card">
-  <p class="eyebrow">{{ t('index.eyebrow') }}</p>
-  <h2>{{ t('index.heading') }}</h2>
-  <p class="meta">{{ t('index.meta') }}</p>
+<section class="app-card mb-5 bg-gradient-to-r from-brand-900 to-brand-700 text-white">
+  <p class="text-xs font-semibold uppercase tracking-wider text-blue-100">{{ t('index.eyebrow') }}</p>
+  <h2 class="mt-1 text-2xl font-bold md:text-3xl">{{ t('index.heading') }}</h2>
+  <p class="mt-2 text-sm text-blue-100">{{ t('index.meta') }}</p>
 </section>
 
-<section class="section-head">
-  <h3>{{ t('index.stores') }}</h3>
+<section class="mb-3">
+  <h3 class="text-xl font-bold text-slate-900">{{ t('index.stores') }}</h3>
 </section>
-<section class="card form-block">
-  <h4>{{ t('form.store_create') }}</h4>
-  <form method="post" action="{{ url_for('main.create_store', lang=current_lang) }}" class="inline-form">
+<section class="app-card mb-5">
+  <h4 class="mb-4 text-lg font-semibold">{{ t('form.store_create') }}</h4>
+  <form method="post" action="{{ url_for('main.create_store', lang=current_lang) }}" class="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
     {{ store_create_form.hidden_tag() }}
-    <label>{{ t('field.name') }}<input type="text" name="{{ store_create_form.name.name }}" required maxlength="120"></label>
-    <label>{{ t('field.address') }}<input type="text" name="{{ store_create_form.address.name }}" required maxlength="240"></label>
-    <label>{{ t('field.image') }}<input type="url" name="{{ store_create_form.image.name }}" required maxlength="400"></label>
-    <label>{{ t('field.latitude') }}<input type="number" step="any" name="{{ store_create_form.latitude.name }}" required></label>
-    <label>{{ t('field.longitude') }}<input type="number" step="any" name="{{ store_create_form.longitude.name }}" required></label>
-    <button type="submit" class="btn">{{ t('action.create') }}</button>
+    <label class="app-label">{{ t('field.name') }}<input class="app-input" type="text" name="{{ store_create_form.name.name }}" required maxlength="120"></label>
+    <label class="app-label">{{ t('field.address') }}<input class="app-input" type="text" name="{{ store_create_form.address.name }}" required maxlength="240"></label>
+    <label class="app-label">{{ t('field.image') }}<input class="app-input" type="url" name="{{ store_create_form.image.name }}" required maxlength="400"></label>
+    <label class="app-label">{{ t('field.latitude') }}<input class="app-input" type="number" step="any" name="{{ store_create_form.latitude.name }}" required></label>
+    <label class="app-label">{{ t('field.longitude') }}<input class="app-input" type="number" step="any" name="{{ store_create_form.longitude.name }}" required></label>
+    <div class="md:col-span-2 xl:col-span-5">
+      <button type="submit" class="app-btn">{{ t('action.create') }}</button>
+    </div>
   </form>
 </section>
-<section class="cards-grid cards-grid-stores">
+<section class="mb-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
   {% for store in stores %}
-  <article class="media-card">
-    <a class="media-thumb" href="{{ url_for('main.store_detail', store_id=store.id) }}">
-      <img src="{{ store.image }}" alt="{{ store.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/store-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+  <article class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
+    <a class="block aspect-[16/9] bg-slate-100" href="{{ url_for('main.store_detail', store_id=store.id) }}">
+      <img class="h-full w-full object-cover" src="{{ store.image }}" alt="{{ store.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/store-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
     </a>
-    <div class="media-body">
-      <a class="media-title" href="{{ url_for('main.store_detail', store_id=store.id) }}">{{ store.name }}</a>
-      <p class="meta">{{ store.address }}</p>
-      <form method="post" class="compact-form" action="{{ url_for('main.delete_store', store_id=store.id, lang=current_lang) }}">
+    <div class="space-y-3 p-4">
+      <a class="text-lg font-semibold text-slate-900 hover:text-brand-700" href="{{ url_for('main.store_detail', store_id=store.id) }}">{{ store.name }}</a>
+      <p class="text-sm text-slate-500">{{ store.address }}</p>
+      <form method="post" class="inline-flex" action="{{ url_for('main.delete_store', store_id=store.id, lang=current_lang) }}">
         {{ delete_form.hidden_tag() }}
-        <button type="submit" class="btn btn-danger">{{ t('action.delete') }}</button>
+        <button type="submit" class="app-btn-danger">{{ t('action.delete') }}</button>
       </form>
     </div>
   </article>
   {% endfor %}
 </section>
 
-<section class="section-head">
-  <h3>{{ t('index.products') }}</h3>
+<section class="mb-3">
+  <h3 class="text-xl font-bold text-slate-900">{{ t('index.products') }}</h3>
 </section>
-<section class="card form-block">
-  <h4>{{ t('form.product_create') }}</h4>
-  <form method="post" action="{{ url_for('main.create_product', lang=current_lang) }}" class="inline-form">
+<section class="app-card mb-5">
+  <h4 class="mb-4 text-lg font-semibold">{{ t('form.product_create') }}</h4>
+  <form method="post" action="{{ url_for('main.create_product', lang=current_lang) }}" class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
     {{ product_create_form.hidden_tag() }}
-    <label>{{ t('field.name') }}<input type="text" name="{{ product_create_form.name.name }}" required maxlength="120"></label>
-    <label>{{ t('field.size') }}<input type="text" name="{{ product_create_form.size.name }}" required maxlength="24"></label>
-    <label>{{ t('field.price') }}<input type="number" name="{{ product_create_form.price.name }}" min="0" required></label>
-    <label>{{ t('field.image') }}<input type="url" name="{{ product_create_form.image.name }}" required maxlength="400"></label>
-    <button type="submit" class="btn">{{ t('action.create') }}</button>
+    <label class="app-label">{{ t('field.name') }}<input class="app-input" type="text" name="{{ product_create_form.name.name }}" required maxlength="120"></label>
+    <label class="app-label">{{ t('field.size') }}<input class="app-input" type="text" name="{{ product_create_form.size.name }}" required maxlength="24"></label>
+    <label class="app-label">{{ t('field.price') }}<input class="app-input" type="number" name="{{ product_create_form.price.name }}" min="0" required></label>
+    <label class="app-label">{{ t('field.image') }}<input class="app-input" type="url" name="{{ product_create_form.image.name }}" required maxlength="400"></label>
+    <div class="md:col-span-2 xl:col-span-4">
+      <button type="submit" class="app-btn">{{ t('action.create') }}</button>
+    </div>
   </form>
 </section>
-<section class="cards-grid cards-grid-products">
+<section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
   {% for product in products %}
-  <article class="media-card product-card">
-    <a class="media-thumb square" href="{{ url_for('main.product_detail', product_id=product.id) }}">
-      <img src="{{ product.image }}" alt="{{ product.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/product-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
+  <article class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
+    <a class="block aspect-square bg-slate-100" href="{{ url_for('main.product_detail', product_id=product.id) }}">
+      <img class="h-full w-full object-cover" src="{{ product.image }}" alt="{{ product.name }}" loading="lazy" data-fallback="{{ url_for('static', filename='images/product-placeholder.svg') }}" onerror="this.onerror=null;this.src=this.dataset.fallback;">
     </a>
-    <div class="media-body">
-      <a class="media-title" href="{{ url_for('main.product_detail', product_id=product.id) }}">{{ product.name }}</a>
-      <p class="meta">{{ product.size }} · {{ product.price|currency }}</p>
-      <form method="post" class="compact-form" action="{{ url_for('main.delete_product', product_id=product.id, lang=current_lang) }}">
+    <div class="space-y-3 p-4">
+      <a class="font-semibold text-slate-900 hover:text-brand-700" href="{{ url_for('main.product_detail', product_id=product.id) }}">{{ product.name }}</a>
+      <p class="text-sm text-slate-500">{{ product.size }} · {{ product.price|currency }}</p>
+      <form method="post" class="inline-flex" action="{{ url_for('main.delete_product', product_id=product.id, lang=current_lang) }}">
         {{ delete_form.hidden_tag() }}
-        <button type="submit" class="btn btn-danger">{{ t('action.delete') }}</button>
+        <button type="submit" class="app-btn-danger">{{ t('action.delete') }}</button>
       </form>
     </div>
   </article>
