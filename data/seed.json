@@ -55,6 +55,20 @@
           52.5441
         ]
       }
+    },
+    {
+      "id": "urn:ngsi-ld:Store:005",
+      "type": "Store",
+      "name": "Playwright Store 1771839898696",
+      "address": "Calle Test 1771839898696",
+      "image": "https://picsum.photos/640/360",
+      "location": {
+        "type": "Point",
+        "coordinates": [
+          -3.7038,
+          40.4168
+        ]
+      }
     }
   ],
   "shelves": [
