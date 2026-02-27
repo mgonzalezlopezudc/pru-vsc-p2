@@ -1,0 +1,204 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Retail Data Viewer" [ref=e6] [cursor=pointer]:
+        - /url: /?lang=es
+      - generic [ref=e7]:
+        - generic [ref=e8]: Search
+        - searchbox "Search" [ref=e9]
+  - generic [ref=e10]:
+    - complementary [ref=e11]:
+      - navigation [ref=e12]:
+        - link "Inicio" [ref=e13] [cursor=pointer]:
+          - /url: /?lang=es
+        - link "Inventario global" [ref=e14] [cursor=pointer]:
+          - /url: /inventory?lang=es
+        - generic [ref=e15]: Idioma
+        - generic [ref=e16]:
+          - link "ES" [ref=e17] [cursor=pointer]:
+            - /url: /?lang=es
+          - link "EN" [ref=e18] [cursor=pointer]:
+            - /url: /?lang=en
+    - main [ref=e19]:
+      - generic [ref=e20]:
+        - heading "Validaciones" [level=2] [ref=e21]
+        - list [ref=e22]:
+          - listitem [ref=e23]: Store urn:ngsi-ld:Store:005 must have at least 4 shelves.
+      - generic [ref=e24]:
+        - paragraph [ref=e25]: Retail intelligence
+        - heading "Explora tiendas y productos con una vista clara del inventario" [level=2] [ref=e26]
+        - paragraph [ref=e27]: Dataset de prueba con 4 tiendas, 16 baldas y 10 productos enlazados.
+      - heading "Tiendas" [level=3] [ref=e29]
+      - generic [ref=e30]:
+        - heading "Crear tienda" [level=4] [ref=e31]
+        - generic [ref=e32]:
+          - generic [ref=e33]:
+            - text: Nombre
+            - textbox "Nombre" [ref=e34]
+          - generic [ref=e35]:
+            - text: Dirección
+            - textbox "Dirección" [ref=e36]
+          - generic [ref=e37]:
+            - text: URL imagen
+            - textbox "URL imagen" [ref=e38]
+          - generic [ref=e39]:
+            - text: Latitud
+            - spinbutton "Latitud" [ref=e40]
+          - generic [ref=e41]:
+            - text: Longitud
+            - spinbutton "Longitud" [ref=e42]
+          - button "Crear" [ref=e44] [cursor=pointer]
+      - generic [ref=e45]:
+        - article [ref=e46]:
+          - link "Checkpoint Markt" [ref=e47] [cursor=pointer]:
+            - /url: /stores/urn:ngsi-ld:Store:001
+            - img "Checkpoint Markt" [ref=e48]
+          - generic [ref=e49]:
+            - link "Checkpoint Markt" [ref=e50] [cursor=pointer]:
+              - /url: /stores/urn:ngsi-ld:Store:001
+            - paragraph [ref=e51]: Friedrichstraße 44, 10969 Kreuzberg, Berlin
+            - button "Eliminar" [ref=e53] [cursor=pointer]
+        - article [ref=e54]:
+          - link "Playwright Store 1771839898696" [ref=e55] [cursor=pointer]:
+            - /url: /stores/urn:ngsi-ld:Store:005
+            - img "Playwright Store 1771839898696" [ref=e56]
+          - generic [ref=e57]:
+            - link "Playwright Store 1771839898696" [ref=e58] [cursor=pointer]:
+              - /url: /stores/urn:ngsi-ld:Store:005
+            - paragraph [ref=e59]: Calle Test 1771839898696
+            - button "Eliminar" [ref=e61] [cursor=pointer]
+        - article [ref=e62]:
+          - link "Prenzl Pantry" [ref=e63] [cursor=pointer]:
+            - /url: /stores/urn:ngsi-ld:Store:004
+            - img "Prenzl Pantry" [ref=e64]
+          - generic [ref=e65]:
+            - link "Prenzl Pantry" [ref=e66] [cursor=pointer]:
+              - /url: /stores/urn:ngsi-ld:Store:004
+            - paragraph [ref=e67]: Schönhauser Allee 75, 10437 Berlin
+            - button "Eliminar" [ref=e69] [cursor=pointer]
+        - article [ref=e70]:
+          - link "Spree Corner" [ref=e71] [cursor=pointer]:
+            - /url: /stores/urn:ngsi-ld:Store:002
+            - img "Spree Corner" [ref=e72]
+          - generic [ref=e73]:
+            - link "Spree Corner" [ref=e74] [cursor=pointer]:
+              - /url: /stores/urn:ngsi-ld:Store:002
+            - paragraph [ref=e75]: Mühlenstraße 8, 10243 Berlin
+            - button "Eliminar" [ref=e77] [cursor=pointer]
+        - article [ref=e78]:
+          - link "Tiergarten Fresh" [ref=e79] [cursor=pointer]:
+            - /url: /stores/urn:ngsi-ld:Store:003
+            - img "Tiergarten Fresh" [ref=e80]
+          - generic [ref=e81]:
+            - link "Tiergarten Fresh" [ref=e82] [cursor=pointer]:
+              - /url: /stores/urn:ngsi-ld:Store:003
+            - paragraph [ref=e83]: Alt-Moabit 98, 10559 Berlin
+            - button "Eliminar" [ref=e85] [cursor=pointer]
+      - heading "Productos" [level=3] [ref=e87]
+      - generic [ref=e88]:
+        - heading "Crear producto" [level=4] [ref=e89]
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - text: Nombre
+            - textbox "Nombre" [ref=e92]
+          - generic [ref=e93]:
+            - text: Tamaño
+            - textbox "Tamaño" [ref=e94]
+          - generic [ref=e95]:
+            - text: Precio (céntimos)
+            - spinbutton "Precio (céntimos)" [ref=e96]
+          - generic [ref=e97]:
+            - text: URL imagen
+            - textbox "URL imagen" [ref=e98]
+          - button "Crear" [ref=e100] [cursor=pointer]
+      - generic [ref=e101]:
+        - article [ref=e102]:
+          - link "Chocolate Bar" [ref=e103] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:009
+            - img "Chocolate Bar" [ref=e104]
+          - generic [ref=e105]:
+            - link "Chocolate Bar" [ref=e106] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:009
+            - paragraph [ref=e107]: S · €1.59
+            - button "Eliminar" [ref=e109] [cursor=pointer]
+        - article [ref=e110]:
+          - link "Cola" [ref=e111] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:005
+            - img "Cola" [ref=e112]
+          - generic [ref=e113]:
+            - link "Cola" [ref=e114] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:005
+            - paragraph [ref=e115]: M · €1.39
+            - button "Eliminar" [ref=e117] [cursor=pointer]
+        - article [ref=e118]:
+          - link "Iced Tea" [ref=e119] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:006
+            - img "Iced Tea" [ref=e120]
+          - generic [ref=e121]:
+            - link "Iced Tea" [ref=e122] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:006
+            - paragraph [ref=e123]: M · €1.49
+            - button "Eliminar" [ref=e125] [cursor=pointer]
+        - article [ref=e126]:
+          - link "Lemonade" [ref=e127] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:001
+            - img "Lemonade" [ref=e128]
+          - generic [ref=e129]:
+            - link "Lemonade" [ref=e130] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:001
+            - paragraph [ref=e131]: M · €0.99
+            - button "Eliminar" [ref=e133] [cursor=pointer]
+        - article [ref=e134]:
+          - link "Orange Juice" [ref=e135] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:002
+            - img "Orange Juice" [ref=e136]
+          - generic [ref=e137]:
+            - link "Orange Juice" [ref=e138] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:002
+            - paragraph [ref=e139]: M · €1.29
+            - button "Eliminar" [ref=e141] [cursor=pointer]
+        - article [ref=e142]:
+          - link "Potato Chips" [ref=e143] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:007
+            - img "Potato Chips" [ref=e144]
+          - generic [ref=e145]:
+            - link "Potato Chips" [ref=e146] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:007
+            - paragraph [ref=e147]: S · €1.99
+            - button "Eliminar" [ref=e149] [cursor=pointer]
+        - article [ref=e150]:
+          - link "Protein Bar" [ref=e151] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:010
+            - img "Protein Bar" [ref=e152]
+          - generic [ref=e153]:
+            - link "Protein Bar" [ref=e154] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:010
+            - paragraph [ref=e155]: S · €2.19
+            - button "Eliminar" [ref=e157] [cursor=pointer]
+        - article [ref=e158]:
+          - link "Salted Nuts" [ref=e159] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:008
+            - img "Salted Nuts" [ref=e160]
+          - generic [ref=e161]:
+            - link "Salted Nuts" [ref=e162] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:008
+            - paragraph [ref=e163]: S · €2.49
+            - button "Eliminar" [ref=e165] [cursor=pointer]
+        - article [ref=e166]:
+          - link "Sparkling Water" [ref=e167] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:003
+            - img "Sparkling Water" [ref=e168]
+          - generic [ref=e169]:
+            - link "Sparkling Water" [ref=e170] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:003
+            - paragraph [ref=e171]: L · €0.89
+            - button "Eliminar" [ref=e173] [cursor=pointer]
+        - article [ref=e174]:
+          - link "Still Water" [ref=e175] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:004
+            - img "Still Water" [ref=e176]
+          - generic [ref=e177]:
+            - link "Still Water" [ref=e178] [cursor=pointer]:
+              - /url: /products/urn:ngsi-ld:Product:004
+            - paragraph [ref=e179]: L · €0.79
+            - button "Eliminar" [ref=e181] [cursor=pointer]

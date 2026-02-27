@@ -4,28 +4,17 @@ Aplicación web SSR para visualizar tiendas, baldas, productos e inventario usan
 
 ## Requisitos
 - Python 3.10+
-- Node.js 18+ (para compilar estilos Tailwind)
+- Node.js 18+ (opcional, solo para `npm run test:images`)
 
 ## Instalación
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-npm install
 ```
 
-## Frontend (Tailwind + Flowbite + Alpine + Chart.js)
-Compilar estilos:
-```bash
-npm run build:css
-```
-
-Modo watch en desarrollo:
-```bash
-npm run watch:css
-```
-
-Salida CSS compilada: `app/static/dist/styles.css`.
+## Frontend (CSS + Alpine + Chart.js + Leaflet)
+Los estilos se sirven desde `app/static/styles.css`.
 
 Test visual rápido de carga de imágenes:
 ```bash
@@ -55,6 +44,19 @@ python tests/e2e_crud_requests.py
 Opcionalmente puedes usar otra URL base:
 ```bash
 BASE_URL=http://127.0.0.1:5000 python tests/e2e_crud_requests.py
+```
+
+## Prueba básica de navegación (Playwright CLI)
+Ejecuta un smoke test de rutas principales (`/`, `/inventory`, detalle de tienda y detalle de producto):
+
+```bash
+bash tests/playwright_smoke.sh
+```
+
+Opcionalmente puedes usar otra URL base (si ya tienes la app levantada ahí):
+
+```bash
+BASE_URL=http://127.0.0.1:5000 bash tests/playwright_smoke.sh
 ```
 
 ## Rutas

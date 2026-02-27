@@ -116,13 +116,11 @@ Restricción UX:
 ## 9. Requisitos Técnicos
 
 - Python 3.10+
-- Node.js 18+
 - Flask 3.1.0
 - Flask-WTF
 - Jinja2
 - Leaflet + OpenStreetMap tiles
-- Tailwind CSS (build local de assets)
-- Flowbite (componentes UI)
+- CSS estático local (`app/static/styles.css`)
 - Alpine.js (interacciones ligeras)
 - Chart.js (soporte de visualizaciones)
 - Fuente de datos: `data/seed.json`
@@ -138,7 +136,7 @@ Restricción UX:
 - Las validaciones de integridad se ejecutan y reportan inconsistencias.
 - El fallback de imágenes se activa cuando falla una imagen remota.
 - La validación backend bloquea datos inválidos aunque se omita JS en cliente.
-- `npm run build:css` genera estilos de producción en `app/static/dist/styles.css`.
+- La interfaz carga estilos desde `app/static/styles.css` sin pipeline de compilación CSS.
 
 ## 11. Métricas de Éxito (MVP)
 

@@ -1,0 +1,518 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Retail Data Viewer" [ref=e6] [cursor=pointer]:
+        - /url: /?lang=es
+      - generic [ref=e7]:
+        - generic [ref=e8]: Search
+        - searchbox "Search" [ref=e9]
+  - generic [ref=e10]:
+    - complementary [ref=e11]:
+      - navigation [ref=e12]:
+        - link "Inicio" [ref=e13] [cursor=pointer]:
+          - /url: /?lang=es
+        - link "Inventario global" [ref=e14] [cursor=pointer]:
+          - /url: /inventory?lang=es
+        - generic [ref=e15]: Idioma
+        - generic [ref=e16]:
+          - link "ES" [ref=e17] [cursor=pointer]:
+            - /url: /inventory?lang=es
+          - link "EN" [ref=e18] [cursor=pointer]:
+            - /url: /inventory?lang=en
+    - main [ref=e19]:
+      - generic [ref=e20]:
+        - heading "Validaciones" [level=2] [ref=e21]
+        - list [ref=e22]:
+          - listitem [ref=e23]: Store urn:ngsi-ld:Store:005 must have at least 4 shelves.
+      - generic [ref=e24]:
+        - heading "Inventario global" [level=2] [ref=e25]
+        - table [ref=e27]:
+          - rowgroup [ref=e28]:
+            - row "Tienda Balda Producto Precio Stock total En balda" [ref=e29]:
+              - columnheader "Tienda" [ref=e30]
+              - columnheader "Balda" [ref=e31]
+              - columnheader "Producto" [ref=e32]
+              - columnheader "Precio" [ref=e33]
+              - columnheader "Stock total" [ref=e34]
+              - columnheader "En balda" [ref=e35]
+          - rowgroup [ref=e36]:
+            - row "Checkpoint Markt Checkpoint Markt S1-A Lemonade Lemonade €0.99 30 8" [ref=e37]:
+              - cell "Checkpoint Markt Checkpoint Markt" [ref=e38]:
+                - generic [ref=e39]:
+                  - img "Checkpoint Markt" [ref=e40]
+                  - link "Checkpoint Markt" [ref=e41] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001
+              - cell "S1-A" [ref=e42]
+              - cell "Lemonade Lemonade" [ref=e43]:
+                - generic [ref=e44]:
+                  - img "Lemonade" [ref=e45]
+                  - link "Lemonade" [ref=e46] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:001
+              - cell "€0.99" [ref=e47]
+              - cell "30" [ref=e48]
+              - cell "8" [ref=e49]
+            - row "Checkpoint Markt Checkpoint Markt S1-A Orange Juice Orange Juice €1.29 25 7" [ref=e50]:
+              - cell "Checkpoint Markt Checkpoint Markt" [ref=e51]:
+                - generic [ref=e52]:
+                  - img "Checkpoint Markt" [ref=e53]
+                  - link "Checkpoint Markt" [ref=e54] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001
+              - cell "S1-A" [ref=e55]
+              - cell "Orange Juice Orange Juice" [ref=e56]:
+                - generic [ref=e57]:
+                  - img "Orange Juice" [ref=e58]
+                  - link "Orange Juice" [ref=e59] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:002
+              - cell "€1.29" [ref=e60]
+              - cell "25" [ref=e61]
+              - cell "7" [ref=e62]
+            - row "Checkpoint Markt Checkpoint Markt S1-B Sparkling Water Sparkling Water €0.89 28 6" [ref=e63]:
+              - cell "Checkpoint Markt Checkpoint Markt" [ref=e64]:
+                - generic [ref=e65]:
+                  - img "Checkpoint Markt" [ref=e66]
+                  - link "Checkpoint Markt" [ref=e67] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001
+              - cell "S1-B" [ref=e68]
+              - cell "Sparkling Water Sparkling Water" [ref=e69]:
+                - generic [ref=e70]:
+                  - img "Sparkling Water" [ref=e71]
+                  - link "Sparkling Water" [ref=e72] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:003
+              - cell "€0.89" [ref=e73]
+              - cell "28" [ref=e74]
+              - cell "6" [ref=e75]
+            - row "Checkpoint Markt Checkpoint Markt S1-B Still Water Still Water €0.79 24 8" [ref=e76]:
+              - cell "Checkpoint Markt Checkpoint Markt" [ref=e77]:
+                - generic [ref=e78]:
+                  - img "Checkpoint Markt" [ref=e79]
+                  - link "Checkpoint Markt" [ref=e80] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001
+              - cell "S1-B" [ref=e81]
+              - cell "Still Water Still Water" [ref=e82]:
+                - generic [ref=e83]:
+                  - img "Still Water" [ref=e84]
+                  - link "Still Water" [ref=e85] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:004
+              - cell "€0.79" [ref=e86]
+              - cell "24" [ref=e87]
+              - cell "8" [ref=e88]
+            - row "Checkpoint Markt Checkpoint Markt S1-C Cola Cola €1.39 22 7" [ref=e89]:
+              - cell "Checkpoint Markt Checkpoint Markt" [ref=e90]:
+                - generic [ref=e91]:
+                  - img "Checkpoint Markt" [ref=e92]
+                  - link "Checkpoint Markt" [ref=e93] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001
+              - cell "S1-C" [ref=e94]
+              - cell "Cola Cola" [ref=e95]:
+                - generic [ref=e96]:
+                  - img "Cola" [ref=e97]
+                  - link "Cola" [ref=e98] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:005
+              - cell "€1.39" [ref=e99]
+              - cell "22" [ref=e100]
+              - cell "7" [ref=e101]
+            - row "Checkpoint Markt Checkpoint Markt S1-C Iced Tea Iced Tea €1.49 26 6" [ref=e102]:
+              - cell "Checkpoint Markt Checkpoint Markt" [ref=e103]:
+                - generic [ref=e104]:
+                  - img "Checkpoint Markt" [ref=e105]
+                  - link "Checkpoint Markt" [ref=e106] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001
+              - cell "S1-C" [ref=e107]
+              - cell "Iced Tea Iced Tea" [ref=e108]:
+                - generic [ref=e109]:
+                  - img "Iced Tea" [ref=e110]
+                  - link "Iced Tea" [ref=e111] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:006
+              - cell "€1.49" [ref=e112]
+              - cell "26" [ref=e113]
+              - cell "6" [ref=e114]
+            - row "Checkpoint Markt Checkpoint Markt S1-D Potato Chips Potato Chips €1.99 20 7" [ref=e115]:
+              - cell "Checkpoint Markt Checkpoint Markt" [ref=e116]:
+                - generic [ref=e117]:
+                  - img "Checkpoint Markt" [ref=e118]
+                  - link "Checkpoint Markt" [ref=e119] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001
+              - cell "S1-D" [ref=e120]
+              - cell "Potato Chips Potato Chips" [ref=e121]:
+                - generic [ref=e122]:
+                  - img "Potato Chips" [ref=e123]
+                  - link "Potato Chips" [ref=e124] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:007
+              - cell "€1.99" [ref=e125]
+              - cell "20" [ref=e126]
+              - cell "7" [ref=e127]
+            - row "Checkpoint Markt Checkpoint Markt S1-D Salted Nuts Salted Nuts €2.49 19 8" [ref=e128]:
+              - cell "Checkpoint Markt Checkpoint Markt" [ref=e129]:
+                - generic [ref=e130]:
+                  - img "Checkpoint Markt" [ref=e131]
+                  - link "Checkpoint Markt" [ref=e132] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001
+              - cell "S1-D" [ref=e133]
+              - cell "Salted Nuts Salted Nuts" [ref=e134]:
+                - generic [ref=e135]:
+                  - img "Salted Nuts" [ref=e136]
+                  - link "Salted Nuts" [ref=e137] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:008
+              - cell "€2.49" [ref=e138]
+              - cell "19" [ref=e139]
+              - cell "8" [ref=e140]
+            - row "Spree Corner Spree Corner S2-A Chocolate Bar Chocolate Bar €1.59 21 8" [ref=e141]:
+              - cell "Spree Corner Spree Corner" [ref=e142]:
+                - generic [ref=e143]:
+                  - img "Spree Corner" [ref=e144]
+                  - link "Spree Corner" [ref=e145] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:002
+              - cell "S2-A" [ref=e146]
+              - cell "Chocolate Bar Chocolate Bar" [ref=e147]:
+                - generic [ref=e148]:
+                  - img "Chocolate Bar" [ref=e149]
+                  - link "Chocolate Bar" [ref=e150] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:009
+              - cell "€1.59" [ref=e151]
+              - cell "21" [ref=e152]
+              - cell "8" [ref=e153]
+            - row "Spree Corner Spree Corner S2-A Protein Bar Protein Bar €2.19 18 7" [ref=e154]:
+              - cell "Spree Corner Spree Corner" [ref=e155]:
+                - generic [ref=e156]:
+                  - img "Spree Corner" [ref=e157]
+                  - link "Spree Corner" [ref=e158] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:002
+              - cell "S2-A" [ref=e159]
+              - cell "Protein Bar Protein Bar" [ref=e160]:
+                - generic [ref=e161]:
+                  - img "Protein Bar" [ref=e162]
+                  - link "Protein Bar" [ref=e163] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:010
+              - cell "€2.19" [ref=e164]
+              - cell "18" [ref=e165]
+              - cell "7" [ref=e166]
+            - row "Spree Corner Spree Corner S2-B Lemonade Lemonade €0.99 23 7" [ref=e167]:
+              - cell "Spree Corner Spree Corner" [ref=e168]:
+                - generic [ref=e169]:
+                  - img "Spree Corner" [ref=e170]
+                  - link "Spree Corner" [ref=e171] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:002
+              - cell "S2-B" [ref=e172]
+              - cell "Lemonade Lemonade" [ref=e173]:
+                - generic [ref=e174]:
+                  - img "Lemonade" [ref=e175]
+                  - link "Lemonade" [ref=e176] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:001
+              - cell "€0.99" [ref=e177]
+              - cell "23" [ref=e178]
+              - cell "7" [ref=e179]
+            - row "Spree Corner Spree Corner S2-B Sparkling Water Sparkling Water €0.89 26 6" [ref=e180]:
+              - cell "Spree Corner Spree Corner" [ref=e181]:
+                - generic [ref=e182]:
+                  - img "Spree Corner" [ref=e183]
+                  - link "Spree Corner" [ref=e184] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:002
+              - cell "S2-B" [ref=e185]
+              - cell "Sparkling Water Sparkling Water" [ref=e186]:
+                - generic [ref=e187]:
+                  - img "Sparkling Water" [ref=e188]
+                  - link "Sparkling Water" [ref=e189] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:003
+              - cell "€0.89" [ref=e190]
+              - cell "26" [ref=e191]
+              - cell "6" [ref=e192]
+            - row "Spree Corner Spree Corner S2-C Orange Juice Orange Juice €1.29 24 7" [ref=e193]:
+              - cell "Spree Corner Spree Corner" [ref=e194]:
+                - generic [ref=e195]:
+                  - img "Spree Corner" [ref=e196]
+                  - link "Spree Corner" [ref=e197] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:002
+              - cell "S2-C" [ref=e198]
+              - cell "Orange Juice Orange Juice" [ref=e199]:
+                - generic [ref=e200]:
+                  - img "Orange Juice" [ref=e201]
+                  - link "Orange Juice" [ref=e202] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:002
+              - cell "€1.29" [ref=e203]
+              - cell "24" [ref=e204]
+              - cell "7" [ref=e205]
+            - row "Spree Corner Spree Corner S2-C Still Water Still Water €0.79 22 8" [ref=e206]:
+              - cell "Spree Corner Spree Corner" [ref=e207]:
+                - generic [ref=e208]:
+                  - img "Spree Corner" [ref=e209]
+                  - link "Spree Corner" [ref=e210] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:002
+              - cell "S2-C" [ref=e211]
+              - cell "Still Water Still Water" [ref=e212]:
+                - generic [ref=e213]:
+                  - img "Still Water" [ref=e214]
+                  - link "Still Water" [ref=e215] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:004
+              - cell "€0.79" [ref=e216]
+              - cell "22" [ref=e217]
+              - cell "8" [ref=e218]
+            - row "Spree Corner Spree Corner S2-D Cola Cola €1.39 21 7" [ref=e219]:
+              - cell "Spree Corner Spree Corner" [ref=e220]:
+                - generic [ref=e221]:
+                  - img "Spree Corner" [ref=e222]
+                  - link "Spree Corner" [ref=e223] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:002
+              - cell "S2-D" [ref=e224]
+              - cell "Cola Cola" [ref=e225]:
+                - generic [ref=e226]:
+                  - img "Cola" [ref=e227]
+                  - link "Cola" [ref=e228] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:005
+              - cell "€1.39" [ref=e229]
+              - cell "21" [ref=e230]
+              - cell "7" [ref=e231]
+            - row "Spree Corner Spree Corner S2-D Potato Chips Potato Chips €1.99 20 8" [ref=e232]:
+              - cell "Spree Corner Spree Corner" [ref=e233]:
+                - generic [ref=e234]:
+                  - img "Spree Corner" [ref=e235]
+                  - link "Spree Corner" [ref=e236] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:002
+              - cell "S2-D" [ref=e237]
+              - cell "Potato Chips Potato Chips" [ref=e238]:
+                - generic [ref=e239]:
+                  - img "Potato Chips" [ref=e240]
+                  - link "Potato Chips" [ref=e241] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:007
+              - cell "€1.99" [ref=e242]
+              - cell "20" [ref=e243]
+              - cell "8" [ref=e244]
+            - row "Tiergarten Fresh Tiergarten Fresh S3-A Iced Tea Iced Tea €1.49 19 7" [ref=e245]:
+              - cell "Tiergarten Fresh Tiergarten Fresh" [ref=e246]:
+                - generic [ref=e247]:
+                  - img "Tiergarten Fresh" [ref=e248]
+                  - link "Tiergarten Fresh" [ref=e249] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:003
+              - cell "S3-A" [ref=e250]
+              - cell "Iced Tea Iced Tea" [ref=e251]:
+                - generic [ref=e252]:
+                  - img "Iced Tea" [ref=e253]
+                  - link "Iced Tea" [ref=e254] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:006
+              - cell "€1.49" [ref=e255]
+              - cell "19" [ref=e256]
+              - cell "7" [ref=e257]
+            - row "Tiergarten Fresh Tiergarten Fresh S3-A Salted Nuts Salted Nuts €2.49 21 8" [ref=e258]:
+              - cell "Tiergarten Fresh Tiergarten Fresh" [ref=e259]:
+                - generic [ref=e260]:
+                  - img "Tiergarten Fresh" [ref=e261]
+                  - link "Tiergarten Fresh" [ref=e262] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:003
+              - cell "S3-A" [ref=e263]
+              - cell "Salted Nuts Salted Nuts" [ref=e264]:
+                - generic [ref=e265]:
+                  - img "Salted Nuts" [ref=e266]
+                  - link "Salted Nuts" [ref=e267] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:008
+              - cell "€2.49" [ref=e268]
+              - cell "21" [ref=e269]
+              - cell "8" [ref=e270]
+            - row "Tiergarten Fresh Tiergarten Fresh S3-B Chocolate Bar Chocolate Bar €1.59 20 7" [ref=e271]:
+              - cell "Tiergarten Fresh Tiergarten Fresh" [ref=e272]:
+                - generic [ref=e273]:
+                  - img "Tiergarten Fresh" [ref=e274]
+                  - link "Tiergarten Fresh" [ref=e275] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:003
+              - cell "S3-B" [ref=e276]
+              - cell "Chocolate Bar Chocolate Bar" [ref=e277]:
+                - generic [ref=e278]:
+                  - img "Chocolate Bar" [ref=e279]
+                  - link "Chocolate Bar" [ref=e280] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:009
+              - cell "€1.59" [ref=e281]
+              - cell "20" [ref=e282]
+              - cell "7" [ref=e283]
+            - row "Tiergarten Fresh Tiergarten Fresh S3-B Lemonade Lemonade €0.99 22 6" [ref=e284]:
+              - cell "Tiergarten Fresh Tiergarten Fresh" [ref=e285]:
+                - generic [ref=e286]:
+                  - img "Tiergarten Fresh" [ref=e287]
+                  - link "Tiergarten Fresh" [ref=e288] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:003
+              - cell "S3-B" [ref=e289]
+              - cell "Lemonade Lemonade" [ref=e290]:
+                - generic [ref=e291]:
+                  - img "Lemonade" [ref=e292]
+                  - link "Lemonade" [ref=e293] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:001
+              - cell "€0.99" [ref=e294]
+              - cell "22" [ref=e295]
+              - cell "6" [ref=e296]
+            - row "Tiergarten Fresh Tiergarten Fresh S3-C Protein Bar Protein Bar €2.19 18 7" [ref=e297]:
+              - cell "Tiergarten Fresh Tiergarten Fresh" [ref=e298]:
+                - generic [ref=e299]:
+                  - img "Tiergarten Fresh" [ref=e300]
+                  - link "Tiergarten Fresh" [ref=e301] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:003
+              - cell "S3-C" [ref=e302]
+              - cell "Protein Bar Protein Bar" [ref=e303]:
+                - generic [ref=e304]:
+                  - img "Protein Bar" [ref=e305]
+                  - link "Protein Bar" [ref=e306] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:010
+              - cell "€2.19" [ref=e307]
+              - cell "18" [ref=e308]
+              - cell "7" [ref=e309]
+            - row "Tiergarten Fresh Tiergarten Fresh S3-C Orange Juice Orange Juice €1.29 20 8" [ref=e310]:
+              - cell "Tiergarten Fresh Tiergarten Fresh" [ref=e311]:
+                - generic [ref=e312]:
+                  - img "Tiergarten Fresh" [ref=e313]
+                  - link "Tiergarten Fresh" [ref=e314] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:003
+              - cell "S3-C" [ref=e315]
+              - cell "Orange Juice Orange Juice" [ref=e316]:
+                - generic [ref=e317]:
+                  - img "Orange Juice" [ref=e318]
+                  - link "Orange Juice" [ref=e319] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:002
+              - cell "€1.29" [ref=e320]
+              - cell "20" [ref=e321]
+              - cell "8" [ref=e322]
+            - row "Tiergarten Fresh Tiergarten Fresh S3-D Sparkling Water Sparkling Water €0.89 23 7" [ref=e323]:
+              - cell "Tiergarten Fresh Tiergarten Fresh" [ref=e324]:
+                - generic [ref=e325]:
+                  - img "Tiergarten Fresh" [ref=e326]
+                  - link "Tiergarten Fresh" [ref=e327] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:003
+              - cell "S3-D" [ref=e328]
+              - cell "Sparkling Water Sparkling Water" [ref=e329]:
+                - generic [ref=e330]:
+                  - img "Sparkling Water" [ref=e331]
+                  - link "Sparkling Water" [ref=e332] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:003
+              - cell "€0.89" [ref=e333]
+              - cell "23" [ref=e334]
+              - cell "7" [ref=e335]
+            - row "Tiergarten Fresh Tiergarten Fresh S3-D Cola Cola €1.39 24 6" [ref=e336]:
+              - cell "Tiergarten Fresh Tiergarten Fresh" [ref=e337]:
+                - generic [ref=e338]:
+                  - img "Tiergarten Fresh" [ref=e339]
+                  - link "Tiergarten Fresh" [ref=e340] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:003
+              - cell "S3-D" [ref=e341]
+              - cell "Cola Cola" [ref=e342]:
+                - generic [ref=e343]:
+                  - img "Cola" [ref=e344]
+                  - link "Cola" [ref=e345] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:005
+              - cell "€1.39" [ref=e346]
+              - cell "24" [ref=e347]
+              - cell "6" [ref=e348]
+            - row "Prenzl Pantry Prenzl Pantry S4-A Still Water Still Water €0.79 21 7" [ref=e349]:
+              - cell "Prenzl Pantry Prenzl Pantry" [ref=e350]:
+                - generic [ref=e351]:
+                  - img "Prenzl Pantry" [ref=e352]
+                  - link "Prenzl Pantry" [ref=e353] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:004
+              - cell "S4-A" [ref=e354]
+              - cell "Still Water Still Water" [ref=e355]:
+                - generic [ref=e356]:
+                  - img "Still Water" [ref=e357]
+                  - link "Still Water" [ref=e358] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:004
+              - cell "€0.79" [ref=e359]
+              - cell "21" [ref=e360]
+              - cell "7" [ref=e361]
+            - row "Prenzl Pantry Prenzl Pantry S4-A Iced Tea Iced Tea €1.49 22 8" [ref=e362]:
+              - cell "Prenzl Pantry Prenzl Pantry" [ref=e363]:
+                - generic [ref=e364]:
+                  - img "Prenzl Pantry" [ref=e365]
+                  - link "Prenzl Pantry" [ref=e366] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:004
+              - cell "S4-A" [ref=e367]
+              - cell "Iced Tea Iced Tea" [ref=e368]:
+                - generic [ref=e369]:
+                  - img "Iced Tea" [ref=e370]
+                  - link "Iced Tea" [ref=e371] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:006
+              - cell "€1.49" [ref=e372]
+              - cell "22" [ref=e373]
+              - cell "8" [ref=e374]
+            - row "Prenzl Pantry Prenzl Pantry S4-B Potato Chips Potato Chips €1.99 20 7" [ref=e375]:
+              - cell "Prenzl Pantry Prenzl Pantry" [ref=e376]:
+                - generic [ref=e377]:
+                  - img "Prenzl Pantry" [ref=e378]
+                  - link "Prenzl Pantry" [ref=e379] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:004
+              - cell "S4-B" [ref=e380]
+              - cell "Potato Chips Potato Chips" [ref=e381]:
+                - generic [ref=e382]:
+                  - img "Potato Chips" [ref=e383]
+                  - link "Potato Chips" [ref=e384] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:007
+              - cell "€1.99" [ref=e385]
+              - cell "20" [ref=e386]
+              - cell "7" [ref=e387]
+            - row "Prenzl Pantry Prenzl Pantry S4-B Chocolate Bar Chocolate Bar €1.59 19 8" [ref=e388]:
+              - cell "Prenzl Pantry Prenzl Pantry" [ref=e389]:
+                - generic [ref=e390]:
+                  - img "Prenzl Pantry" [ref=e391]
+                  - link "Prenzl Pantry" [ref=e392] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:004
+              - cell "S4-B" [ref=e393]
+              - cell "Chocolate Bar Chocolate Bar" [ref=e394]:
+                - generic [ref=e395]:
+                  - img "Chocolate Bar" [ref=e396]
+                  - link "Chocolate Bar" [ref=e397] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:009
+              - cell "€1.59" [ref=e398]
+              - cell "19" [ref=e399]
+              - cell "8" [ref=e400]
+            - row "Prenzl Pantry Prenzl Pantry S4-C Salted Nuts Salted Nuts €2.49 22 6" [ref=e401]:
+              - cell "Prenzl Pantry Prenzl Pantry" [ref=e402]:
+                - generic [ref=e403]:
+                  - img "Prenzl Pantry" [ref=e404]
+                  - link "Prenzl Pantry" [ref=e405] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:004
+              - cell "S4-C" [ref=e406]
+              - cell "Salted Nuts Salted Nuts" [ref=e407]:
+                - generic [ref=e408]:
+                  - img "Salted Nuts" [ref=e409]
+                  - link "Salted Nuts" [ref=e410] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:008
+              - cell "€2.49" [ref=e411]
+              - cell "22" [ref=e412]
+              - cell "6" [ref=e413]
+            - row "Prenzl Pantry Prenzl Pantry S4-C Protein Bar Protein Bar €2.19 17 7" [ref=e414]:
+              - cell "Prenzl Pantry Prenzl Pantry" [ref=e415]:
+                - generic [ref=e416]:
+                  - img "Prenzl Pantry" [ref=e417]
+                  - link "Prenzl Pantry" [ref=e418] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:004
+              - cell "S4-C" [ref=e419]
+              - cell "Protein Bar Protein Bar" [ref=e420]:
+                - generic [ref=e421]:
+                  - img "Protein Bar" [ref=e422]
+                  - link "Protein Bar" [ref=e423] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:010
+              - cell "€2.19" [ref=e424]
+              - cell "17" [ref=e425]
+              - cell "7" [ref=e426]
+            - row "Prenzl Pantry Prenzl Pantry S4-D Lemonade Lemonade €0.99 18 8" [ref=e427]:
+              - cell "Prenzl Pantry Prenzl Pantry" [ref=e428]:
+                - generic [ref=e429]:
+                  - img "Prenzl Pantry" [ref=e430]
+                  - link "Prenzl Pantry" [ref=e431] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:004
+              - cell "S4-D" [ref=e432]
+              - cell "Lemonade Lemonade" [ref=e433]:
+                - generic [ref=e434]:
+                  - img "Lemonade" [ref=e435]
+                  - link "Lemonade" [ref=e436] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:001
+              - cell "€0.99" [ref=e437]
+              - cell "18" [ref=e438]
+              - cell "8" [ref=e439]
+            - row "Prenzl Pantry Prenzl Pantry S4-D Orange Juice Orange Juice €1.29 20 7" [ref=e440]:
+              - cell "Prenzl Pantry Prenzl Pantry" [ref=e441]:
+                - generic [ref=e442]:
+                  - img "Prenzl Pantry" [ref=e443]
+                  - link "Prenzl Pantry" [ref=e444] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:004
+              - cell "S4-D" [ref=e445]
+              - cell "Orange Juice Orange Juice" [ref=e446]:
+                - generic [ref=e447]:
+                  - img "Orange Juice" [ref=e448]
+                  - link "Orange Juice" [ref=e449] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:002
+              - cell "€1.29" [ref=e450]
+              - cell "20" [ref=e451]
+              - cell "7" [ref=e452]

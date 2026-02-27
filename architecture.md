@@ -15,7 +15,7 @@ Capas principales:
    - Formularios Flask-WTF/WTForms (`app/forms.py`)
    - Plantillas Jinja2 (`app/templates/*.html`)
    - Assets estáticos (`app/static/*`)
-   - Pipeline CSS Tailwind (`app/static/src/input.css` -> `app/static/dist/styles.css`)
+   - Hoja de estilos estática (`app/static/styles.css`)
 2. **Application/Data Layer**
    - Repositorio (`app/services/repository.py`) con consultas para vistas
    - Servicio i18n (`app/services/i18n.py`) para resolución de idioma y traducciones
@@ -33,8 +33,7 @@ Capas principales:
 - `app/models/dto.py`: modelos tipados para `Store`, `Shelf`, `Product`, `InventoryItem`.
 - `app/templates/*`: renderizado SSR.
 - `app/static/js/map.js`: inicialización de mapa para `location` GeoJSON.
-- `tailwind.config.js`: configuración de tokens y escaneo de plantillas.
-- `package.json`: scripts frontend (`build:css`, `watch:css`, `test:images`) y dependencias UI.
+- `app/static/styles.css`: estilos base y utilidades visuales.
 
 ## 4. Domain Model Mapping
 - `Store` (1..N) `Shelf`
@@ -54,7 +53,7 @@ Atributos visuales relevantes:
 3. `routes.py` obtiene (o inicializa) `DataRepository`.
 4. El repositorio devuelve datos enriquecidos para la vista (joins por IDs de relación).
 5. Jinja2 renderiza HTML SSR incluyendo textos traducidos e imágenes de `Store` y `Product`.
-6. CSS compilado con Tailwind/Flowbite aporta estilos de dashboard y componentes comunes.
+6. CSS estático local aporta estilos de dashboard y componentes comunes.
 7. Alpine.js gestiona interacciones ligeras de UI (por ejemplo, menú lateral responsive).
 8. En vistas con `location`, el frontend inicializa Leaflet con GeoJSON.
 
