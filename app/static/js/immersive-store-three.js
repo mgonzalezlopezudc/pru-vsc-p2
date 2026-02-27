@@ -1,6 +1,9 @@
 import * as THREE from "https://esm.sh/three@0.161.0";
 import { PointerLockControls } from "https://esm.sh/three@0.161.0/examples/jsm/controls/PointerLockControls.js";
 import { GLTFLoader } from "https://esm.sh/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
+import { EffectComposer } from "https://esm.sh/three@0.161.0/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "https://esm.sh/three@0.161.0/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "https://esm.sh/three@0.161.0/examples/jsm/postprocessing/UnrealBloomPass.js";
 
 const root = document.getElementById("shelf-3d-view");
 if (!root) {
@@ -17,6 +20,7 @@ const safeParse = (rawValue) => {
 };
 
 const sceneData = safeParse(root.dataset.scene);
+const storeName = (root.dataset.storeName || "").trim();
 if (sceneData.length === 0) {
   root.innerHTML = `<p class="shelf-scene-empty">${root.dataset.emptyMessage || "No hay datos"}</p>`;
 } else {
@@ -33,14 +37,55 @@ if (sceneData.length === 0) {
   renderer.setSize(root.clientWidth, root.clientHeight);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.45;
+  renderer.toneMappingExposure = 1.3;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.physicallyCorrectLights = true;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xcfe4f8);
-  scene.fog = new THREE.Fog(0xcfe4f8, 32, 120);
+  const proceduralEnvironment = new THREE.Group();
+  scene.add(proceduralEnvironment);
+  const createAmbientSkyTexture = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1024;
+    canvas.height = 512;
+    const context = canvas.getContext("2d");
+    if (!context) {
+      return null;
+    }
+
+    const gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, "#d9ecff");
+    gradient.addColorStop(0.45, "#e9f3ff");
+    gradient.addColorStop(1, "#f5f8fd");
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let index = 0; index < 80; index += 1) {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * (canvas.height * 0.72);
+      const radius = 26 + Math.random() * 120;
+      const halo = context.createRadialGradient(x, y, 0, x, y, radius);
+      halo.addColorStop(0, "rgba(255,255,255,0.12)");
+      halo.addColorStop(1, "rgba(255,255,255,0)");
+      context.fillStyle = halo;
+      context.beginPath();
+      context.arc(x, y, radius, 0, Math.PI * 2);
+      context.fill();
+    }
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return texture;
+  };
+
+  const ambientSkyTexture = createAmbientSkyTexture();
+  if (ambientSkyTexture) {
+    scene.background = ambientSkyTexture;
+  } else {
+    scene.background = new THREE.Color(0xd9ebfc);
+  }
+  scene.fog = new THREE.FogExp2(0xe8f1ff, 0.0102);
 
   const camera = new THREE.PerspectiveCamera(72, root.clientWidth / root.clientHeight, 0.1, 180);
   camera.position.set(0, 1.65, 11);
@@ -48,29 +93,32 @@ if (sceneData.length === 0) {
   const controls = new PointerLockControls(camera, root);
   scene.add(controls.getObject());
 
-  const hemiLight = new THREE.HemisphereLight(0xe6f4ff, 0x7f93aa, 1.05);
+  const hemiLight = new THREE.HemisphereLight(0xf4faff, 0x70829a, 1.02);
   scene.add(hemiLight);
 
-  const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
-  keyLight.position.set(10, 13, 9);
+  const keyLight = new THREE.DirectionalLight(0xffffff, 2.35);
+  keyLight.position.set(9, 13, 8);
   keyLight.castShadow = true;
   keyLight.shadow.mapSize.set(2048, 2048);
   keyLight.shadow.camera.near = 1;
-  keyLight.shadow.camera.far = 45;
+  keyLight.shadow.camera.far = 54;
   keyLight.shadow.camera.left = -18;
   keyLight.shadow.camera.right = 18;
   keyLight.shadow.camera.top = 18;
   keyLight.shadow.camera.bottom = -18;
+  keyLight.shadow.bias = -0.00018;
   scene.add(keyLight);
 
-  const fillLight = new THREE.DirectionalLight(0xf4fbff, 1.05);
-  fillLight.position.set(-10, 8, -6);
+  const fillLight = new THREE.DirectionalLight(0xeef5ff, 1.18);
+  fillLight.position.set(-11, 8, -8);
   scene.add(fillLight);
 
-  const aisleLight = new THREE.SpotLight(0xfff2d6, 3.2, 85, Math.PI / 4.8, 0.32, 1.05);
+  const aisleLight = new THREE.SpotLight(0xfff5dd, 3.2, 90, Math.PI / 4.55, 0.3, 1.06);
   aisleLight.position.set(0, 7.8, -8);
   aisleLight.target.position.set(0, 1.5, 4);
   aisleLight.castShadow = true;
+  aisleLight.shadow.mapSize.set(1024, 1024);
+  aisleLight.shadow.bias = -0.00012;
   scene.add(aisleLight);
   scene.add(aisleLight.target);
 
@@ -271,6 +319,116 @@ if (sceneData.length === 0) {
     return texture;
   };
 
+  const createStoreNameSignTexture = (name) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1024;
+    canvas.height = 320;
+    const context = canvas.getContext("2d");
+    if (!context) {
+      return null;
+    }
+
+    const normalizedName = (name || "TIENDA PRINCIPAL").trim().toUpperCase();
+    const words = normalizedName.split(/\s+/).filter(Boolean);
+
+    const splitLongWord = (word, maxChars) => {
+      const chunks = [];
+      for (let cursor = 0; cursor < word.length; cursor += maxChars) {
+        chunks.push(word.slice(cursor, cursor + maxChars));
+      }
+      return chunks;
+    };
+
+    const buildLines = (inputWords, maxCharsPerLine, maxLines) => {
+      const lines = [];
+      let current = "";
+
+      inputWords.forEach((word) => {
+        const prepared = word.length > maxCharsPerLine ? splitLongWord(word, maxCharsPerLine) : [word];
+        prepared.forEach((part) => {
+          const candidate = current ? `${current} ${part}` : part;
+          if (candidate.length <= maxCharsPerLine) {
+            current = candidate;
+          } else {
+            if (current) {
+              lines.push(current);
+            }
+            current = part;
+          }
+        });
+      });
+
+      if (current) {
+        lines.push(current);
+      }
+
+      if (lines.length === 0) {
+        return ["TIENDA"];
+      }
+
+      if (lines.length > maxLines) {
+        const visible = lines.slice(0, maxLines);
+        const last = visible[maxLines - 1];
+        visible[maxLines - 1] = last.length > maxCharsPerLine - 1 ? `${last.slice(0, maxCharsPerLine - 1)}…` : `${last}…`;
+        return visible;
+      }
+
+      return lines;
+    };
+
+    const lines = buildLines(words, 20, 2);
+
+    const bgGradient = context.createLinearGradient(0, 0, 0, canvas.height);
+    bgGradient.addColorStop(0, "#2563eb");
+    bgGradient.addColorStop(1, "#1d4ed8");
+    context.fillStyle = bgGradient;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    context.fillStyle = "#1e40af";
+    context.fillRect(0, 0, canvas.width, 58);
+
+    context.strokeStyle = "rgba(255,255,255,0.35)";
+    context.lineWidth = 8;
+    context.strokeRect(14, 14, canvas.width - 28, canvas.height - 28);
+
+    context.textAlign = "left";
+    context.fillStyle = "#dbeafe";
+    context.font = "700 28px Inter, Arial";
+    context.fillText("TIENDA", 34, 40);
+
+    const contentLeft = 36;
+    const contentWidth = canvas.width - 72;
+    const contentTop = 84;
+    const contentBottom = canvas.height - 34;
+    const contentHeight = contentBottom - contentTop;
+
+    let fontSize = 118;
+    let lineHeight = 126;
+    while (fontSize >= 56) {
+      context.font = `700 ${fontSize}px Inter, Arial`;
+      const widest = lines.reduce((maxWidth, line) => Math.max(maxWidth, context.measureText(line).width), 0);
+      lineHeight = Math.round(fontSize * 1.06);
+      const totalHeight = lines.length * lineHeight;
+      if (widest <= contentWidth && totalHeight <= contentHeight) {
+        break;
+      }
+      fontSize -= 4;
+    }
+
+    context.textAlign = "center";
+    context.fillStyle = "#ffffff";
+    context.font = `700 ${fontSize}px Inter, Arial`;
+    const totalHeight = lines.length * lineHeight;
+    const startY = contentTop + (contentHeight - totalHeight) / 2 + fontSize;
+    lines.forEach((line, index) => {
+      context.fillText(line, contentLeft + contentWidth / 2, startY + index * lineHeight);
+    });
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return texture;
+  };
+
   const floorTexture = createSupermarketFloorTexture() ?? textureLoader.load("https://threejs.org/examples/textures/uv_grid_opengl.jpg");
   floorTexture.wrapS = THREE.RepeatWrapping;
   floorTexture.wrapT = THREE.RepeatWrapping;
@@ -279,19 +437,48 @@ if (sceneData.length === 0) {
 
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(56, 92),
-    new THREE.MeshStandardMaterial({ color: 0xf5f8fc, map: floorTexture, roughness: 0.62, metalness: 0.02 })
+    new THREE.MeshPhysicalMaterial({
+      color: 0xf8fbff,
+      map: floorTexture,
+      roughness: 0.17,
+      metalness: 0.09,
+      clearcoat: 0.82,
+      clearcoatRoughness: 0.16,
+      reflectivity: 0.54,
+    })
   );
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
-  scene.add(floor);
+  proceduralEnvironment.add(floor);
 
   const ceiling = new THREE.Mesh(
     new THREE.PlaneGeometry(56, 92),
-    new THREE.MeshStandardMaterial({ color: 0xeaf2fb, roughness: 0.92, metalness: 0 })
+    new THREE.MeshStandardMaterial({ color: 0xecf4ff, roughness: 0.78, metalness: 0.04, emissive: 0xbdd9ff, emissiveIntensity: 0.06 })
   );
   ceiling.position.y = 8.7;
   ceiling.rotation.x = Math.PI / 2;
-  scene.add(ceiling);
+  proceduralEnvironment.add(ceiling);
+
+  const stripGroup = new THREE.Group();
+  for (let z = 10; z >= -38; z -= 8) {
+    const lightStrip = new THREE.Mesh(
+      new THREE.BoxGeometry(13.5, 0.045, 0.38),
+      new THREE.MeshStandardMaterial({
+        color: 0xeef6ff,
+        emissive: 0xdbeafe,
+        emissiveIntensity: 0.74,
+        roughness: 0.35,
+        metalness: 0.05,
+      })
+    );
+    lightStrip.position.set(0, 8.52, z);
+    stripGroup.add(lightStrip);
+
+    const stripGlow = new THREE.PointLight(0xe7f1ff, 0.62, 18, 2);
+    stripGlow.position.set(0, 8.36, z);
+    stripGroup.add(stripGlow);
+  }
+  proceduralEnvironment.add(stripGroup);
 
   const shelfWallTexture = createStockedShelfWallTexture(0) ?? textureLoader.load("https://threejs.org/examples/textures/brick_diffuse.jpg");
   shelfWallTexture.wrapS = THREE.RepeatWrapping;
@@ -308,32 +495,32 @@ if (sceneData.length === 0) {
   const backWallMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     map: shelfWallTexture,
-    roughness: 0.62,
-    metalness: 0.02,
-    emissive: 0x1b2636,
-    emissiveIntensity: 0.05,
+    roughness: 0.46,
+    metalness: 0.08,
+    emissive: 0x17263b,
+    emissiveIntensity: 0.08,
   });
   const sideWallMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     map: sideShelfWallTexture,
-    roughness: 0.64,
-    metalness: 0.02,
-    emissive: 0x1b2636,
-    emissiveIntensity: 0.05,
+    roughness: 0.5,
+    metalness: 0.07,
+    emissive: 0x17263b,
+    emissiveIntensity: 0.08,
   });
 
   const backWall = new THREE.Mesh(new THREE.PlaneGeometry(56, 9), backWallMaterial);
   backWall.position.set(0, 4.5, -44);
-  scene.add(backWall);
+  proceduralEnvironment.add(backWall);
 
   const sideWallLeft = new THREE.Mesh(new THREE.PlaneGeometry(92, 9), sideWallMaterial);
   sideWallLeft.rotation.y = Math.PI / 2;
   sideWallLeft.position.set(-28, 4.5, 0);
-  scene.add(sideWallLeft);
+  proceduralEnvironment.add(sideWallLeft);
 
   const sideWallRight = sideWallLeft.clone();
   sideWallRight.position.set(28, 4.5, 0);
-  scene.add(sideWallRight);
+  proceduralEnvironment.add(sideWallRight);
 
   const createHangingPromoSign = (zPosition, signTexture) => {
     const signGroup = new THREE.Group();
@@ -341,7 +528,13 @@ if (sceneData.length === 0) {
 
     const signBoard = new THREE.Mesh(
       new THREE.PlaneGeometry(2.6, 1.15),
-      new THREE.MeshStandardMaterial({ map: signTexture, roughness: 0.46, metalness: 0.06 })
+      new THREE.MeshStandardMaterial({
+        map: signTexture,
+        roughness: 0.3,
+        metalness: 0.14,
+        emissive: 0x1e293b,
+        emissiveIntensity: 0.11,
+      })
     );
     signBoard.castShadow = true;
     signGroup.add(signBoard);
@@ -357,7 +550,91 @@ if (sceneData.length === 0) {
     chainRight.position.x = 1.1;
     signGroup.add(chainRight);
 
-    scene.add(signGroup);
+    proceduralEnvironment.add(signGroup);
+  };
+
+  const createHangingStoreNameSign = (name) => {
+    const signTexture = createStoreNameSignTexture(name);
+    if (!signTexture) {
+      return;
+    }
+
+    const signGroup = new THREE.Group();
+    signGroup.position.set(0, 7.35, 4.6);
+
+    const signBoard = new THREE.Mesh(
+      new THREE.PlaneGeometry(5.8, 1.8),
+      new THREE.MeshStandardMaterial({
+        map: signTexture,
+        roughness: 0.4,
+        metalness: 0.09,
+        emissive: 0x1e3a8a,
+        emissiveIntensity: 0.08,
+      })
+    );
+    signBoard.castShadow = true;
+    signGroup.add(signBoard);
+
+    const chainMaterial = new THREE.MeshStandardMaterial({ color: 0xaab4c2, roughness: 0.45, metalness: 0.7 });
+    const chainGeom = new THREE.CylinderGeometry(0.013, 0.013, 1.1, 10);
+
+    const chainTop = new THREE.Mesh(chainGeom, chainMaterial);
+    chainTop.position.set(-2.35, 0.95, 0);
+    signGroup.add(chainTop);
+
+    const chainBottom = chainTop.clone();
+    chainBottom.position.x = 2.35;
+    signGroup.add(chainBottom);
+
+    proceduralEnvironment.add(signGroup);
+  };
+
+  const createBackWallStoreSign = (name, xPosition) => {
+    const signTexture = createStoreNameSignTexture(name);
+    if (!signTexture) {
+      return;
+    }
+
+    const wallSign = new THREE.Mesh(
+      new THREE.PlaneGeometry(9.2, 2.9),
+      new THREE.MeshStandardMaterial({
+        map: signTexture,
+        roughness: 0.4,
+        metalness: 0.08,
+        emissive: 0x1e3a8a,
+        emissiveIntensity: 0.06,
+      })
+    );
+    wallSign.position.set(xPosition, 5.6, -43.82);
+    proceduralEnvironment.add(wallSign);
+  };
+
+  const createSideWallStoreSign = (name, wallSide) => {
+    const signTexture = createStoreNameSignTexture(name);
+    if (!signTexture) {
+      return;
+    }
+
+    const wallSign = new THREE.Mesh(
+      new THREE.PlaneGeometry(8.8, 2.75),
+      new THREE.MeshStandardMaterial({
+        map: signTexture,
+        roughness: 0.4,
+        metalness: 0.08,
+        emissive: 0x1e3a8a,
+        emissiveIntensity: 0.06,
+      })
+    );
+
+    if (wallSide === "left") {
+      wallSign.position.set(-27.82, 5.5, -9);
+      wallSign.rotation.y = Math.PI / 2;
+    } else {
+      wallSign.position.set(27.82, 5.5, -9);
+      wallSign.rotation.y = -Math.PI / 2;
+    }
+
+    proceduralEnvironment.add(wallSign);
   };
 
   const promoTextures = [
@@ -374,10 +651,18 @@ if (sceneData.length === 0) {
     });
   }
 
+  createHangingStoreNameSign(storeName);
+  [-17.5, 17.5].forEach((xPosition) => {
+    createBackWallStoreSign(storeName, xPosition);
+  });
+  createSideWallStoreSign(storeName, "left");
+  createSideWallStoreSign(storeName, "right");
+
   const shelfGroup = new THREE.Group();
   const productLoader = textureLoader;
   const gltfLoader = new GLTFLoader();
   const loadedProductModels = new Map();
+  const supermarketEnvironmentFile = "supermarket.glb";
 
   const productModelByName = {
     lemonade: "waterbottle_jeremy.glb",
@@ -448,11 +733,16 @@ if (sceneData.length === 0) {
       license: "CC0",
       source: "poly.pizza/m/ZeJW3KyeTH",
     },
+    "supermarket.glb": {
+      author: "Aportado por el usuario",
+      license: "No especificada",
+      source: "",
+    },
   };
 
   const modelPathPrefix = "/static/models/products/";
 
-  const loadProductModel = (fileName) =>
+  const loadModelFromProductsPath = (fileName) =>
     new Promise((resolve) => {
       gltfLoader.load(
         `${modelPathPrefix}${fileName}`,
@@ -461,6 +751,49 @@ if (sceneData.length === 0) {
         () => resolve(null)
       );
     });
+
+  const loadProductModel = (fileName) => loadModelFromProductsPath(fileName);
+
+  const loadSupermarketEnvironment = async () => {
+    const supermarketScene = await loadModelFromProductsPath(supermarketEnvironmentFile);
+    if (!supermarketScene) {
+      return;
+    }
+
+    const supermarketModel = supermarketScene.clone(true);
+    supermarketModel.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        if (child.material?.map) {
+          child.material.map.colorSpace = THREE.SRGBColorSpace;
+        }
+      }
+    });
+
+    const originalBounds = new THREE.Box3().setFromObject(supermarketModel);
+    const originalSize = originalBounds.getSize(new THREE.Vector3());
+    const safeSize = new THREE.Vector3(
+      Math.max(originalSize.x, 0.0001),
+      Math.max(originalSize.y, 0.0001),
+      Math.max(originalSize.z, 0.0001)
+    );
+
+    const targetSize = new THREE.Vector3(54, 8.6, 90);
+    const modelScale = Math.min(targetSize.x / safeSize.x, targetSize.y / safeSize.y, targetSize.z / safeSize.z);
+    supermarketModel.scale.setScalar(modelScale);
+
+    const fittedBounds = new THREE.Box3().setFromObject(supermarketModel);
+    const fittedCenter = fittedBounds.getCenter(new THREE.Vector3());
+    supermarketModel.position.x -= fittedCenter.x;
+    supermarketModel.position.z -= fittedCenter.z;
+    supermarketModel.position.y -= fittedBounds.min.y;
+
+    supermarketModel.position.z -= 1.8;
+    supermarketModel.userData.productAttribution = "Aportado por el usuario";
+    proceduralEnvironment.visible = false;
+    scene.add(supermarketModel);
+  };
 
   const preloadProductModels = async () => {
     const uniqueFiles = [...new Set(Object.values(productModelByName))];
@@ -885,24 +1218,36 @@ if (sceneData.length === 0) {
     return productGroup;
   };
 
-  const woodTexture = textureLoader.load("https://threejs.org/examples/textures/hardwood2_diffuse.jpg");
-  woodTexture.wrapS = THREE.RepeatWrapping;
-  woodTexture.wrapT = THREE.RepeatWrapping;
-  woodTexture.repeat.set(1.2, 0.55);
-  woodTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  woodTexture.colorSpace = THREE.SRGBColorSpace;
-
-  const shelfFrameMaterial = new THREE.MeshStandardMaterial({
-    color: 0xb9895e,
-    map: woodTexture,
-    roughness: 0.66,
-    metalness: 0.04,
+  const shelfFrameMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xd0dae8,
+    roughness: 0.28,
+    metalness: 0.82,
+    clearcoat: 0.5,
+    clearcoatRoughness: 0.16,
   });
-  const shelfBoardMaterial = new THREE.MeshStandardMaterial({
-    color: 0xcf9e70,
-    map: woodTexture,
-    roughness: 0.62,
-    metalness: 0.03,
+  const shelfBoardMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xf4f8ff,
+    roughness: 0.14,
+    metalness: 0.05,
+    transmission: 0.26,
+    thickness: 0.08,
+    clearcoat: 0.85,
+    clearcoatRoughness: 0.1,
+    ior: 1.45,
+  });
+  const shelfTrimMaterial = new THREE.MeshStandardMaterial({
+    color: 0x9aaec8,
+    roughness: 0.34,
+    metalness: 0.78,
+    emissive: 0xb6d8ff,
+    emissiveIntensity: 0.06,
+  });
+  const shelfLedMaterial = new THREE.MeshStandardMaterial({
+    color: 0xe9f4ff,
+    emissive: 0xd4ebff,
+    emissiveIntensity: 0.45,
+    roughness: 0.24,
+    metalness: 0.12,
   });
 
   const aisleSpacing = 5.4;
@@ -912,21 +1257,30 @@ if (sceneData.length === 0) {
     const shelfUnit = new THREE.Group();
     shelfUnit.position.set(x, 0, z);
 
-    const frameHeight = 3.4;
+    const frameHeight = 3.48;
     const frameWidth = 2.9;
-    const frameDepth = 1.05;
+    const frameDepth = 1.08;
 
-    const frameGeom = new THREE.BoxGeometry(0.08, frameHeight, frameDepth);
+    const frameGeom = new THREE.BoxGeometry(0.095, frameHeight, frameDepth);
     const postLeft = new THREE.Mesh(frameGeom, shelfFrameMaterial);
     postLeft.position.set(-frameWidth / 2, frameHeight / 2, 0);
     postLeft.castShadow = true;
+    postLeft.receiveShadow = true;
 
     const postRight = postLeft.clone();
     postRight.position.x = frameWidth / 2;
 
     shelfUnit.add(postLeft, postRight);
 
-    const boardGeom = new THREE.BoxGeometry(frameWidth + 0.12, 0.09, frameDepth + 0.16);
+    const topRail = new THREE.Mesh(
+      new THREE.BoxGeometry(frameWidth + 0.12, 0.11, frameDepth + 0.12),
+      shelfTrimMaterial
+    );
+    topRail.position.set(0, frameHeight - 0.08, 0);
+    topRail.castShadow = true;
+    shelfUnit.add(topRail);
+
+    const boardGeom = new THREE.BoxGeometry(frameWidth + 0.06, 0.065, frameDepth + 0.06);
     const levels = [0.48, 1.2, 1.92, 2.64];
     levels.forEach((levelY) => {
       const board = new THREE.Mesh(boardGeom, shelfBoardMaterial);
@@ -934,11 +1288,25 @@ if (sceneData.length === 0) {
       board.castShadow = true;
       board.receiveShadow = true;
       shelfUnit.add(board);
+
+      const frontTrim = new THREE.Mesh(
+        new THREE.BoxGeometry(frameWidth + 0.1, 0.05, 0.04),
+        shelfTrimMaterial
+      );
+      frontTrim.position.set(0, levelY - 0.015, frameDepth / 2 + 0.03);
+      shelfUnit.add(frontTrim);
+
+      const ledStrip = new THREE.Mesh(
+        new THREE.BoxGeometry(frameWidth - 0.16, 0.012, 0.028),
+        shelfLedMaterial
+      );
+      ledStrip.position.set(0, levelY - 0.045, frameDepth / 2 + 0.025);
+      shelfUnit.add(ledStrip);
     });
 
     const titlePanel = new THREE.Mesh(
       new THREE.PlaneGeometry(frameWidth, 0.38),
-      new THREE.MeshStandardMaterial({ color: 0xc8d8ea, emissive: 0x9ec4ea, emissiveIntensity: 0.35 })
+      new THREE.MeshStandardMaterial({ color: 0xdfecff, emissive: 0xc9e3ff, emissiveIntensity: 0.28, metalness: 0.18, roughness: 0.24 })
     );
     titlePanel.position.set(0, 3.08, frameDepth / 2 + 0.02);
     shelfUnit.add(titlePanel);
@@ -981,29 +1349,41 @@ if (sceneData.length === 0) {
   };
 
   for (let z = 12; z >= -36; z -= 8) {
-    const overhead = new THREE.PointLight(0xffffff, 1.35, 22, 2);
+    const overhead = new THREE.PointLight(0xffffff, 1.25, 24, 2);
     overhead.position.set(0, 7.2, z);
     scene.add(overhead);
   }
 
-  const leftAccent = new THREE.SpotLight(0xf3f7ff, 2.4, 60, Math.PI / 5.2, 0.42, 1.1);
+  const leftAccent = new THREE.SpotLight(0xe8f3ff, 2.45, 64, Math.PI / 5.1, 0.4, 1.08);
   leftAccent.position.set(-8, 5.8, -10);
   leftAccent.target.position.set(-4, 1.6, -14);
   scene.add(leftAccent);
   scene.add(leftAccent.target);
 
-  const rightAccent = new THREE.SpotLight(0xfff8ea, 2.2, 60, Math.PI / 5.3, 0.42, 1.05);
+  const rightAccent = new THREE.SpotLight(0xfff8e8, 2.35, 64, Math.PI / 5.15, 0.4, 1.03);
   rightAccent.position.set(8, 5.8, -10);
   rightAccent.target.position.set(4, 1.6, -14);
   scene.add(rightAccent);
   scene.add(rightAccent.target);
 
-  const ambientDeco = new THREE.PointLight(0x7ec9ff, 1.4, 20, 2);
+  const ambientDeco = new THREE.PointLight(0x96d9ff, 1.35, 22, 2);
   ambientDeco.position.set(0, 2.2, 14);
   scene.add(ambientDeco);
 
+  const backRim = new THREE.PointLight(0xb9e2ff, 0.88, 26, 2);
+  backRim.position.set(0, 4.4, -34);
+  scene.add(backRim);
+
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloomPass = new UnrealBloomPass(new THREE.Vector2(root.clientWidth, root.clientHeight), 0.28, 0.75, 0.9);
+  composer.addPass(bloomPass);
+
   const hud = root.querySelector(".immersive-hud");
   const startButton = root.querySelector('[data-action="start-immersive"]');
+  const fullscreenButton = root.querySelector('[data-action="toggle-fullscreen"]');
+  const fullscreenEnterLabel = root.dataset.fullscreenEnterLabel || "Pantalla completa";
+  const fullscreenExitLabel = root.dataset.fullscreenExitLabel || "Salir de pantalla completa";
   const attributionPanel = document.createElement("p");
   attributionPanel.className = "immersive-attribution-panel";
   attributionPanel.setAttribute("aria-live", "polite");
@@ -1070,6 +1450,12 @@ if (sceneData.length === 0) {
     requestAnimationFrame(animate);
 
     const delta = Math.min(clock.getDelta(), 0.03);
+    const elapsed = clock.elapsedTime;
+    ambientDeco.intensity = 1.3 + Math.sin(elapsed * 0.62) * 0.1;
+    leftAccent.intensity = 2.35 + Math.sin(elapsed * 0.82 + 0.5) * 0.1;
+    rightAccent.intensity = 2.26 + Math.cos(elapsed * 0.86) * 0.1;
+    backRim.intensity = 0.82 + Math.sin(elapsed * 0.5 + 0.3) * 0.06;
+
     if (controls.isLocked) {
       const damping = 8.8 * delta;
       velocity.x -= velocity.x * damping;
@@ -1106,7 +1492,7 @@ if (sceneData.length === 0) {
       }
     }
 
-    renderer.render(scene, camera);
+    composer.render();
   };
 
   controls.addEventListener("lock", () => {
@@ -1133,12 +1519,80 @@ if (sceneData.length === 0) {
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
+    composer.setSize(width, height);
+    bloomPass.setSize(width, height);
   };
+
+  const getFullscreenElement = () => document.fullscreenElement || document.webkitFullscreenElement || null;
+  const isRootFullscreen = () => getFullscreenElement() === root;
+
+  const updateFullscreenButton = () => {
+    if (!fullscreenButton) {
+      return;
+    }
+    const active = isRootFullscreen();
+    fullscreenButton.textContent = active ? fullscreenExitLabel : fullscreenEnterLabel;
+    fullscreenButton.setAttribute("aria-pressed", active ? "true" : "false");
+  };
+
+  const requestRootFullscreen = async () => {
+    if (root.requestFullscreen) {
+      await root.requestFullscreen();
+      return;
+    }
+    if (root.webkitRequestFullscreen) {
+      root.webkitRequestFullscreen();
+    }
+  };
+
+  const exitRootFullscreen = async () => {
+    if (document.exitFullscreen) {
+      await document.exitFullscreen();
+      return;
+    }
+    if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  };
+
+  const toggleFullscreen = async () => {
+    try {
+      if (isRootFullscreen()) {
+        await exitRootFullscreen();
+      } else {
+        await requestRootFullscreen();
+      }
+    } catch {
+      // No romper experiencia si el navegador bloquea fullscreen.
+    }
+  };
+
+  const fullscreenSupported = Boolean(root.requestFullscreen || root.webkitRequestFullscreen);
+  if (fullscreenButton) {
+    if (!fullscreenSupported) {
+      fullscreenButton.disabled = true;
+      fullscreenButton.setAttribute("aria-disabled", "true");
+    } else {
+      fullscreenButton.addEventListener("click", () => {
+        toggleFullscreen();
+      });
+      updateFullscreenButton();
+    }
+  }
+
+  document.addEventListener("fullscreenchange", () => {
+    updateFullscreenButton();
+    onResize();
+  });
+  document.addEventListener("webkitfullscreenchange", () => {
+    updateFullscreenButton();
+    onResize();
+  });
 
   window.addEventListener("resize", onResize);
 
   root.appendChild(renderer.domElement);
-  preloadProductModels()
+  Promise.all([preloadProductModels(), loadSupermarketEnvironment()])
     .catch(() => {
       // Mantener fallback procedural si falla alguna descarga.
     })

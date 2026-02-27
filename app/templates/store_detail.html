@@ -47,16 +47,20 @@
     id="shelf-3d-view"
     class="immersive-store-view"
     data-scene='{{ shelf_scene|tojson }}'
+    data-store-name="{{ store.name }}"
     data-empty-message="{{ t('store.shelves_3d_empty') }}"
     data-empty-products-message="{{ t('store.shelves_3d_empty_products') }}"
     data-start-label="{{ t('store.shelves_3d_start') }}"
     data-exit-label="{{ t('store.shelves_3d_exit') }}"
     data-controls-label="{{ t('store.shelves_3d_controls') }}"
     data-pointer-label="{{ t('store.shelves_3d_pointer') }}"
+    data-fullscreen-enter-label="{{ t('store.shelves_3d_fullscreen_enter') }}"
+    data-fullscreen-exit-label="{{ t('store.shelves_3d_fullscreen_exit') }}"
   >
     <div class="immersive-hud">
       <div class="immersive-hud-row">
         <button type="button" class="app-btn" data-action="start-immersive">{{ t('store.shelves_3d_start') }}</button>
+        <button type="button" class="app-btn-secondary" data-action="toggle-fullscreen">{{ t('store.shelves_3d_fullscreen_enter') }}</button>
         <div class="immersive-help-wrap">
           <button type="button" class="immersive-help-btn" aria-label="{{ t('store.shelves_3d_help_label') }}">?</button>
           <div class="immersive-help-tooltip" role="note">

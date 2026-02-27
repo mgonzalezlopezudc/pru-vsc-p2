@@ -302,13 +302,14 @@ a {
 
 .shelf-scene-card {
   background: linear-gradient(
-    150deg,
-    color-mix(in srgb, var(--brand-900) 70%, var(--slate-50) 30%),
-    color-mix(in srgb, var(--brand-700) 64%, var(--slate-50) 36%),
-    color-mix(in srgb, var(--brand-600) 60%, var(--slate-50) 40%)
+    145deg,
+    color-mix(in srgb, var(--brand-900) 76%, var(--slate-50) 24%),
+    color-mix(in srgb, var(--brand-700) 68%, var(--slate-50) 32%),
+    color-mix(in srgb, var(--brand-600) 63%, var(--slate-50) 37%)
   );
   color: var(--slate-50);
   border-color: color-mix(in srgb, var(--brand-700) 28%, var(--slate-200) 72%);
+  box-shadow: 0 28px 56px -36px color-mix(in srgb, var(--brand-900) 60%, transparent);
 }
 
 .shelf-scene-header {
@@ -322,11 +323,13 @@ a {
 .immersive-store-view {
   position: relative;
   min-height: 560px;
-  border-radius: 0.95rem;
-  border: 1px solid color-mix(in srgb, var(--brand-400) 35%, var(--slate-700) 65%);
-  background: radial-gradient(circle at 20% 8%, color-mix(in srgb, var(--brand-400) 40%, transparent), transparent 48%),
-    radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--brand-700) 38%, transparent), transparent 45%),
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--brand-400) 44%, var(--slate-700) 56%);
+  background: radial-gradient(circle at 16% 8%, color-mix(in srgb, var(--brand-400) 46%, transparent), transparent 48%),
+    radial-gradient(circle at 86% 85%, color-mix(in srgb, var(--brand-700) 45%, transparent), transparent 46%),
     color-mix(in srgb, var(--slate-50) 55%, var(--slate-100) 45%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--slate-50) 14%, transparent),
+    0 28px 54px -36px color-mix(in srgb, var(--brand-900) 55%, transparent);
   overflow: hidden;
 }
 
@@ -336,10 +339,18 @@ a {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    color-mix(in srgb, var(--brand-700) 12%, transparent),
+    color-mix(in srgb, var(--brand-700) 14%, transparent),
     transparent 35%,
-    color-mix(in srgb, var(--brand-600) 12%, transparent)
+    color-mix(in srgb, var(--brand-600) 15%, transparent)
   );
+  pointer-events: none;
+}
+
+.immersive-store-view::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--slate-900) 26%, transparent), transparent 55%);
   pointer-events: none;
 }
 
@@ -357,10 +368,12 @@ a {
   margin: 0;
   max-width: 360px;
   padding: 0.45rem 0.6rem;
-  border-radius: 0.55rem;
-  border: 1px solid color-mix(in srgb, var(--brand-400) 35%, transparent);
-  background: color-mix(in srgb, var(--slate-900) 58%, transparent);
-  backdrop-filter: blur(4px);
+  border-radius: 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--brand-400) 44%, transparent);
+  background: color-mix(in srgb, var(--slate-900) 62%, transparent);
+  backdrop-filter: blur(7px);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--slate-50) 12%, transparent),
+    0 14px 26px -18px color-mix(in srgb, var(--slate-900) 78%, transparent);
   display: grid;
   gap: 0.35rem;
 }
@@ -376,16 +389,22 @@ a {
 }
 
 .immersive-hud .app-btn {
-  padding: 0.4rem 0.7rem;
+  padding: 0.42rem 0.74rem;
   font-size: 0.8rem;
+  border-color: color-mix(in srgb, var(--brand-400) 32%, transparent);
+}
+
+.immersive-hud .app-btn-secondary {
+  background: color-mix(in srgb, var(--slate-50) 94%, transparent);
+  border-color: color-mix(in srgb, var(--brand-400) 26%, var(--slate-200) 74%);
 }
 
 .immersive-help-btn {
   width: 1.65rem;
   height: 1.65rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--brand-400) 55%, transparent);
-  background: color-mix(in srgb, var(--slate-900) 38%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-400) 60%, transparent);
+  background: color-mix(in srgb, var(--slate-900) 34%, transparent);
   color: var(--slate-50);
   font-size: 0.82rem;
   font-weight: 700;
@@ -465,12 +484,13 @@ a {
   margin: 0;
   max-width: min(520px, calc(100% - 1.3rem));
   padding: 0.45rem 0.6rem;
-  border-radius: 0.55rem;
-  border: 1px solid color-mix(in srgb, var(--brand-400) 35%, transparent);
-  background: color-mix(in srgb, var(--slate-900) 68%, transparent);
+  border-radius: 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--brand-400) 42%, transparent);
+  background: color-mix(in srgb, var(--slate-900) 74%, transparent);
   color: var(--slate-50);
   font-size: 0.74rem;
   line-height: 1.25;
+  box-shadow: 0 16px 30px -24px color-mix(in srgb, var(--slate-900) 80%, transparent);
   opacity: 0;
   pointer-events: none;
   transition: opacity 140ms ease;

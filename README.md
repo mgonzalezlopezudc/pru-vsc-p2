@@ -19,10 +19,14 @@ Los estilos se sirven desde `app/static/styles.css`.
 Vista 3D de baldas:
 - En el detalle de tienda (`/stores/<id>`) se renderiza una escena inmersiva con Three.js.
 - La visualización incluye estanterías físicas, productos por balda con objetos 3D semánticos (p. ej. botellas, latas, bolsas, tarros y barritas) y recorrido virtual en primera persona (flechas del cursor + ratón).
-- Se prioriza una estética hiper-realista mediante materiales PBR, sombras suaves e iluminación de acento.
+- La vista 3D permite alternar a pantalla completa desde el HUD del visor.
+- La escena 3D incluye un cartel colgante horizontal destacado y carteles de gran tamaño con el nombre de la tienda en 2 puntos de la pared de fondo y 1 en cada pared lateral.
+- Se prioriza una estética hiper-realista/premium de tipo showroom mediante materiales PBR refinados (suelo pulido, estanterías metal/cristal con acentos LED, señalética emisiva), atmósfera interior con niebla suave e iluminación multicapa.
+- El render aplica postprocesado ligero (`EffectComposer` + `UnrealBloomPass`) para un acabado más cinematográfico sin perder legibilidad.
 - La sensibilidad de desplazamiento con flechas está ajustada para movimientos más cortos y precisos.
 - Durante el recorrido inmersivo, un panel en tiempo real muestra la atribución/licencia del producto apuntado con la retícula.
 - Los productos se mapean a modelos `.glb` locales descargados en `app/static/models/products/` y cargados en runtime con Three.js `GLTFLoader`.
+- La escena inmersiva incorpora además el modelo completo `app/static/models/products/supermarket.glb` como entorno base del supermercado (con fallback a la geometría procedural existente).
 - El producto `Cola` usa el modelo local `app/static/models/products/source/cola.glb` (extraído desde `classic-cola-can.zip`).
 - Atribuciones y licencias de modelos externos: `app/static/models/products/ATTRIBUTION.html`.
 
