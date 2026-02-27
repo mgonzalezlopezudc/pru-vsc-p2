@@ -33,6 +33,7 @@ Capas principales:
 - `app/models/dto.py`: modelos tipados para `Store`, `Shelf`, `Product`, `InventoryItem`.
 - `app/templates/*`: renderizado SSR.
 - `app/static/js/map.js`: inicialización de mapas Leaflet para ubicación individual (detalle de tienda) y mapa agregado de tiendas en inicio.
+- `app/static/js/immersive-store-three.js`: renderizado inmersivo con Three.js en detalle de tienda (estanterías físicas, productos y navegación en primera persona).
 - `app/static/styles.css`: estilos base y utilidades visuales.
 
 ## 4. Domain Model Mapping
@@ -57,6 +58,7 @@ Atributos visuales relevantes:
 7. Alpine.js gestiona interacciones ligeras de UI (por ejemplo, menú lateral responsive).
 8. En vistas con `location`, el frontend inicializa Leaflet con GeoJSON.
 9. En inicio, el frontend inicializa un mapa agregado con todas las tiendas y popup resumen por pin.
+10. En detalle de tienda, el frontend inicializa una escena Three.js inmersiva para recorrer virtualmente pasillos y estanterías con productos.
 
 Flujo de escritura (POST CRUD embebido en vistas existentes):
 1. El usuario envía formulario desde `/`, `/stores/<id>` o `/products/<id>`.

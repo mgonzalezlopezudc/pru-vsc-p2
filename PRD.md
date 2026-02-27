@@ -14,6 +14,7 @@ El equipo necesita una forma clara y trazable de inspeccionar el modelo de datos
 - Permitir CRUD completo de entidades dentro de la UI existente.
 - Facilitar diagnóstico de integridad de datos mediante warnings visibles.
 - Ofrecer una experiencia visual clara con imágenes de tiendas y productos.
+- Ofrecer una experiencia visual impactante en detalle de tienda con recorrido inmersivo 3D de baldas y productos.
 - Soportar internacionalización básica en UI (`es` por defecto, `en` opcional).
 
 ## 4. No Objetivos (MVP)
@@ -50,6 +51,7 @@ El equipo necesita una forma clara y trazable de inspeccionar el modelo de datos
   - Formularios de alta de tiendas y productos.
 - `GET /stores/<id>`
   - Datos de tienda, tabla de baldas, tabla de inventario y mapa.
+  - Escena inmersiva 3D con estanterías físicas y recorrido virtual en primera persona.
   - Formularios de edición/borrado de tienda.
   - Formularios CRUD de baldas y de ítems de inventario.
 - `GET /products/<id>`
@@ -113,6 +115,7 @@ Restricción UX:
 - Warnings visibles cuando existan inconsistencias válidas por reglas.
 - Diseño responsive básico (desktop-first).
 - Estética de dashboard moderna y consistente entre `/`, `/stores/<id>`, `/products/<id>`, `/inventory`.
+- La vista de detalle de tienda debe incluir representación inmersiva con Three.js y navegación en primera persona usando los datos de inventario existentes.
 - Mantener alcance visual: no añadir nuevas vistas ni cambiar flujos CRUD existentes.
 
 ## 9. Requisitos Técnicos

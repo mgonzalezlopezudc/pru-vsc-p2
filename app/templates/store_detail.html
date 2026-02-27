@@ -38,6 +38,37 @@
   <div id="store-map" class="map" data-geojson='{{ store.location|tojson }}'></div>
 </section>
 
+<section class="app-card mb-5 shelf-scene-card">
+  <div class="shelf-scene-header">
+    <h3 class="text-lg font-semibold">{{ t('store.shelves_3d') }}</h3>
+    <p class="text-sm text-slate-600">{{ t('store.shelves_3d_hint') }}</p>
+  </div>
+  <div
+    id="shelf-3d-view"
+    class="immersive-store-view"
+    data-scene='{{ shelf_scene|tojson }}'
+    data-empty-message="{{ t('store.shelves_3d_empty') }}"
+    data-empty-products-message="{{ t('store.shelves_3d_empty_products') }}"
+    data-start-label="{{ t('store.shelves_3d_start') }}"
+    data-exit-label="{{ t('store.shelves_3d_exit') }}"
+    data-controls-label="{{ t('store.shelves_3d_controls') }}"
+    data-pointer-label="{{ t('store.shelves_3d_pointer') }}"
+  >
+    <div class="immersive-hud">
+      <div class="immersive-hud-row">
+        <button type="button" class="app-btn" data-action="start-immersive">{{ t('store.shelves_3d_start') }}</button>
+        <div class="immersive-help-wrap">
+          <button type="button" class="immersive-help-btn" aria-label="{{ t('store.shelves_3d_help_label') }}">?</button>
+          <div class="immersive-help-tooltip" role="note">
+            {{ t('store.shelves_3d_controls') }} · {{ t('store.shelves_3d_pointer') }} · {{ t('store.shelves_3d_exit') }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="immersive-reticle" aria-hidden="true"></div>
+  </div>
+</section>
+
 <section class="app-card mb-5">
   <h3 class="mb-3 text-lg font-semibold">{{ t('store.shelves') }}</h3>
   <div class="app-table-wrap">
@@ -208,4 +239,8 @@
   </div>
   {% endif %}
 </section>
+{% endblock %}
+
+{% block page_scripts %}
+  <script type="module" src="{{ url_for('static', filename='js/immersive-store-three.js') }}"></script>
 {% endblock %}

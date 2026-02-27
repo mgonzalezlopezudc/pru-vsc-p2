@@ -142,11 +142,42 @@ def store_detail(store_id: str):
             },
         )
 
+    shelves = repository.list_shelves_by_store(store_id)
+    inventory = repository.list_inventory_by_store(store_id)
+
+    shelf_scene = []
+    inventory_by_shelf: dict[str, list[dict[str, int | str]]] = {}
+    for item in inventory:
+        inventory_by_shelf.setdefault(item["shelfId"], []).append(
+            {
+                "id": item["id"],
+                "productName": item["productName"],
+                "productImage": item["productImage"],
+                "shelfCount": item["shelfCount"],
+                "stockCount": item["stockCount"],
+            }
+        )
+
+    for shelf in shelves:
+        max_capacity = max(int(shelf["maxCapacity"]), 1)
+        current_load = int(shelf["currentLoad"])
+        shelf_scene.append(
+            {
+                "id": shelf["id"],
+                "name": shelf["name"],
+                "maxCapacity": max_capacity,
+                "currentLoad": current_load,
+                "loadRatio": min(current_load / max_capacity, 1.0),
+                "products": inventory_by_shelf.get(shelf["id"], []),
+            }
+        )
+
     return render_template(
         "store_detail.html",
         store=store,
-        shelves=repository.list_shelves_by_store(store_id),
-        inventory=repository.list_inventory_by_store(store_id),
+        shelves=shelves,
+        inventory=inventory,
+        shelf_scene=shelf_scene,
         products=repository.list_products(),
         edit_shelf_id=edit_shelf_id,
         edit_item_id=edit_item_id,

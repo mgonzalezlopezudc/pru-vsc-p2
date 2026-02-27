@@ -300,6 +300,176 @@ a {
   border-width: 0;
 }
 
+.shelf-scene-card {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--brand-900) 70%, var(--slate-50) 30%),
+    color-mix(in srgb, var(--brand-700) 64%, var(--slate-50) 36%),
+    color-mix(in srgb, var(--brand-600) 60%, var(--slate-50) 40%)
+  );
+  color: var(--slate-50);
+  border-color: color-mix(in srgb, var(--brand-700) 28%, var(--slate-200) 72%);
+}
+
+.shelf-scene-header {
+  margin-bottom: 1rem;
+}
+
+.shelf-scene-header .text-slate-600 {
+  color: color-mix(in srgb, var(--slate-100) 88%, var(--brand-400) 12%);
+}
+
+.immersive-store-view {
+  position: relative;
+  min-height: 560px;
+  border-radius: 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--brand-400) 35%, var(--slate-700) 65%);
+  background: radial-gradient(circle at 20% 8%, color-mix(in srgb, var(--brand-400) 40%, transparent), transparent 48%),
+    radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--brand-700) 38%, transparent), transparent 45%),
+    color-mix(in srgb, var(--slate-50) 55%, var(--slate-100) 45%);
+  overflow: hidden;
+}
+
+.immersive-store-view::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--brand-700) 12%, transparent),
+    transparent 35%,
+    color-mix(in srgb, var(--brand-600) 12%, transparent)
+  );
+  pointer-events: none;
+}
+
+.immersive-store-view canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.immersive-hud {
+  position: absolute;
+  top: 0.65rem;
+  left: 0.65rem;
+  z-index: 3;
+  margin: 0;
+  max-width: 360px;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--brand-400) 35%, transparent);
+  background: color-mix(in srgb, var(--slate-900) 58%, transparent);
+  backdrop-filter: blur(4px);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.immersive-hud-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.immersive-help-wrap {
+  position: relative;
+}
+
+.immersive-hud .app-btn {
+  padding: 0.4rem 0.7rem;
+  font-size: 0.8rem;
+}
+
+.immersive-help-btn {
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--brand-400) 55%, transparent);
+  background: color-mix(in srgb, var(--slate-900) 38%, transparent);
+  color: var(--slate-50);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.immersive-help-btn:hover {
+  background: color-mix(in srgb, var(--brand-700) 42%, transparent);
+}
+
+.immersive-help-tooltip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.28rem);
+  right: 0;
+  max-width: 280px;
+  min-width: 210px;
+  border-radius: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--brand-400) 36%, transparent);
+  background: color-mix(in srgb, var(--slate-900) 80%, transparent);
+  color: var(--slate-50);
+  padding: 0.38rem 0.48rem;
+  font-size: 0.68rem;
+  line-height: 1.2;
+}
+
+.immersive-help-wrap:hover .immersive-help-tooltip,
+.immersive-help-btn:focus-visible + .immersive-help-tooltip {
+  display: block;
+}
+
+.shelf-scene-empty,
+.shelf-scene-empty-inline {
+  margin: 0;
+  color: color-mix(in srgb, var(--slate-100) 82%, var(--brand-400) 18%);
+  font-size: 0.85rem;
+}
+
+.shelf-scene-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 560px;
+}
+
+.immersive-hud.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.immersive-reticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  margin-left: -7px;
+  border: 1px solid color-mix(in srgb, var(--slate-50) 70%, transparent);
+  border-radius: 999px;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--brand-400) 42%, transparent);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.immersive-store-view.is-active .immersive-reticle {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .immersive-store-view {
+    min-height: 420px;
+  }
+
+  .immersive-hud {
+    max-width: 280px;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.38rem 0.5rem;
+  }
+}
+
 @media (min-width: 768px) {
   .md\:hidden { display: none; }
   .md\:block { display: block; }
