@@ -10,6 +10,28 @@
       ],
       "group": "test",
       "problemMatcher": []
+    },
+    {
+      "label": "Run Playwright CLI tests",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "test:cli"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Playwright navigation tests",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "test:navigation"
+      ],
+      "group": "test",
+      "problemMatcher": []
     }
   ]
 }
