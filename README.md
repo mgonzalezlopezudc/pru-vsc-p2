@@ -18,7 +18,13 @@ Los estilos se sirven desde `app/static/styles.css`.
 
 Vista 3D de baldas:
 - En el detalle de tienda (`/stores/<id>`) se renderiza una escena inmersiva con Three.js.
-- La visualización incluye estanterías físicas, productos por balda y recorrido virtual en primera persona (flechas del cursor + ratón).
+- La visualización incluye estanterías físicas, productos por balda con objetos 3D semánticos (p. ej. botellas, latas, bolsas, tarros y barritas) y recorrido virtual en primera persona (flechas del cursor + ratón).
+- Se prioriza una estética hiper-realista mediante materiales PBR, sombras suaves e iluminación de acento.
+- La sensibilidad de desplazamiento con flechas está ajustada para movimientos más cortos y precisos.
+- Durante el recorrido inmersivo, un panel en tiempo real muestra la atribución/licencia del producto apuntado con la retícula.
+- Los productos se mapean a modelos `.glb` locales descargados en `app/static/models/products/` y cargados en runtime con Three.js `GLTFLoader`.
+- El producto `Cola` usa el modelo local `app/static/models/products/source/cola.glb` (extraído desde `classic-cola-can.zip`).
+- Atribuciones y licencias de modelos externos: `app/static/models/products/ATTRIBUTION.html`.
 
 Test visual rápido de carga de imágenes:
 ```bash
@@ -65,7 +71,7 @@ BASE_URL=http://127.0.0.1:5000 bash tests/playwright_smoke.sh
 
 ## Rutas
 - `/`: índice con tiendas, productos y mapa agregado de tiendas (pins clicables con resumen y enlace a detalle)
-- `/stores/<id>`: detalle de tienda (mapa + recorrido 3D inmersivo de baldas con Three.js + tablas de baldas e inventario)
+- `/stores/<id>`: detalle de tienda (mapa + recorrido 3D inmersivo de baldas con Three.js, objetos de producto semánticos hiper-realistas + tablas de baldas e inventario)
 - `/products/<id>`: detalle de producto por tienda
 - `/inventory`: inventario global
 

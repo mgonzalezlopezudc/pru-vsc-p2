@@ -1,5 +1,6 @@
 import * as THREE from "https://esm.sh/three@0.161.0";
 import { PointerLockControls } from "https://esm.sh/three@0.161.0/examples/jsm/controls/PointerLockControls.js";
+import { GLTFLoader } from "https://esm.sh/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
 
 const root = document.getElementById("shelf-3d-view");
 if (!root) {
@@ -375,6 +376,514 @@ if (sceneData.length === 0) {
 
   const shelfGroup = new THREE.Group();
   const productLoader = textureLoader;
+  const gltfLoader = new GLTFLoader();
+  const loadedProductModels = new Map();
+
+  const productModelByName = {
+    lemonade: "waterbottle_jeremy.glb",
+    "orange juice": "juicecup_ccby.glb",
+    "sparkling water": "waterbottle_quaternius.glb",
+    "still water": "bottle_quaternius.glb",
+    cola: "source/cola.glb",
+    "iced tea": "frappe_kenney.glb",
+    "potato chips": "chips_creativetrio.glb",
+    "salted nuts": "peanut_ccby.glb",
+    "chocolate bar": "chocolatebar_cc0.glb",
+    "protein bar": "candybarwrapper_cc0.glb",
+  };
+
+  const modelAttributionByFile = {
+    "waterbottle_jeremy.glb": {
+      author: "jeremy",
+      license: "CC BY",
+      source: "poly.pizza/m/b54HnwJAXsb",
+    },
+    "juicecup_ccby.glb": {
+      author: "Poly Pizza author",
+      license: "CC BY",
+      source: "poly.pizza/m/1dtgLpiHRXG",
+    },
+    "waterbottle_quaternius.glb": {
+      author: "Quaternius",
+      license: "CC0",
+      source: "poly.pizza/m/KpxDpidn1Z",
+    },
+    "bottle_quaternius.glb": {
+      author: "Quaternius",
+      license: "CC0",
+      source: "poly.pizza/m/Pc8dM9Ja4V",
+    },
+    "source/cola.glb": {
+      author: "Aportado por el usuario",
+      license: "No especificada",
+      source: "",
+    },
+    "can_quaternius.glb": {
+      author: "Quaternius",
+      license: "CC0",
+      source: "poly.pizza/m/YnowJvWqxE",
+    },
+    "frappe_kenney.glb": {
+      author: "Kenney",
+      license: "CC0",
+      source: "poly.pizza/m/ZvYPiZeN0V",
+    },
+    "chips_creativetrio.glb": {
+      author: "CreativeTrio",
+      license: "CC0",
+      source: "poly.pizza/m/uF1dGn3HXi",
+    },
+    "peanut_ccby.glb": {
+      author: "Poly Pizza author",
+      license: "CC BY",
+      source: "poly.pizza/m/1KRzEPIJwax",
+    },
+    "chocolatebar_cc0.glb": {
+      author: "Poly Pizza author",
+      license: "CC0",
+      source: "poly.pizza/m/vJsJ1EIiOO",
+    },
+    "candybarwrapper_cc0.glb": {
+      author: "Poly Pizza author",
+      license: "CC0",
+      source: "poly.pizza/m/ZeJW3KyeTH",
+    },
+  };
+
+  const modelPathPrefix = "/static/models/products/";
+
+  const loadProductModel = (fileName) =>
+    new Promise((resolve) => {
+      gltfLoader.load(
+        `${modelPathPrefix}${fileName}`,
+        (gltf) => resolve(gltf?.scene ?? null),
+        undefined,
+        () => resolve(null)
+      );
+    });
+
+  const preloadProductModels = async () => {
+    const uniqueFiles = [...new Set(Object.values(productModelByName))];
+    await Promise.all(
+      uniqueFiles.map(async (fileName) => {
+        const modelScene = await loadProductModel(fileName);
+        if (modelScene) {
+          loadedProductModels.set(fileName, modelScene);
+        }
+      })
+    );
+  };
+
+  const normalizeProductName = (name) => String(name || "").toLowerCase();
+
+  const hashString = (value) => {
+    let hash = 0;
+    for (let index = 0; index < value.length; index += 1) {
+      hash = (hash << 5) - hash + value.charCodeAt(index);
+      hash |= 0;
+    }
+    return Math.abs(hash);
+  };
+
+  const createPhysicalMaterial = ({
+    color,
+    roughness,
+    metalness,
+    clearcoat = 0,
+    clearcoatRoughness = 0.25,
+    transmission = 0,
+    thickness = 0,
+    ior = 1.45,
+    emissive = 0x000000,
+    emissiveIntensity = 0,
+  }) =>
+    new THREE.MeshPhysicalMaterial({
+      color,
+      roughness,
+      metalness,
+      clearcoat,
+      clearcoatRoughness,
+      transmission,
+      thickness,
+      ior,
+      emissive,
+      emissiveIntensity,
+    });
+
+  const inferProductProfile = (productName) => {
+    const normalized = normalizeProductName(productName);
+    if (normalized.includes("cola") || normalized.includes("soda")) {
+      return "can";
+    }
+    if (
+      normalized.includes("water") ||
+      normalized.includes("lemonade") ||
+      normalized.includes("tea") ||
+      normalized.includes("drink")
+    ) {
+      return "bottle";
+    }
+    if (normalized.includes("juice")) {
+      return "carton";
+    }
+    if (normalized.includes("chips")) {
+      return "bag";
+    }
+    if (normalized.includes("nuts")) {
+      return "jar";
+    }
+    if (normalized.includes("bar") || normalized.includes("chocolate") || normalized.includes("protein")) {
+      return "bar";
+    }
+    return "box";
+  };
+
+  const paletteByProfile = {
+    bottle: [0x3b82f6, 0x22c55e, 0x14b8a6, 0xf59e0b],
+    can: [0xdc2626, 0x2563eb, 0xf59e0b, 0x22c55e],
+    carton: [0xf97316, 0x16a34a, 0x0284c7, 0xbe123c],
+    bag: [0xef4444, 0xf97316, 0xeab308, 0x7c3aed],
+    jar: [0x84cc16, 0x65a30d, 0x15803d, 0xa3e635],
+    bar: [0x7c3aed, 0xec4899, 0xb45309, 0x1d4ed8],
+    box: [0x64748b, 0x0ea5e9, 0x9333ea, 0xf97316],
+  };
+
+  const selectProductColor = (profile, productName) => {
+    const palette = paletteByProfile[profile] || paletteByProfile.box;
+    const colorIndex = hashString(normalizeProductName(productName)) % palette.length;
+    return palette[colorIndex];
+  };
+
+  const createProductLabel = (product, width, height, zOffset) => {
+    const imageUrl = typeof product.productImage === "string" ? product.productImage : "";
+    if (!imageUrl) {
+      return null;
+    }
+
+    const labelTexture = productLoader.load(imageUrl);
+    labelTexture.colorSpace = THREE.SRGBColorSpace;
+    labelTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+    const labelMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(width, height),
+      createPhysicalMaterial({
+        color: 0xffffff,
+        roughness: 0.2,
+        metalness: 0.03,
+        clearcoat: 0.45,
+      })
+    );
+    labelMesh.material.map = labelTexture;
+    labelMesh.position.set(0, 0, zOffset);
+    return labelMesh;
+  };
+
+  const createProductMesh = (product) => {
+    const profile = inferProductProfile(product.productName);
+    const primaryColor = selectProductColor(profile, product.productName);
+    const productGroup = new THREE.Group();
+    const visualScaleBoost = 1.2;
+    const stockFactor = Math.max(0.85, Math.min((product.shelfCount || 1) / 8, 1.25)) * visualScaleBoost;
+    const normalizedName = normalizeProductName(product.productName);
+    const mappedModelFile = productModelByName[normalizedName];
+    const attributionSource = modelAttributionByFile[mappedModelFile];
+    const attributionSummary = attributionSource
+      ? `${attributionSource.author} · ${attributionSource.license}`
+      : "Modelo procedural";
+
+    if (mappedModelFile && loadedProductModels.has(mappedModelFile)) {
+      const templateModel = loadedProductModels.get(mappedModelFile);
+      const modelClone = templateModel.clone(true);
+
+      modelClone.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+          if (child.material?.map) {
+            child.material.map.colorSpace = THREE.SRGBColorSpace;
+          }
+        }
+      });
+
+      const preScaleBox = new THREE.Box3().setFromObject(modelClone);
+      const preScaleSize = preScaleBox.getSize(new THREE.Vector3());
+      const safeSize = new THREE.Vector3(
+        Math.max(preScaleSize.x, 0.0001),
+        Math.max(preScaleSize.y, 0.0001),
+        Math.max(preScaleSize.z, 0.0001)
+      );
+      const profileMaxSize = {
+        bottle: new THREE.Vector3(0.34, 0.58, 0.3),
+        can: new THREE.Vector3(0.34, 0.54, 0.3),
+        carton: new THREE.Vector3(0.4, 0.66, 0.34),
+        bag: new THREE.Vector3(0.46, 0.62, 0.28),
+        jar: new THREE.Vector3(0.4, 0.56, 0.34),
+        bar: new THREE.Vector3(0.44, 0.2, 0.2),
+        box: new THREE.Vector3(0.4, 0.5, 0.34),
+      };
+      const targetBox = (profileMaxSize[profile] || profileMaxSize.box).clone().multiplyScalar(stockFactor);
+      const scale = Math.min(targetBox.x / safeSize.x, targetBox.y / safeSize.y, targetBox.z / safeSize.z);
+      modelClone.scale.setScalar(scale);
+
+      const fittedBox = new THREE.Box3().setFromObject(modelClone);
+      const fittedCenter = fittedBox.getCenter(new THREE.Vector3());
+      modelClone.position.x -= fittedCenter.x;
+      modelClone.position.z -= fittedCenter.z;
+      modelClone.position.y -= fittedBox.min.y;
+
+      modelClone.userData.productName = product.productName;
+      modelClone.userData.productAttribution = attributionSummary;
+      modelClone.userData.productSource = attributionSource?.source || "";
+      productGroup.add(modelClone);
+    } else if (profile === "bottle") {
+      const bottleBody = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.08, 0.1, 0.32 * stockFactor, 24),
+        createPhysicalMaterial({
+          color: primaryColor,
+          roughness: 0.16,
+          metalness: 0.02,
+          clearcoat: 0.95,
+          clearcoatRoughness: 0.1,
+          transmission: 0.12,
+          thickness: 0.08,
+          ior: 1.42,
+        })
+      );
+      bottleBody.position.y = 0.16 * stockFactor;
+      bottleBody.castShadow = true;
+      productGroup.add(bottleBody);
+
+      const neck = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.04, 0.052, 0.1, 18),
+        createPhysicalMaterial({
+          color: 0xf8fafc,
+          roughness: 0.24,
+          metalness: 0.01,
+          clearcoat: 0.6,
+          transmission: 0.2,
+          thickness: 0.04,
+        })
+      );
+      neck.position.y = 0.35 * stockFactor;
+      neck.castShadow = true;
+      productGroup.add(neck);
+
+      const cap = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.045, 0.045, 0.05, 16),
+        createPhysicalMaterial({
+          color: 0x1e293b,
+          roughness: 0.35,
+          metalness: 0.05,
+          clearcoat: 0.2,
+        })
+      );
+      cap.position.y = 0.42 * stockFactor;
+      cap.castShadow = true;
+      productGroup.add(cap);
+
+      const label = createProductLabel(product, 0.13, 0.16, 0.101);
+      if (label) {
+        label.position.y = 0.17 * stockFactor;
+        productGroup.add(label);
+      }
+    } else if (profile === "can") {
+      const body = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.1, 0.1, 0.3 * stockFactor, 28),
+        createPhysicalMaterial({
+          color: primaryColor,
+          roughness: 0.24,
+          metalness: 0.7,
+          clearcoat: 0.85,
+          clearcoatRoughness: 0.08,
+        })
+      );
+      body.position.y = 0.15 * stockFactor;
+      body.castShadow = true;
+      productGroup.add(body);
+
+      const lid = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.102, 0.102, 0.018, 28),
+        createPhysicalMaterial({
+          color: 0xd1d5db,
+          roughness: 0.2,
+          metalness: 0.9,
+          clearcoat: 0.12,
+        })
+      );
+      lid.position.y = 0.302 * stockFactor;
+      lid.castShadow = true;
+      productGroup.add(lid);
+
+      const label = createProductLabel(product, 0.16, 0.16, 0.101);
+      if (label) {
+        label.position.y = 0.15 * stockFactor;
+        productGroup.add(label);
+      }
+    } else if (profile === "carton") {
+      const carton = new THREE.Mesh(
+        new THREE.BoxGeometry(0.18, 0.34 * stockFactor, 0.14),
+        createPhysicalMaterial({
+          color: primaryColor,
+          roughness: 0.36,
+          metalness: 0.04,
+          clearcoat: 0.42,
+        })
+      );
+      carton.position.y = 0.17 * stockFactor;
+      carton.castShadow = true;
+      productGroup.add(carton);
+
+      const topFold = new THREE.Mesh(
+        new THREE.ConeGeometry(0.09, 0.12, 4),
+        createPhysicalMaterial({
+          color: 0xf8fafc,
+          roughness: 0.3,
+          metalness: 0,
+          clearcoat: 0.25,
+        })
+      );
+      topFold.rotation.y = Math.PI / 4;
+      topFold.position.y = 0.39 * stockFactor;
+      topFold.castShadow = true;
+      productGroup.add(topFold);
+
+      const label = createProductLabel(product, 0.14, 0.2, 0.071);
+      if (label) {
+        label.position.y = 0.19 * stockFactor;
+        productGroup.add(label);
+      }
+    } else if (profile === "bag") {
+      const bag = new THREE.Mesh(
+        new THREE.CapsuleGeometry(0.11, 0.2 * stockFactor, 8, 16),
+        createPhysicalMaterial({
+          color: primaryColor,
+          roughness: 0.48,
+          metalness: 0.02,
+          clearcoat: 0.35,
+          clearcoatRoughness: 0.32,
+        })
+      );
+      bag.scale.set(1, 1.12, 0.62);
+      bag.position.y = 0.17 * stockFactor;
+      bag.castShadow = true;
+      productGroup.add(bag);
+
+      const label = createProductLabel(product, 0.15, 0.15, 0.082);
+      if (label) {
+        label.position.y = 0.18 * stockFactor;
+        productGroup.add(label);
+      }
+    } else if (profile === "jar") {
+      const jar = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.1, 0.1, 0.26 * stockFactor, 24),
+        createPhysicalMaterial({
+          color: 0x8ba83d,
+          roughness: 0.14,
+          metalness: 0,
+          clearcoat: 0.95,
+          clearcoatRoughness: 0.08,
+          transmission: 0.32,
+          thickness: 0.08,
+          ior: 1.5,
+        })
+      );
+      jar.position.y = 0.13 * stockFactor;
+      jar.castShadow = true;
+      productGroup.add(jar);
+
+      const lid = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.105, 0.105, 0.06, 20),
+        createPhysicalMaterial({
+          color: primaryColor,
+          roughness: 0.26,
+          metalness: 0.18,
+          clearcoat: 0.35,
+        })
+      );
+      lid.position.y = 0.29 * stockFactor;
+      lid.castShadow = true;
+      productGroup.add(lid);
+
+      const label = createProductLabel(product, 0.16, 0.12, 0.101);
+      if (label) {
+        label.position.y = 0.13 * stockFactor;
+        productGroup.add(label);
+      }
+    } else if (profile === "bar") {
+      const barPack = new THREE.Mesh(
+        new THREE.BoxGeometry(0.24, 0.085, 0.1),
+        createPhysicalMaterial({
+          color: primaryColor,
+          roughness: 0.34,
+          metalness: 0.06,
+          clearcoat: 0.55,
+          clearcoatRoughness: 0.18,
+          emissive: 0x1e1b4b,
+          emissiveIntensity: 0.05,
+        })
+      );
+      barPack.position.y = 0.043;
+      barPack.castShadow = true;
+      productGroup.add(barPack);
+
+      const wrapperFoldLeft = new THREE.Mesh(
+        new THREE.BoxGeometry(0.02, 0.06, 0.1),
+        createPhysicalMaterial({ color: 0xf8fafc, roughness: 0.45, metalness: 0.02, clearcoat: 0.12 })
+      );
+      wrapperFoldLeft.position.set(-0.13, 0.043, 0);
+      productGroup.add(wrapperFoldLeft);
+
+      const wrapperFoldRight = wrapperFoldLeft.clone();
+      wrapperFoldRight.position.x = 0.13;
+      productGroup.add(wrapperFoldRight);
+
+      const label = createProductLabel(product, 0.2, 0.06, 0.052);
+      if (label) {
+        label.position.y = 0.043;
+        productGroup.add(label);
+      }
+    } else {
+      const genericBox = new THREE.Mesh(
+        new THREE.BoxGeometry(0.2, 0.24 * stockFactor, 0.16),
+        createPhysicalMaterial({
+          color: primaryColor,
+          roughness: 0.36,
+          metalness: 0.05,
+          clearcoat: 0.42,
+        })
+      );
+      genericBox.position.y = 0.12 * stockFactor;
+      genericBox.castShadow = true;
+      productGroup.add(genericBox);
+
+      const label = createProductLabel(product, 0.15, 0.14, 0.081);
+      if (label) {
+        label.position.y = 0.12 * stockFactor;
+        productGroup.add(label);
+      }
+    }
+
+    const contactShadow = new THREE.Mesh(
+      new THREE.CircleGeometry(profile === "bar" ? 0.11 : 0.13, 20),
+      new THREE.MeshStandardMaterial({ color: 0x0f172a, transparent: true, opacity: 0.2, roughness: 1, metalness: 0 })
+    );
+    contactShadow.rotation.x = -Math.PI / 2;
+    contactShadow.position.y = 0.003;
+    productGroup.add(contactShadow);
+
+    productGroup.userData.productName = product.productName;
+    productGroup.userData.productAttribution = attributionSummary;
+    productGroup.userData.productSource = attributionSource?.source || "";
+
+    if (profile === "bar") {
+      productGroup.rotation.x = -0.55;
+      productGroup.rotation.z = 0.45;
+      productGroup.position.y += 0.03;
+    }
+
+    productGroup.rotation.y = (hashString(normalizeProductName(product.productName)) % 17) * 0.04 - 0.28;
+    return productGroup;
+  };
 
   const woodTexture = textureLoader.load("https://threejs.org/examples/textures/hardwood2_diffuse.jpg");
   woodTexture.wrapS = THREE.RepeatWrapping;
@@ -445,42 +954,31 @@ if (sceneData.length === 0) {
       const col = slot % 4;
       const row = Math.floor(slot / 4);
 
-      const productHeight = 0.26 + ((product.shelfCount || 1) % 3) * 0.06;
-      const productWidth = 0.26;
-      const productDepth = 0.22;
-
-      const productGeom = new THREE.BoxGeometry(productWidth, productHeight, productDepth);
-      const imageUrl = typeof product.productImage === "string" ? product.productImage : "";
-      const texture = imageUrl ? productLoader.load(imageUrl) : null;
-      if (texture) {
-        texture.colorSpace = THREE.SRGBColorSpace;
-      }
-
-      const productMaterial = new THREE.MeshStandardMaterial({
-        color: 0xf8fafc,
-        map: texture,
-        roughness: 0.35,
-        metalness: 0.05,
-      });
-
-      const productMesh = new THREE.Mesh(productGeom, productMaterial);
+      const productMesh = createProductMesh(product);
       productMesh.position.set(-0.9 + col * 0.62, level + row * 0.04, 0.34 - row * 0.26);
-      productMesh.castShadow = true;
       shelfUnit.add(productMesh);
     }
 
     shelfGroup.add(shelfUnit);
   };
 
-  sceneData.forEach((shelf, index) => {
-    const side = index % 2 === 0 ? -1 : 1;
-    const row = Math.floor(index / 2);
-    const x = side * rowDepth;
-    const z = 8 - row * aisleSpacing;
-    makeShelfUnit(x, z, shelf);
-  });
+  let shelvesBuilt = false;
+  const buildShelves = () => {
+    if (shelvesBuilt) {
+      return;
+    }
 
-  scene.add(shelfGroup);
+    sceneData.forEach((shelf, index) => {
+      const side = index % 2 === 0 ? -1 : 1;
+      const row = Math.floor(index / 2);
+      const x = side * rowDepth;
+      const z = 8 - row * aisleSpacing;
+      makeShelfUnit(x, z, shelf);
+    });
+
+    scene.add(shelfGroup);
+    shelvesBuilt = true;
+  };
 
   for (let z = 12; z >= -36; z -= 8) {
     const overhead = new THREE.PointLight(0xffffff, 1.35, 22, 2);
@@ -488,12 +986,46 @@ if (sceneData.length === 0) {
     scene.add(overhead);
   }
 
+  const leftAccent = new THREE.SpotLight(0xf3f7ff, 2.4, 60, Math.PI / 5.2, 0.42, 1.1);
+  leftAccent.position.set(-8, 5.8, -10);
+  leftAccent.target.position.set(-4, 1.6, -14);
+  scene.add(leftAccent);
+  scene.add(leftAccent.target);
+
+  const rightAccent = new THREE.SpotLight(0xfff8ea, 2.2, 60, Math.PI / 5.3, 0.42, 1.05);
+  rightAccent.position.set(8, 5.8, -10);
+  rightAccent.target.position.set(4, 1.6, -14);
+  scene.add(rightAccent);
+  scene.add(rightAccent.target);
+
   const ambientDeco = new THREE.PointLight(0x7ec9ff, 1.4, 20, 2);
   ambientDeco.position.set(0, 2.2, 14);
   scene.add(ambientDeco);
 
   const hud = root.querySelector(".immersive-hud");
   const startButton = root.querySelector('[data-action="start-immersive"]');
+  const attributionPanel = document.createElement("p");
+  attributionPanel.className = "immersive-attribution-panel";
+  attributionPanel.setAttribute("aria-live", "polite");
+  attributionPanel.textContent = "Apunta a un producto para ver su atribución";
+  root.appendChild(attributionPanel);
+  const focusRaycaster = new THREE.Raycaster();
+  let lastFocusedAttribution = "";
+
+  const findFocusedProduct = () => {
+    focusRaycaster.setFromCamera({ x: 0, y: 0 }, camera);
+    const hits = focusRaycaster.intersectObjects(shelfGroup.children, true);
+    for (const hit of hits) {
+      let node = hit.object;
+      while (node) {
+        if (node.userData?.productName) {
+          return node.userData;
+        }
+        node = node.parent;
+      }
+    }
+    return null;
+  };
 
   const moveState = {
     forward: false,
@@ -537,7 +1069,7 @@ if (sceneData.length === 0) {
   const animate = () => {
     requestAnimationFrame(animate);
 
-    const delta = Math.min(clock.getDelta(), 0.05);
+    const delta = Math.min(clock.getDelta(), 0.03);
     if (controls.isLocked) {
       const damping = 8.8 * delta;
       velocity.x -= velocity.x * damping;
@@ -547,7 +1079,7 @@ if (sceneData.length === 0) {
       direction.x = Number(moveState.right) - Number(moveState.left);
       direction.normalize();
 
-      const speed = moveState.sprint ? 8.2 : 4.8;
+      const speed = moveState.sprint ? 2.0 : 1.0;
 
       if (moveState.forward || moveState.backward) {
         velocity.z -= direction.z * speed * delta;
@@ -563,6 +1095,15 @@ if (sceneData.length === 0) {
       cameraPos.x = Math.max(minX, Math.min(maxX, cameraPos.x));
       cameraPos.z = Math.max(minZ, Math.min(maxZ, cameraPos.z));
       cameraPos.y = 1.65;
+
+      const focusedProduct = findFocusedProduct();
+      const attributionLabel = focusedProduct
+        ? `${focusedProduct.productName}: ${focusedProduct.productAttribution}`
+        : "Apunta a un producto para ver su atribución";
+      if (attributionLabel !== lastFocusedAttribution) {
+        attributionPanel.textContent = attributionLabel;
+        lastFocusedAttribution = attributionLabel;
+      }
     }
 
     renderer.render(scene, camera);
@@ -571,11 +1112,15 @@ if (sceneData.length === 0) {
   controls.addEventListener("lock", () => {
     root.classList.add("is-active");
     hud?.classList.add("is-hidden");
+    attributionPanel.classList.add("is-visible");
   });
 
   controls.addEventListener("unlock", () => {
     root.classList.remove("is-active");
     hud?.classList.remove("is-hidden");
+    attributionPanel.classList.remove("is-visible");
+    attributionPanel.textContent = "Apunta a un producto para ver su atribución";
+    lastFocusedAttribution = "";
   });
 
   startButton?.addEventListener("click", () => {
@@ -593,5 +1138,12 @@ if (sceneData.length === 0) {
   window.addEventListener("resize", onResize);
 
   root.appendChild(renderer.domElement);
-  animate();
+  preloadProductModels()
+    .catch(() => {
+      // Mantener fallback procedural si falla alguna descarga.
+    })
+    .finally(() => {
+      buildShelves();
+      animate();
+    });
 }

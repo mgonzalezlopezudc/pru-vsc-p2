@@ -457,6 +457,29 @@ a {
   opacity: 1;
 }
 
+.immersive-attribution-panel {
+  position: absolute;
+  left: 0.65rem;
+  bottom: 0.65rem;
+  z-index: 3;
+  margin: 0;
+  max-width: min(520px, calc(100% - 1.3rem));
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--brand-400) 35%, transparent);
+  background: color-mix(in srgb, var(--slate-900) 68%, transparent);
+  color: var(--slate-50);
+  font-size: 0.74rem;
+  line-height: 1.25;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease;
+}
+
+.immersive-attribution-panel.is-visible {
+  opacity: 1;
+}
+
 @media (max-width: 767px) {
   .immersive-store-view {
     min-height: 420px;
@@ -467,6 +490,15 @@ a {
     top: 0.5rem;
     left: 0.5rem;
     padding: 0.38rem 0.5rem;
+  }
+
+  .immersive-attribution-panel {
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    max-width: none;
+    padding: 0.36rem 0.48rem;
+    font-size: 0.7rem;
   }
 }
 
