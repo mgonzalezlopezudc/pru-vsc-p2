@@ -447,6 +447,8 @@ def create_store_inventory_item(store_id: str):
     if form.validate_on_submit():
         if form.store_id.data != store_id:
             _flash_messages([_t("error.invalid_store_ref")])
+        elif (shelf := repository.get_shelf(form.shelf_id.data)) is None or shelf.ref_store != store_id:
+            _flash_messages([_t("error.invalid_shelf_ref")])
         else:
             try:
                 repository.create_inventory_item(
@@ -529,6 +531,8 @@ def create_product_inventory_item(product_id: str):
     if form.validate_on_submit():
         if form.product_id.data != product_id:
             _flash_messages([_t("error.invalid_product_ref")])
+        elif (shelf := repository.get_shelf(form.shelf_id.data)) is None or shelf.ref_store != form.store_id.data:
+            _flash_messages([_t("error.invalid_shelf_ref")])
         else:
             try:
                 repository.create_inventory_item(

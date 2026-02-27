@@ -1,0 +1,296 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Retail Data Viewer" [ref=e6] [cursor=pointer]:
+        - /url: /?lang=es
+      - generic [ref=e7]:
+        - generic [ref=e8]: Search
+        - searchbox "Search" [ref=e9]
+  - generic [ref=e10]:
+    - complementary [ref=e11]:
+      - navigation [ref=e12]:
+        - link "Inicio" [ref=e13] [cursor=pointer]:
+          - /url: /?lang=es
+        - link "Inventario global" [ref=e14] [cursor=pointer]:
+          - /url: /inventory?lang=es
+        - generic [ref=e15]: Idioma
+        - generic [ref=e16]:
+          - link "ES" [ref=e17] [cursor=pointer]:
+            - /url: /stores/urn:ngsi-ld:Store:001?lang=es
+          - link "EN" [ref=e18] [cursor=pointer]:
+            - /url: /stores/urn:ngsi-ld:Store:001?lang=en
+    - main [ref=e19]:
+      - generic [ref=e20]:
+        - heading "Validaciones" [level=2] [ref=e21]
+        - list [ref=e22]:
+          - listitem [ref=e23]: Store urn:ngsi-ld:Store:005 must have at least 4 shelves.
+      - generic [ref=e24]:
+        - img "Checkpoint Markt" [ref=e26]
+        - generic [ref=e27]:
+          - paragraph [ref=e28]: Tienda
+          - heading "Checkpoint Markt" [level=2] [ref=e29]
+          - paragraph [ref=e30]: Friedrichstraße 44, 10969 Kreuzberg, Berlin
+      - generic [ref=e31]:
+        - heading "Editar tienda" [level=3] [ref=e32]
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - text: Nombre
+            - textbox "Nombre" [ref=e35]: Checkpoint Markt
+          - generic [ref=e36]:
+            - text: Dirección
+            - textbox "Dirección" [ref=e37]: Friedrichstraße 44, 10969 Kreuzberg, Berlin
+          - generic [ref=e38]:
+            - text: URL imagen
+            - textbox "URL imagen" [ref=e39]: https://loremflickr.com/1280/720/supermarket,grocery,store?lock=11
+          - generic [ref=e40]:
+            - text: Latitud
+            - spinbutton "Latitud" [ref=e41]: "52.5075"
+          - generic [ref=e42]:
+            - text: Longitud
+            - spinbutton "Longitud" [ref=e43]: "13.3903"
+          - button "Guardar" [ref=e45] [cursor=pointer]
+        - button "Eliminar tienda" [ref=e47] [cursor=pointer]
+      - generic [ref=e48]:
+        - heading "Ubicación" [level=3] [ref=e49]
+        - generic [ref=e50]:
+          - button "Marker" [ref=e51] [cursor=pointer]
+          - generic:
+            - generic [ref=e52]:
+              - button "Zoom in" [ref=e53] [cursor=pointer]: +
+              - button "Zoom out" [ref=e54] [cursor=pointer]: −
+            - generic [ref=e55]:
+              - link "Leaflet" [ref=e56] [cursor=pointer]:
+                - /url: https://leafletjs.com
+                - img [ref=e57]
+                - text: Leaflet
+              - text: "| ©"
+              - link "OpenStreetMap" [ref=e61] [cursor=pointer]:
+                - /url: https://www.openstreetmap.org/copyright
+      - generic [ref=e62]:
+        - heading "Baldas" [level=3] [ref=e63]
+        - table [ref=e65]:
+          - rowgroup [ref=e66]:
+            - row "Nombre Carga actual Capacidad máxima Acciones" [ref=e67]:
+              - columnheader "Nombre" [ref=e68]
+              - columnheader "Carga actual" [ref=e69]
+              - columnheader "Capacidad máxima" [ref=e70]
+              - columnheader "Acciones" [ref=e71]
+          - rowgroup [ref=e72]:
+            - row "S1-A 25 30 Eliminar" [ref=e73]:
+              - cell "S1-A" [ref=e74]:
+                - link "S1-A" [ref=e75] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:001
+              - cell "25" [ref=e76]
+              - cell "30" [ref=e77]
+              - cell "Eliminar" [ref=e78]:
+                - button "Eliminar" [ref=e81] [cursor=pointer]
+            - row "S1-B 14 28 Eliminar" [ref=e82]:
+              - cell "S1-B" [ref=e83]:
+                - link "S1-B" [ref=e84] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:002
+              - cell "14" [ref=e85]
+              - cell "28" [ref=e86]
+              - cell "Eliminar" [ref=e87]:
+                - button "Eliminar" [ref=e90] [cursor=pointer]
+            - row "S1-C 13 26 Eliminar" [ref=e91]:
+              - cell "S1-C" [ref=e92]:
+                - link "S1-C" [ref=e93] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:003
+              - cell "13" [ref=e94]
+              - cell "26" [ref=e95]
+              - cell "Eliminar" [ref=e96]:
+                - button "Eliminar" [ref=e99] [cursor=pointer]
+            - row "S1-D 15 24 Eliminar" [ref=e100]:
+              - cell "S1-D" [ref=e101]:
+                - link "S1-D" [ref=e102] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:004
+              - cell "15" [ref=e103]
+              - cell "24" [ref=e104]
+              - cell "Eliminar" [ref=e105]:
+                - button "Eliminar" [ref=e108] [cursor=pointer]
+        - generic [ref=e109]:
+          - heading "Crear balda" [level=4] [ref=e110]
+          - generic [ref=e111]:
+            - generic [ref=e112]:
+              - text: Nombre
+              - textbox "Nombre" [ref=e113]
+            - generic [ref=e114]:
+              - text: Capacidad máxima
+              - spinbutton "Capacidad máxima" [ref=e115]
+            - button "Crear" [ref=e117] [cursor=pointer]
+      - generic [ref=e118]:
+        - heading "Inventario de la tienda" [level=3] [ref=e119]
+        - table [ref=e121]:
+          - rowgroup [ref=e122]:
+            - row "Producto Balda Stock total En balda Acciones" [ref=e123]:
+              - columnheader "Producto" [ref=e124]
+              - columnheader "Balda" [ref=e125]
+              - columnheader "Stock total" [ref=e126]
+              - columnheader "En balda" [ref=e127]
+              - columnheader "Acciones" [ref=e128]
+          - rowgroup [ref=e129]:
+            - row "Lemonade M · €0.99 S1-A 30 8 Editar Eliminar" [ref=e130]:
+              - cell "Lemonade M · €0.99" [ref=e131]:
+                - link "Lemonade" [ref=e132] [cursor=pointer]:
+                  - /url: /products/urn:ngsi-ld:Product:001
+                - generic [ref=e133]: M · €0.99
+              - cell "S1-A" [ref=e134]:
+                - link "S1-A" [ref=e135] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:001
+              - cell "30" [ref=e136]
+              - cell "8" [ref=e137]
+              - cell "Editar Eliminar" [ref=e138]:
+                - generic [ref=e139]:
+                  - link "Editar" [ref=e140] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:001
+                  - button "Eliminar" [ref=e142] [cursor=pointer]
+            - row "Orange Juice M · €1.29 S1-A 25 7 Editar Eliminar" [ref=e143]:
+              - cell "Orange Juice M · €1.29" [ref=e144]:
+                - link "Orange Juice" [ref=e145] [cursor=pointer]:
+                  - /url: /products/urn:ngsi-ld:Product:002
+                - generic [ref=e146]: M · €1.29
+              - cell "S1-A" [ref=e147]:
+                - link "S1-A" [ref=e148] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:001
+              - cell "25" [ref=e149]
+              - cell "7" [ref=e150]
+              - cell "Editar Eliminar" [ref=e151]:
+                - generic [ref=e152]:
+                  - link "Editar" [ref=e153] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:002
+                  - button "Eliminar" [ref=e155] [cursor=pointer]
+            - row "Sparkling Water L · €0.89 S1-B 28 6 Editar Eliminar" [ref=e156]:
+              - cell "Sparkling Water L · €0.89" [ref=e157]:
+                - link "Sparkling Water" [ref=e158] [cursor=pointer]:
+                  - /url: /products/urn:ngsi-ld:Product:003
+                - generic [ref=e159]: L · €0.89
+              - cell "S1-B" [ref=e160]:
+                - link "S1-B" [ref=e161] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:002
+              - cell "28" [ref=e162]
+              - cell "6" [ref=e163]
+              - cell "Editar Eliminar" [ref=e164]:
+                - generic [ref=e165]:
+                  - link "Editar" [ref=e166] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:003
+                  - button "Eliminar" [ref=e168] [cursor=pointer]
+            - row "Still Water L · €0.78 S1-B 24 8 Editar Eliminar" [ref=e169]:
+              - cell "Still Water L · €0.78" [ref=e170]:
+                - link "Still Water" [ref=e171] [cursor=pointer]:
+                  - /url: /products/urn:ngsi-ld:Product:004
+                - generic [ref=e172]: L · €0.78
+              - cell "S1-B" [ref=e173]:
+                - link "S1-B" [ref=e174] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:002
+              - cell "24" [ref=e175]
+              - cell "8" [ref=e176]
+              - cell "Editar Eliminar" [ref=e177]:
+                - generic [ref=e178]:
+                  - link "Editar" [ref=e179] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:004
+                  - button "Eliminar" [ref=e181] [cursor=pointer]
+            - row "Cola M · €1.39 S1-C 22 7 Editar Eliminar" [ref=e182]:
+              - cell "Cola M · €1.39" [ref=e183]:
+                - link "Cola" [ref=e184] [cursor=pointer]:
+                  - /url: /products/urn:ngsi-ld:Product:005
+                - generic [ref=e185]: M · €1.39
+              - cell "S1-C" [ref=e186]:
+                - link "S1-C" [ref=e187] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:003
+              - cell "22" [ref=e188]
+              - cell "7" [ref=e189]
+              - cell "Editar Eliminar" [ref=e190]:
+                - generic [ref=e191]:
+                  - link "Editar" [ref=e192] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:005
+                  - button "Eliminar" [ref=e194] [cursor=pointer]
+            - row "Iced Tea M · €1.49 S1-C 26 6 Editar Eliminar" [ref=e195]:
+              - cell "Iced Tea M · €1.49" [ref=e196]:
+                - link "Iced Tea" [ref=e197] [cursor=pointer]:
+                  - /url: /products/urn:ngsi-ld:Product:006
+                - generic [ref=e198]: M · €1.49
+              - cell "S1-C" [ref=e199]:
+                - link "S1-C" [ref=e200] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:003
+              - cell "26" [ref=e201]
+              - cell "6" [ref=e202]
+              - cell "Editar Eliminar" [ref=e203]:
+                - generic [ref=e204]:
+                  - link "Editar" [ref=e205] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:006
+                  - button "Eliminar" [ref=e207] [cursor=pointer]
+            - row "Potato Chips S · €1.99 S1-D 20 7 Editar Eliminar" [ref=e208]:
+              - cell "Potato Chips S · €1.99" [ref=e209]:
+                - link "Potato Chips" [ref=e210] [cursor=pointer]:
+                  - /url: /products/urn:ngsi-ld:Product:007
+                - generic [ref=e211]: S · €1.99
+              - cell "S1-D" [ref=e212]:
+                - link "S1-D" [ref=e213] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:004
+              - cell "20" [ref=e214]
+              - cell "7" [ref=e215]
+              - cell "Editar Eliminar" [ref=e216]:
+                - generic [ref=e217]:
+                  - link "Editar" [ref=e218] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:007
+                  - button "Eliminar" [ref=e220] [cursor=pointer]
+            - row "Salted Nuts S · €2.49 S1-D 19 8 Editar Eliminar" [ref=e221]:
+              - cell "Salted Nuts S · €2.49" [ref=e222]:
+                - link "Salted Nuts" [ref=e223] [cursor=pointer]:
+                  - /url: /products/urn:ngsi-ld:Product:008
+                - generic [ref=e224]: S · €2.49
+              - cell "S1-D" [ref=e225]:
+                - link "S1-D" [ref=e226] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:004
+              - cell "19" [ref=e227]
+              - cell "8" [ref=e228]
+              - cell "Editar Eliminar" [ref=e229]:
+                - generic [ref=e230]:
+                  - link "Editar" [ref=e231] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:008
+                  - button "Eliminar" [ref=e233] [cursor=pointer]
+            - row "Still Water L · €0.78 S1-A 20 10 Editar Eliminar" [ref=e234]:
+              - cell "Still Water L · €0.78" [ref=e235]:
+                - link "Still Water" [ref=e236] [cursor=pointer]:
+                  - /url: /products/urn:ngsi-ld:Product:004
+                - generic [ref=e237]: L · €0.78
+              - cell "S1-A" [ref=e238]:
+                - link "S1-A" [ref=e239] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:001
+              - cell "20" [ref=e240]
+              - cell "10" [ref=e241]
+              - cell "Editar Eliminar" [ref=e242]:
+                - generic [ref=e243]:
+                  - link "Editar" [ref=e244] [cursor=pointer]:
+                    - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:033
+                  - button "Eliminar" [ref=e246] [cursor=pointer]
+        - generic [ref=e247]:
+          - heading "Crear ítem de inventario" [level=4] [ref=e248]
+          - generic [ref=e249]:
+            - generic [ref=e250]:
+              - text: Balda
+              - combobox "Balda" [ref=e251]:
+                - option "S1-A" [selected]
+                - option "S1-B"
+                - option "S1-C"
+                - option "S1-D"
+            - generic [ref=e252]:
+              - text: Producto
+              - combobox "Producto" [ref=e253]:
+                - option "Chocolate Bar" [selected]
+                - option "Cola"
+                - option "Iced Tea"
+                - option "Lemonade"
+                - option "Orange Juice"
+                - option "Potato Chips"
+                - option "Protein Bar"
+                - option "Salted Nuts"
+                - option "Sparkling Water"
+                - option "Still Water"
+            - generic [ref=e254]:
+              - text: Stock total
+              - spinbutton "Stock total" [ref=e255]
+            - generic [ref=e256]:
+              - text: En balda
+              - spinbutton "En balda" [ref=e257]
+            - button "Crear" [ref=e259] [cursor=pointer]

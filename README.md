@@ -100,6 +100,7 @@ Rutas POST (sin crear vistas adicionales) para CRUD integrado:
 Frontend:
 - Reglas HTML (`required`, `min`) en formularios
 - Regla JS para `shelfCount <= stockCount`
+- En creación de inventario desde detalle de producto, el selector de baldas se filtra por la tienda seleccionada y exige selección explícita de balda al cambiar tienda
 
 Backend (Flask-WTF + WTForms):
 - Validación de campos y rangos en formularios

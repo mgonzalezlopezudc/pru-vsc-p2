@@ -55,20 +55,6 @@
           52.5441
         ]
       }
-    },
-    {
-      "id": "urn:ngsi-ld:Store:005",
-      "type": "Store",
-      "name": "Playwright Store 1771839898696",
-      "address": "Calle Test 1771839898696",
-      "image": "https://picsum.photos/640/360",
-      "location": {
-        "type": "Point",
-        "coordinates": [
-          -3.7038,
-          40.4168
-        ]
-      }
     }
   ],
   "shelves": [
@@ -326,7 +312,7 @@
       "id": "urn:ngsi-ld:Product:004",
       "type": "Product",
       "name": "Still Water",
-      "price": 79,
+      "price": 78,
       "size": "L",
       "image": "https://loremflickr.com/900/900/mineral,water,bottle?lock=104"
     },
@@ -667,6 +653,24 @@
       "refShelf": "urn:ngsi-ld:Shelf:016",
       "stockCount": 20,
       "shelfCount": 7
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:033",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:004",
+      "refStore": "urn:ngsi-ld:Store:001",
+      "refShelf": "urn:ngsi-ld:Shelf:001",
+      "stockCount": 20,
+      "shelfCount": 10
+    },
+    {
+      "id": "urn:ngsi-ld:InventoryItem:034",
+      "type": "InventoryItem",
+      "refProduct": "urn:ngsi-ld:Product:007",
+      "refStore": "urn:ngsi-ld:Store:003",
+      "refShelf": "urn:ngsi-ld:Shelf:009",
+      "stockCount": 30,
+      "shelfCount": 15
     }
   ]
 }

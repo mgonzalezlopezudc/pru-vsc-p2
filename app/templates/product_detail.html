@@ -88,8 +88,9 @@
       <label class="app-label">
         {{ t('table.shelf') }}
         <select class="app-input" name="{{ inventory_create_form.shelf_id.name }}" required>
+          <option value="">{{ t('placeholder.select_shelf') }}</option>
           {% for shelf in shelves %}
-          <option value="{{ shelf.id }}">{{ shelf.name }}</option>
+          <option value="{{ shelf.id }}" data-store-id="{{ shelf.ref_store }}">{{ shelf.name }}</option>
           {% endfor %}
         </select>
       </label>

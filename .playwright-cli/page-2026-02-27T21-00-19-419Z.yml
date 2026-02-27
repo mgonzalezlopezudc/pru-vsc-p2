@@ -1,0 +1,147 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Retail Data Viewer" [ref=e6] [cursor=pointer]:
+        - /url: /?lang=es
+      - generic [ref=e7]:
+        - generic [ref=e8]: Search
+        - searchbox "Search" [ref=e9]
+  - generic [ref=e10]:
+    - complementary [ref=e11]:
+      - navigation [ref=e12]:
+        - link "Inicio" [ref=e13] [cursor=pointer]:
+          - /url: /?lang=es
+        - link "Inventario global" [ref=e14] [cursor=pointer]:
+          - /url: /inventory?lang=es
+        - generic [ref=e15]: Idioma
+        - generic [ref=e16]:
+          - link "ES" [ref=e17] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:001?lang=es
+          - link "EN" [ref=e18] [cursor=pointer]:
+            - /url: /products/urn:ngsi-ld:Product:001?lang=en
+    - main [ref=e19]:
+      - generic [ref=e20]:
+        - heading "Validaciones" [level=2] [ref=e21]
+        - list [ref=e22]:
+          - listitem [ref=e23]: Store urn:ngsi-ld:Store:005 must have at least 4 shelves.
+      - generic [ref=e24]:
+        - img "Lemonade" [ref=e26]
+        - generic [ref=e27]:
+          - paragraph [ref=e28]: Producto
+          - heading "Lemonade" [level=2] [ref=e29]
+          - paragraph [ref=e30]:
+            - text: "Tamaño:"
+            - strong [ref=e31]: M
+          - paragraph [ref=e32]:
+            - text: "Precio:"
+            - strong [ref=e33]: €0.99
+      - generic [ref=e34]:
+        - heading "Editar producto" [level=3] [ref=e35]
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - text: Nombre
+            - textbox "Nombre" [ref=e38]: Lemonade
+          - generic [ref=e39]:
+            - text: Tamaño
+            - textbox "Tamaño" [ref=e40]: M
+          - generic [ref=e41]:
+            - text: Precio (céntimos)
+            - spinbutton "Precio (céntimos)" [ref=e42]: "99"
+          - generic [ref=e43]:
+            - text: URL imagen
+            - textbox "URL imagen" [ref=e44]: https://loremflickr.com/900/900/lemonade,drink?lock=101
+          - button "Guardar" [ref=e46] [cursor=pointer]
+        - button "Eliminar producto" [ref=e48] [cursor=pointer]
+      - generic [ref=e49]:
+        - heading "Disponibilidad por tienda" [level=3] [ref=e50]
+        - table [ref=e52]:
+          - rowgroup [ref=e53]:
+            - row "Tienda Balda Stock total En balda Acciones" [ref=e54]:
+              - columnheader "Tienda" [ref=e55]
+              - columnheader "Balda" [ref=e56]
+              - columnheader "Stock total" [ref=e57]
+              - columnheader "En balda" [ref=e58]
+              - columnheader "Acciones" [ref=e59]
+          - rowgroup [ref=e60]:
+            - row "Checkpoint Markt S1-A 30 8 Editar Eliminar" [ref=e61]:
+              - cell "Checkpoint Markt" [ref=e62]:
+                - link "Checkpoint Markt" [ref=e63] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001
+              - cell "S1-A" [ref=e64]:
+                - link "S1-A" [ref=e65] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:001?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:001
+              - cell "30" [ref=e66]
+              - cell "8" [ref=e67]
+              - cell "Editar Eliminar" [ref=e68]:
+                - generic [ref=e69]:
+                  - link "Editar" [ref=e70] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:001
+                  - button "Eliminar" [ref=e72] [cursor=pointer]
+            - row "Spree Corner S2-B 23 7 Editar Eliminar" [ref=e73]:
+              - cell "Spree Corner" [ref=e74]:
+                - link "Spree Corner" [ref=e75] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:002
+              - cell "S2-B" [ref=e76]:
+                - link "S2-B" [ref=e77] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:002?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:006
+              - cell "23" [ref=e78]
+              - cell "7" [ref=e79]
+              - cell "Editar Eliminar" [ref=e80]:
+                - generic [ref=e81]:
+                  - link "Editar" [ref=e82] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:011
+                  - button "Eliminar" [ref=e84] [cursor=pointer]
+            - row "Tiergarten Fresh S3-B 22 6 Editar Eliminar" [ref=e85]:
+              - cell "Tiergarten Fresh" [ref=e86]:
+                - link "Tiergarten Fresh" [ref=e87] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:003
+              - cell "S3-B" [ref=e88]:
+                - link "S3-B" [ref=e89] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:003?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:010
+              - cell "22" [ref=e90]
+              - cell "6" [ref=e91]
+              - cell "Editar Eliminar" [ref=e92]:
+                - generic [ref=e93]:
+                  - link "Editar" [ref=e94] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:020
+                  - button "Eliminar" [ref=e96] [cursor=pointer]
+            - row "Prenzl Pantry S4-D 18 8 Editar Eliminar" [ref=e97]:
+              - cell "Prenzl Pantry" [ref=e98]:
+                - link "Prenzl Pantry" [ref=e99] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:004
+              - cell "S4-D" [ref=e100]:
+                - link "S4-D" [ref=e101] [cursor=pointer]:
+                  - /url: /stores/urn:ngsi-ld:Store:004?lang=es&edit_shelf_id=urn:ngsi-ld:Shelf:016
+              - cell "18" [ref=e102]
+              - cell "8" [ref=e103]
+              - cell "Editar Eliminar" [ref=e104]:
+                - generic [ref=e105]:
+                  - link "Editar" [ref=e106] [cursor=pointer]:
+                    - /url: /products/urn:ngsi-ld:Product:001?lang=es&edit_item_id=urn:ngsi-ld:InventoryItem:031
+                  - button "Eliminar" [ref=e108] [cursor=pointer]
+        - generic [ref=e109]:
+          - heading "Crear ítem de inventario" [level=4] [ref=e110]
+          - generic [ref=e111]:
+            - generic [ref=e112]:
+              - text: Tienda
+              - combobox "Tienda" [ref=e113]:
+                - option "Checkpoint Markt" [selected]
+                - option "Playwright Store 1771839898696"
+                - option "Prenzl Pantry"
+                - option "Spree Corner"
+                - option "Tiergarten Fresh"
+            - generic [ref=e114]:
+              - text: Balda
+              - combobox "Balda" [ref=e115]:
+                - option "Selecciona una balda" [selected]
+                - option "S1-A"
+                - option "S1-B"
+                - option "S1-C"
+                - option "S1-D"
+            - generic [ref=e116]:
+              - text: Stock total
+              - spinbutton "Stock total" [ref=e117]
+            - generic [ref=e118]:
+              - text: En balda
+              - spinbutton "En balda" [ref=e119]
+            - button "Crear" [ref=e121] [cursor=pointer]
