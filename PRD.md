@@ -46,6 +46,7 @@ El equipo necesita una forma clara y trazable de inspeccionar el modelo de datos
 ### 6.2 Pantallas y rutas
 - `GET /`
   - Lista de tiendas y productos con enlaces a detalle.
+  - Mapa agregado con todas las tiendas y pins clicables con información resumida.
   - Formularios de alta de tiendas y productos.
 - `GET /stores/<id>`
   - Datos de tienda, tabla de baldas, tabla de inventario y mapa.
@@ -75,6 +76,7 @@ Restricción UX:
 
 ### 6.5 Mapa
 - Render de geolocalización de tienda con GeoJSON Point usando Leaflet + OpenStreetMap.
+- En inicio (`GET /`), mapa agregado con múltiples tiendas y popup de resumen al pinchar cada pin.
 
 ## 7. Requisitos de Datos e Integridad
 

@@ -164,6 +164,24 @@ a {
   border: 1px solid var(--slate-200);
 }
 
+.map-popup-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.35rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--slate-300);
+  background: #fff;
+  color: var(--slate-700);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.3rem 0.55rem;
+}
+
+.map-popup-link:hover {
+  background: var(--slate-50);
+}
+
 .grid { display: grid; }
 .flex { display: flex; }
 .inline-flex { display: inline-flex; }

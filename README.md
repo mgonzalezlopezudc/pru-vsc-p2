@@ -60,7 +60,7 @@ BASE_URL=http://127.0.0.1:5000 bash tests/playwright_smoke.sh
 ```
 
 ## Rutas
-- `/`: índice con tiendas y productos
+- `/`: índice con tiendas, productos y mapa agregado de tiendas (pins clicables con resumen y enlace a detalle)
 - `/stores/<id>`: detalle de tienda (baldas + inventario)
 - `/products/<id>`: detalle de producto por tienda
 - `/inventory`: inventario global

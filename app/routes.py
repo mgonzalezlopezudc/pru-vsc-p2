@@ -64,12 +64,24 @@ def get_repository() -> DataRepository:
 @bp.route("/")
 def index():
     repository = get_repository()
+    stores = repository.list_stores()
+    store_map_points = [
+        {
+            "id": store.id,
+            "name": store.name,
+            "address": store.address,
+            "location": store.location,
+            "detail_url": url_for("main.store_detail", store_id=store.id, lang=g.current_lang),
+        }
+        for store in stores
+    ]
     store_create_form = StoreForm(prefix="store_create")
     product_create_form = ProductForm(prefix="product_create")
     delete_form = DeleteForm(prefix="delete_shared")
     return render_template(
         "index.html",
-        stores=repository.list_stores(),
+        stores=stores,
+        store_map_points=store_map_points,
         products=repository.list_products(),
         store_create_form=store_create_form,
         product_create_form=product_create_form,

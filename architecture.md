@@ -32,7 +32,7 @@ Capas principales:
 - `app/services/repository.py`: carga de datos, validaciones y joins lógicos.
 - `app/models/dto.py`: modelos tipados para `Store`, `Shelf`, `Product`, `InventoryItem`.
 - `app/templates/*`: renderizado SSR.
-- `app/static/js/map.js`: inicialización de mapa para `location` GeoJSON.
+- `app/static/js/map.js`: inicialización de mapas Leaflet para ubicación individual (detalle de tienda) y mapa agregado de tiendas en inicio.
 - `app/static/styles.css`: estilos base y utilidades visuales.
 
 ## 4. Domain Model Mapping
@@ -56,6 +56,7 @@ Atributos visuales relevantes:
 6. CSS estático local aporta estilos de dashboard y componentes comunes.
 7. Alpine.js gestiona interacciones ligeras de UI (por ejemplo, menú lateral responsive).
 8. En vistas con `location`, el frontend inicializa Leaflet con GeoJSON.
+9. En inicio, el frontend inicializa un mapa agregado con todas las tiendas y popup resumen por pin.
 
 Flujo de escritura (POST CRUD embebido en vistas existentes):
 1. El usuario envía formulario desde `/`, `/stores/<id>` o `/products/<id>`.

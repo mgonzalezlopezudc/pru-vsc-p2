@@ -13,6 +13,10 @@
   <h3 class="text-xl font-bold text-slate-900">{{ t('index.stores') }}</h3>
 </section>
 <section class="app-card mb-5">
+  <h4 class="mb-3 text-lg font-semibold">{{ t('index.stores_map') }}</h4>
+  <div id="stores-map" class="map" data-stores='{{ store_map_points|tojson }}' data-popup-link-label="{{ t('action.view_store') }}"></div>
+</section>
+<section class="app-card mb-5">
   <h4 class="mb-4 text-lg font-semibold">{{ t('form.store_create') }}</h4>
   <form method="post" action="{{ url_for('main.create_store', lang=current_lang) }}" class="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
     {{ store_create_form.hidden_tag() }}
